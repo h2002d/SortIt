@@ -1,0 +1,81 @@
+﻿@model SortItResearch.Models.Subject
+@{
+    ViewBag.Title = "SubjectDetails";
+}
+
+<h2>@Model.Name</h2>
+<table class="subjectTable" id="subject">
+
+    <tr>
+        @foreach (var item in ViewBag.Modules)
+        {
+            <th colspan="@(item.ModuleDays.Count+1)">
+                @item.Name
+                <a class="clickableTable" onclick="addModule(@Model.Id,@item.Id)">
+                    <img src="~/images/editIcon.png" />
+                </a>
+                <a class="clickableTable" onclick="deleteModule(@item.Id)">
+                    <img src="~/images/removeIcon.png" />
+                </a>
+            </th>
+        }
+        <th style="background-color:#4cff00">
+            <a class="clickableTable" onclick="addModule(@Model.Id,null)">
+                <img src="~/images/addIcon.png" />
+            </a>
+        </th>
+    </tr>
+    <tr>
+        @foreach (var item in ViewBag.Modules)
+        {
+            foreach (var day in item.ModuleDays)
+            {
+                <td colspan="@(day.Lessons.Count==0?1:day.Lessons.Count)">
+                    @day.Name
+                    <a class="clickableTable" id="@day.Id" onclick="addDay(@item.Id,@day.Id)">
+                        <img src="~/images/editIcon.png" />
+                    </a>
+                    <a class="clickableTable" id="@day.Id" onclick="deleteModuleDay(@day.Id)">
+                        <img src="~/images/removeIcon.png" />
+                    </a>
+                    <a class="clickableTable" id="@day.Id" onclick="addLessonToDay(@day.Id,@Model.Id)">
+                        <img src="~/images/addIcon.png" />
+                    </a>
+                </td>
+            }
+            <td style="background-color:#4cff00">
+                <a class="clickableTable" onclick="addDay(@item.Id,null)">
+                    <img src="~/images/addIcon.png" />
+                </a>
+            </td>
+        }
+    </tr>
+    <tr>
+        @foreach (var item in ViewBag.Modules)
+        {
+            foreach (var day in item.ModuleDays)
+            {
+                foreach (var lesson in day.Lessons)
+                {
+                    <td>
+                        @lesson.Name
+                       
+                        <a class="clickableTable" id="@day.Id" onclick="deleteLessonFromDay(@day.Id,@lesson.Id)">
+                            <img src="~/images/removeIcon.png" />
+                        </a>
+                    </td>
+
+                }
+                if(day.Lessons.Count==0)
+                {
+                    <td></td>
+                }
+
+            }
+            <td></td>
+        }
+    </tr>
+</table>
+<div align="center" id="createModule">
+    Բեռնվում է․․․
+</div>

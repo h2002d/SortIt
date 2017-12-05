@@ -1,0 +1,128 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.validationP{
+    color:red;
+    font-size:12px;
+}
+.clickableTable{
+    cursor:pointer;
+}
+#createModule {
+    display: none;
+    max-width: 40%;
+    padding: 20px;
+    position: fixed;
+    top: 150px;
+    
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 999999999;
+    background-color:#ddd;
+}
+table, th, td {
+    border: 1px solid black;
+}
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+}
+
+    #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+        background-color: #ddd;
+    }
+
+    #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: rgb(255,51,0);
+        color: white;
+    }
+
+#subject {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+    white-space: nowrap;
+}
+
+    #subject td, #subject th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #subject tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #subject tr:hover {
+        background-color: #ddd;
+    }
+
+    #subject th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: rgb(255,51,0);
+        color: white;
+    }
+#lessons {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 60%;
+    white-space: nowrap;
+}
+
+    #lessons td, #lessons th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #lessons tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #lessons tr:hover {
+        background-color: #ddd;
+    }
+
+    #lessons th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: rgb(255,51,0);
+        color: white;
+    }

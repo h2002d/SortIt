@@ -1,0 +1,14 @@
+﻿@model SortItResearch.Models.InviteModel
+@{
+    ViewBag.Title = "Requests";
+}
+
+<p>Դուք ունեք հայտ @ViewBag.Inviter.Name @ViewBag.Inviter.SurName</p>
+<div class="row">
+    <div class="col-md-6">
+        <input type="button" value="Ընդունել" onclick="sendRequestApproval('@Model.Id',true)" class="btn btn-info" />
+    </div>
+    <div class="col-md-6">
+        <input type="button" value="Մերժել" onclick="sendRequestApproval('@Model.Id',false)" class="btn btn-default" />
+    </div>
+</div>

@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SortItResearch</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{
+        var isHome = ViewContext.RouteData.Values["controller"].ToString().ToUpper() == "HOME";
+        var isIndex = ViewContext.RouteData.Values["action"].ToString().ToUpper() == "INDEX";
+    }
+    @if (isHome && isIndex)
+    {
+        <link href="~/Scripts/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/css/animate.css" rel="stylesheet" type="text/css" />
+        <link href="~/Scripts/vendor/themify/themify.css" rel="stylesheet" type="text/css" />
+        <link href="~/Scripts/vendor/scrollbar/scrollbar.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/Scripts/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
+        <link href="~/Scripts/vendor/swiper/swiper.min.css" rel="stylesheet" type="text/css" />
+        <link href="~/Scripts/vendor/cubeportfolio/css/cubeportfolio.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Theme Styles -->
+        <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="~/Content/css/global/global.css" rel="stylesheet" type="text/css" />
+    }
+</head>
+<body>
+    <div class="navbar navbar-custom navbar-fixed-top" style="border-bottom-color:red;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    @if (this.User.IsInRole("Administrator"))
+                    {
+                        <li>@Html.ActionLink("Դասընթացներ", "Subject", "Admin")</li>
+                        <li>@Html.ActionLink("Թեմաներ", "Lessons", "Admin")</li>
+                        <li>@Html.ActionLink("Հարցեր", "Tests", "Admin")</li>
+                        <li>@Html.ActionLink("Ուսանողներ", "Students", "Admin")</li>
+                    }
+                    @if (this.User.IsInRole("Student"))
+                    {
+                        <li>@Html.ActionLink("Դասախոսներ", "FindSkill", "Home")</li>
+                        <li>@Html.ActionLink("Իմ դասընթացը", "MySubject", "Student")</li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - SortIt Research</p>
+        </footer>
+    </div>
+
+    @if (!(isHome && isIndex))
+    {
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jqueryval")
+        @RenderSection("scripts", required: false)
+    }
+    @{if (this.User.IsInRole("Administrator"))
+        {
+            <script src="~/Scripts/admin.js"></script>
+        }
+        if (this.User.IsInRole("Teacher"))
+        {
+            <script src="~/Scripts/teacher.js"></script>
+        }
+        else if (this.User.IsInRole("Student"))
+        {
+            <script src="~/Scripts/student.js"></script>
+        }
+    }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.skillContainer input:checkbox').change(function () {
+                if ($(this).parent().find('input:checkbox:checked').length == $(this).parent().find('input:checkbox').length) {
+                    $(this).parent().parent().find('.skillSubject').prop('checked', true);
+                }
+                else {
+                    $(this).parent().parent().find('.skillSubject').prop('checked', false);
+                }
+            });
+
+            $('.checkBoxContainer input:checkbox').change(function () {
+                if (this.checked) {
+                    $(this).parent().find('.skillContainer input:checkbox').prop('checked', true);
+                }
+                else {
+                    $(this).parent().find('.skillContainer input:checkbox').prop('checked', false);
+                }
+            });
+            $('.skillContainer input:checkbox').each(function () {
+                if ($(this).parent().find('input:checkbox:checked').length == $(this).parent().find('input:checkbox').length) {
+                    $(this).parent().parent().find('.skillSubject').prop('checked', true);
+
+                }
+
+
+
+
+            });
+
+        });
+        function skillsSave() {
+
+
+            var searchIDs = $(".skillContainer input:checkbox:checked").map(function () {
+                return $(this).val();
+            }).get(); // <----
+            $.ajax({
+                type: "POST",
+                url: "/Manage/SaveSkills",
+                data: {
+
+                    moduleIds: searchIDs
+                },
+                success: function () {
+                    //     location.reload();
+                },
+                error: function (data) {
+                    alert("Ձեր թեման չի ավելացել");
+                }
+            });
+        }
+        function moduleFilter() {
+            $('#skill-container').load("/Home/SkillPartial/?sId=" + $('#SubjectId').val()
+                + '&mId=' + $('#ModuleId').val() + '&rId=59');
+        }
+        //$().ready(function () {
+        //    $("#card").flip({
+        //        trigger: 'manual'
+        //    });
+        //});
+
+
+        $(".signup_link").click(function () {
+            window.location.href = "/Account/Register"
+            //$(".signin_form").css('opacity', '0');
+            //$(".signup_form").css('opacity', '100');
+
+
+            //$("#card").flip(true);
+
+            //return false;
+        });
+
+        $("#unflip-btn").click(function () {
+
+            window.location.href = "/Account/Login";
+            //$(".signin_form").css('opacity', '100');
+            //$(".signup_form").css('opacity', '0');
+
+            //$("#card").flip(false);
+
+            //return false;
+
+        });
+        function sendRequest(tid) {
+            $.ajax({
+                type: "POST",
+                url: "/Manage/SendRequest",
+                data: { tId: tid, subId: $("#SubjectId").val() },
+                success: function (data) {
+                    alert("Դիմումը ուղարկված է")
+                },
+                failure: function () {
+                    alert("Failed!");
+                }
+            });
+        }
+
+        function GetDropDownData() {
+            $.ajax({
+                type: "POST",
+                url: "/Home/RefreshModule",
+                data: { sId: $('#SubjectId').val() },
+                success: function (data) {
+                    $('.module').remove();
+                    $.each(data, function () {
+                        $("#ModuleId").append($('<option class="module"     />').val(this.Id).text(this.Name));
+                    });
+                },
+                failure: function () {
+                    alert("Failed!");
+                }
+            });
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-Flip/1.0.18/jquery.flip.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+﻿@model List<SortItResearch.Models.Lesson>
+
+@Html.DropDownList("LessonId",
+                                 new SelectList(Model,
+                                           "Id", "Name"),
+                                            "--Ընտրեք թեման--",
+                                new { @class = "form-control" })
+<input type="button" value="Պահպանել" onclick="addLessonForDay(@ViewBag.DayId)" />
+

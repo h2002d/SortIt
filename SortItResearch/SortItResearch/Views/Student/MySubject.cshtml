@@ -1,0 +1,57 @@
+﻿@model SortItResearch.Models.MySubjectViewModel
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<h2>@Model.Name </h2>
+@if (!Model.isAccepted)
+{
+    <p>Ղեկավարը ընտրված չէ անցեք <a href="/Home/Findskill">հղումով</a> և ընտրեք դասախոսին</p>
+}
+else
+{
+    <p>Ղեկավար @ViewBag.Teacher.Name @ViewBag.Teacher.SurName </p>
+}
+<table class="subjectTable" id="subject">
+
+    <tr>
+        @foreach (var item in ViewBag.Modules)
+        {
+            <th colspan="@(item.ModuleDays.Count)">
+                @item.Name
+            </th>
+        }
+    </tr>
+    <tr>
+        @foreach (var item in ViewBag.Modules)
+        {
+            foreach (var day in item.ModuleDays)
+            {
+                <td colspan="@(day.Lessons.Count==0?1:day.Lessons.Count)">
+                    @day.Name
+                </td>
+            }
+        }
+    </tr>
+    <tr>
+        @foreach (var item in ViewBag.Modules)
+        {
+            foreach (var day in item.ModuleDays)
+            {
+                foreach (var lesson in day.Lessons)
+                {
+                    <td onclick="openLesson('@lesson.Id')">
+                        @lesson.Name
+                    </td>
+
+                }
+                if (day.Lessons.Count == 0)
+                {
+                    <td></td>
+                }
+
+            }
+           
+        }
+    </tr>
+</table>

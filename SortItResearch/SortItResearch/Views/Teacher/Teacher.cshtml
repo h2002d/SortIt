@@ -1,0 +1,29 @@
+﻿@model SortItResearch.Models.UserProfile
+
+@{
+    ViewBag.Title = "Դասախոս";
+}
+
+<h2>@Model.Name  @Model.SurName</h2>
+ @Model.Email
+@foreach (var item in ViewBag.Skills)
+{
+    <div class="checkBoxContainer">
+        <input type="checkbox" disabled class="skillSubject" value="@item.Subject.Id">@item.Subject.Name
+        <br />
+        <div class="skillContainer">
+            @foreach (var module in item.Modules)
+                {
+                <input disabled class="col-md-offset-1" type="checkbox" name="skillModule" @(ViewBag.SelectedSkills.IndexOf(@module.Id) != -1 ? "checked" : "") value="@module.Id"><i>@module.Name</i>
+                <br />
+                }
+        </div>
+    </div>
+}
+
+@Html.DropDownList("SubjectId",
+                                 new SelectList(ViewBag.Subjects,
+                                           "Id", "Name"),
+                                            "--Ընտրեք դասընթացը--",
+                                new { @class = "form-control", @onChange = "GetDropDownData()" })
+<input type="button" class="btn btn-info" value="Դիմել" onclick="sendRequest('@Model.Id')" />

@@ -1,0 +1,19 @@
+﻿<dt>Դասընթացները</dt>
+<dd>
+    @foreach (var item in ViewBag.Skills)
+            {
+        <div class="checkBoxContainer">
+            <input type="checkbox" class="skillSubject" value="@item.Subject.Id">@item.Subject.Name
+            <br />
+            <div class="skillContainer">
+                @foreach (var module in item.Modules)
+                {
+                    <input class="col-md-offset-1" type="checkbox" name="skillModule" @(ViewBag.SelectedSkills.IndexOf(@module.Id) != -1 ? "checked" : "") value="@module.Id"><i>@module.Name</i>
+                    <br />
+                }
+            </div>
+        </div>
+    }
+    <input type="button" class="btn btn-primary" value="Պահպանել" onclick="skillsSave()" />
+</dd>
+

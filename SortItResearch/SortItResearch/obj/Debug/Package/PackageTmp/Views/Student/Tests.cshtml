@@ -1,0 +1,27 @@
+﻿@model List<SortItResearch.Models.Question>
+@{
+    ViewBag.Title = "Tests";
+}
+
+<div class="testContainer">
+    <h2>Tests</h2>
+    @foreach (var question in Model)
+    {
+        <div class="form-control">
+            <div class="col-md-12">
+                @question.Name
+                @foreach(var answer in question.Answers)
+                {
+                    if(question.Type==0)
+                    {
+                        <input type="radio" value="@question.Id" />@question.Name
+                    }
+                    else
+                    {
+                        <input type="checkbox" value="@question.Id" />@question.Name
+                    }
+                }
+            </div>
+        </div>
+    }
+</div>

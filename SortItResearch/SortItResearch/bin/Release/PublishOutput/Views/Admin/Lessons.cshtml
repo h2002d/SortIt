@@ -1,0 +1,50 @@
+﻿@model List<SortItResearch.Models.Lesson>
+@{
+    ViewBag.Title = "Դասընթացներ";
+}
+
+<h2>Դասընթացներ</h2>
+<div class="row" style="margin-bottom:20px;">
+    <div class="col-sm-2">
+        @Html.DropDownList("SubjectId",
+                                 new SelectList(ViewBag.Subjects,
+                                           "Id", "Name"),
+                                            "--Ընտրեք թեման--",
+                                new { @class = "form-control" })
+    </div>
+    <div class="col-sm-1">
+        <input type="button" class="btn btn-default" onclick="lessonFilter()" value="Ֆիլտրել" />
+    </div>
+    <div class="col-sm-1" style="margin-top:5px;">
+        <a href="/admin/Editlesson">
+            <img src="~/images/addIcon.png" />
+        </a>
+    </div>
+</div>
+<table id="lessons">
+    <tr>
+        <th>Անվանում</th>
+        <th>Բովանդակություն</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="cursor:pointer" onclick="openLesson(@item.Id)">@item.Name</td>
+            <td style="cursor:pointer">@(item.Description.Length > 20 ? item.Description.Substring(0, 20) : item.Description)</td>
+            <td>
+                <a class="clickableTable" onclick="addLesson(@item.Id)">
+                    <img src="~/images/editIcon.png" />
+                </a>
+            </td>
+            <td>
+                <a class="clickableTable" onclick="deleteLesson(@item.Id)">
+                    <img src="~/images/removeIcon.png" />
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>

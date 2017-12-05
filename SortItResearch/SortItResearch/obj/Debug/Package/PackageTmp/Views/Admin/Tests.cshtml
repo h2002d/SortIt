@@ -1,0 +1,46 @@
+﻿@model List<SortItResearch.Models.Question>
+@{
+    ViewBag.Title = "Հարցեր";
+}
+
+<h2>Հարցեր</h2>
+<div class="row" style="margin-bottom:20px;">
+    <div class="col-sm-2">
+        @Html.DropDownList("LessonId",
+                                 new SelectList(ViewBag.Lessons,
+                                           "Id", "Name"),
+                                            "--Ընտրեք դասընթացը--",
+                                new { @class = "form-control" })
+    </div>
+    <div class="col-sm-1">
+        <input type="button" class="btn btn-default" onclick="lessonFilter()" value="Ֆիլտրել" />
+    </div>
+    <div class="col-sm-1" style="margin-top:5px;">
+        <a href="/admin/EditQuestion">
+            <img src="~/images/addIcon.png" />
+        </a>
+    </div>
+</div>
+<table id="customers" class="subjectTable">
+    <tr>
+        <th>Անվանումը</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>
+                <a class="clickableTable" onclick="editQuestion(@item.Id)">
+                    <img src="~/images/editIcon.png" />
+                </a>
+            </td>
+            <td>
+                <a class="clickableTable" onclick="deleteQuestion(@item.Id)">
+                    <img src="~/images/removeIcon.png" />
+                </a>
+            </td>
+        </tr>
+    }
+</table>

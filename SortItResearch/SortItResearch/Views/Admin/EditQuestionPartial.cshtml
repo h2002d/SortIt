@@ -1,0 +1,74 @@
+﻿@model SortItResearch.Models.Question
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h2>Հարց</h2>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        
+
+        <div class="form-group">
+            @Html.Label("Բովանդակություն", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-2">Պատասխաններ</div>
+            <div class="col-md-10">
+                Մեկական
+                @Html.RadioButtonFor(model => model.Type, 0, new { @onclick = "setAnswerType()" })
+                Ընտրովի
+                @Html.RadioButtonFor(model => model.Type, 1, new { @onclick = "setAnswerType()" })
+            </div>
+
+        </div>
+        <div class="form-group">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-10" id="AnswerContainer">
+                @for (int i = 0; i < Model.Answers.Count(); i++)
+                {
+                    <div id="answerDiv">
+                        @Html.HiddenFor(m => m.Answers[i].Id)
+                        @Html.HiddenFor(m => m.Answers[i].QuestionId)
+                        @Html.EditorFor(m => m.Answers[i].Name)
+
+                        @if (Model.Type == 0)
+                        {
+                            @Html.RadioButtonFor(m => m.Answers[i].IsRight, true, new { @class = "answers", @onClick = "checkedRadioButton(this)" })
+                            <a onclick="removeFromAnswers(@Model.Answers[i].Id,this)">
+                                <img src="~/images/removeIcon.png" />
+                            </a>
+                        }
+                        else if (Model.Type == 1)
+                        {
+                            @Html.CheckBoxFor(m => m.Answers[i].IsRight, new { @class = "answers" })
+                            <a onclick="removeFromAnswers(@Model.Answers[i].Id)">
+                                <img src="~/images/removeIcon.png" />
+                            </a>
+                        }
+                        <br />
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a onclick="addAnswers(@(Model.Answers.Count))">
+                    <img src="~/images/addIcon.png" />
+                </a>
+                <input type="submit" onclick="removeAnswersOnSubmit()" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+

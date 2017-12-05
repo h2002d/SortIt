@@ -1,0 +1,43 @@
+﻿@model SortItResearch.Models.Lesson
+
+@{
+    ViewBag.Title = "Թեմա";
+}
+
+
+
+<div>
+    
+    <dl class="dl-horizontal">
+        <dt>
+          Անվանումը
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+           Բովանդակություն
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+           Հղում
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Attachement)
+        </dd>
+
+        <dt>
+           Պարտադիր է
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsMandatory)
+        </dd>
+
+    </dl>
+</div>

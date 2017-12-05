@@ -1,0 +1,31 @@
+﻿@model List<SortItResearch.Models.Subject>
+@{
+    ViewBag.Title = "Դասընթացներ";
+}
+
+<h2>Դասգնթացներ</h2>
+<table id="customers"class="subjectTable">
+    <tr>
+        <th>Անվանումը</th>
+        <th></th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr class="clickableTable">
+            <td onclick="goToDetails(@item.Id)">@item.Name</td>
+            <td><a class="clickableTable" onclick="editSubject(@item.Id,'@item.Name')">
+                    <img src="~/images/editIcon.png" /></a></td>
+            <td><a class="clickableTable" onclick="deleteSubject(@item.Id)">
+                    <img src="~/images/removeIcon.png" /></a></td>
+        </tr>
+    }
+    <tr>
+        <td><input type="text" id="subjectName" class="form-control" /></td>
+        <td><input type="hidden" id="subjectId" /></td>
+        <td><a class="clickableTable" onclick="saveSubject()">
+                <img src="~/images/addIcon.png" /></a></td>
+    </tr>
+    
+</table>
+<p id="validateSubject" class="validationP"></p>
