@@ -25,6 +25,11 @@ namespace SortItResearch.Models
             this.Email = user.Email;
         }
 
+        public static UserProfile GetTeacherByStudentLessonId(string student,int lessonId)
+        {
+            return  DAO.getUserById(DAO.getTeacherByProgress(student, lessonId));
+
+        }
         public UserProfile()
         {
 

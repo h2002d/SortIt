@@ -15,7 +15,7 @@ namespace SortItResearch.Models
         [Required]
         public int QuestionId { get; set; }
 
-        public bool IsRight { get; set; }
+        public bool IsRight { get; set; } = false;
         static QuestionDAO DAO = new QuestionDAO();
 
         public static void Delete(int id)

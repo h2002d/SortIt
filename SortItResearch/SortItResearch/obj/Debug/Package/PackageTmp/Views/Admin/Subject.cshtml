@@ -7,6 +7,7 @@
 <table id="customers"class="subjectTable">
     <tr>
         <th>Անվանումը</th>
+        <th>Նկարագրություն</th>
         <th></th>
         <th></th>
     </tr>
@@ -14,6 +15,7 @@
     {
         <tr class="clickableTable">
             <td onclick="goToDetails(@item.Id)">@item.Name</td>
+            <td onclick="goToDetails(@item.Id)"></td>
             <td><a class="clickableTable" onclick="editSubject(@item.Id,'@item.Name')">
                     <img src="~/images/editIcon.png" /></a></td>
             <td><a class="clickableTable" onclick="deleteSubject(@item.Id)">
@@ -22,6 +24,8 @@
     }
     <tr>
         <td><input type="text" id="subjectName" class="form-control" /></td>
+        <td><input type="text" id="subjectDescription" class="form-control" /></td>
+
         <td><input type="hidden" id="subjectId" /></td>
         <td><a class="clickableTable" onclick="saveSubject()">
                 <img src="~/images/addIcon.png" /></a></td>

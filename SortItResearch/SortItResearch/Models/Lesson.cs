@@ -23,6 +23,8 @@ namespace SortItResearch.Models
         public bool IsMandatory { get; set; }
         [Required]
         public bool Type { get; set; }
+        
+        public bool Passed { get; set; }
         static LessonDAO DAO = new LessonDAO();
 
         public int Save()

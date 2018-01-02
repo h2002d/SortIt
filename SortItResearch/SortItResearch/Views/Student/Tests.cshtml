@@ -2,27 +2,35 @@
 @{
     ViewBag.Title = "Tests";
 }
-
-<div class="testContainer">
-    <h2>Tests</h2>
-    @foreach (var question in Model)
-    {
-        <div class="form-control">
-            <div class="col-md-12">
-                @question.Name
-                <br />
-                @foreach(var answer in question.Answers)
-                {
-                    if(question.Type==0)
+@if (ViewBag.IsPassed)
+{
+    <h2>Այս թեմայի համար թեստն արդեն գրված է</h2>
+}
+else
+{
+    <div class="testContainer" align="center">
+        <h2>ԹԵՍՏ</h2>
+        @foreach (var question in Model)
+        {
+            <div class="form-control test-div" id="@question.Id" style="margin-top:20px;">
+                <div class="col-md-12">
+                    <span class="question-name">@question.Name</span>
+                    <br />
+                    @foreach (var answer in question.Answers)
                     {
-                        <input type="radio" value="@question.Id" />@answer.Name
+                        if (question.Type == 0)
+                        {
+                            <input type="radio" name="@question.Name" class="test-answer" value="@answer.Id" />@answer.Name
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="@question.Name" class="test-answer" value="@answer.Id" />@answer.Name
+                        }
                     }
-                    else
-                    {
-                        <input type="checkbox" value="@question.Id" />@answer.Name
-                    }
-                }
+                </div>
             </div>
-        </div>
-    }
-</div>
+            <hr />
+        }
+        <input type="button" value="Ավարտել" class="btn btn-success" onclick="submitAnswers()" />
+    </div>
+}

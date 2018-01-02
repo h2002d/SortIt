@@ -428,7 +428,10 @@ namespace SortItResearch.Controllers
             if (ModelState.IsValid)
             {
                 user.Save();
-                return RedirectToAction("Index", "Home");
+                if (User.IsInRole("Student"))
+                    return RedirectToAction("MySubjects", "Student");
+                else
+                    return RedirectToAction("Index", "Home");
             }
             return View();
         }
@@ -451,7 +454,7 @@ namespace SortItResearch.Controllers
                 throw new HttpException(404, "Some description");
             }
             string link = string.Format("<p style=\"color:red\">Դուք ունեք նոր դիմում</p><a href=\"{0}/Manage/Requests?t={1}\">{0}/Manage/Requests?t={1}</a>", Request.Url.Authority, token.ToString());
-            SendMailModel.SendMail(UserManager.FindByIdAsync(tId).Result.Email, link, "Դուք ունեք նոր դիմում");
+            SendMailModel.SendMail(UserManager.FindByIdAsync(tId).Result.Email, link, "SortIt. Դուք ունեք նոր դիմում");
             return null;
         }
 
@@ -470,7 +473,7 @@ namespace SortItResearch.Controllers
         [Authorize(Roles = "Teacher")]
         public ActionResult Requests(int t, bool accepted)//t=token
         {
-            InviteModel.SaveStatus(t, accepted);
+            InviteModel.SaveStatus(t, accepted,User.Identity.GetUserId());
             return null;
         }
         [HttpPost]
@@ -487,7 +490,7 @@ namespace SortItResearch.Controllers
         {
             if (String.IsNullOrEmpty(studentMail))
                 return null;
-          var user=  UserManager.FindByEmail(studentMail);
+            var user = UserManager.FindByEmail(studentMail);
             if (!user.Roles.SingleOrDefault().RoleId.Equals("88"))
                 return null;
             var student = new UserProfile(user.Id);

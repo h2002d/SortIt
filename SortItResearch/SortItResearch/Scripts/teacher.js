@@ -1,9 +1,8 @@
-﻿function sendRequestApproval(token, accepted)
-{
+﻿function sendRequestApproval(token, accepted) {
     $.ajax({
         type: "POST",
         url: "/Manage/Requests",
-        data: { t: token,accepted: accepted},
+        data: { t: token, accepted: accepted },
         success: function (data) {
             alert("Դիմումը ուղարկված է")
         },
@@ -12,3 +11,20 @@
         }
     });
 }
+function changeHomeworkStatus(id) {
+    $.ajax({
+        type: "POST",
+        url: "/Teacher/ChangeWorkStatus/" + id,
+
+        success: function (data) {
+            alert(data)
+            window.location.reload();
+        },
+        failure: function (ex) {
+            alert(ex);
+        }
+    });
+}
+function openSubject(id,sId) {
+    window.location.href = "/Teacher/Subject?id=" + id+"&sId="+sId;
+};

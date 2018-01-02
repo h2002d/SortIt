@@ -23,14 +23,18 @@ namespace SortItResearch.Models
             return DAO.getInvite(token);
         }
 
+        public static List<InviteViewModel> GetInviteByTeacherId(string teacherId)
+        {
+            return DAO.getInviteByTeacherId(teacherId);
+        }
         public int Save()
         {
             return DAO.saveInvite(this);
         }
 
-        public static void SaveStatus(int token,bool accepted)
+        public static void SaveStatus(int token,bool accepted,string teacherId)
         {
-            DAO.saveInviteStatus(token, accepted);
+            DAO.saveInviteStatus(token, accepted,teacherId);
         }
 
     }

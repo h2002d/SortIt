@@ -23,7 +23,7 @@ namespace SortItResearch.Models
             ModuleDays = new List<ModuleDay>();
         }
 
-        public static  List<Module> GetModules(int? id)
+        public static List<Module> GetModules(int? id)
         {
             return DAO.getModules(id);
         }
@@ -41,5 +41,11 @@ namespace SortItResearch.Models
         {
             DAO.saveModule(this);
         }
+    }
+
+    internal class ModuleProgress
+    {
+        public Module Module { get; set; }
+        public bool Passed { get; set; }
     }
 }

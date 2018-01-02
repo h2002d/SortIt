@@ -1,16 +1,23 @@
 ﻿function saveSubject() {
     var subjectName = $('#subjectName').val();
+    var subjectDescription = $('#subjectDescription').val();
+
     var subjectId = $('#subjectId').val();
     if (subjectName== '') {
         $("#validateSubject").append("Անվանումը դատարկ է");
         return;
+    } if (subjectDescription == '') {
+        $("#validateSubject").append("Նկարագրությունը դատարկ է");
+        return;
     }
+
     $.ajax({
         type: "POST",
         url: "/Admin/SaveSubject",
         data: {
             id: subjectId,
-            name: subjectName
+            name: subjectName,
+            description: subjectDescription
         },
         success: function () {
             location.reload();
@@ -173,8 +180,10 @@ function checkedRadioButton(obj) {
     console.log(obj);
     for (var i = 0; i < el.length; i++) {
         if (el[i].name != id) {
-            console.log(el[i]);
-            el[i].checked = false;
+            if (el[i].name != 'Type') {
+                console.log(el[i]);
+                el[i].checked = false;
+            }
         }
     }
 
@@ -183,13 +192,17 @@ function checkedRadioButton(obj) {
  // 1 because we already have 0 loaded
 var GlobalIndex=0;
 function addAnswers(index) {
+    if (GlobalIndex == null)
+    {
+        GlobalIndex = 0;
+    }
     var type = $('input[name=Type]:checked').val();
     $.ajax({
         cache: false,
         type: "GET",
         url: "/Admin/AnswersPartial",
         data: {
-            Index: index + GlobalIndex,
+            Index: GlobalIndex,
             Type:type
         },
         success: function (data) {
@@ -261,29 +274,35 @@ var removableAnswers = [];
 function removeFromAnswers(id,elem)
 {
     elem.closest('#answerDiv').remove();
+    $.ajax({
+        type: "POST",
+        url: "/Admin/DeleteAnswer",
+        data: {
+            id: id,
+        },
+        success: function () {
+            location.reload();
+        },
+        error: function (data) {
+            alert("Հարցը չի ջնջվել");
+        }
+    });
     removableAnswers.push(id);
+    GlobalIndex--;
 }
 function removeFromAnswer(elem) {
     elem.closest('#answerDiv').remove();
-  
+    GlobalIndex--;
 }
 function removeAnswersOnSubmit()
 {
-    if (removableAnswers.length == 0)
-        return;
-    removableAnswers.forEach(function (item, index) {
-        $.ajax({
-            type: "POST",
-            url: "/Admin/DeleteAnswer",
-            data: {
-                id: item,
-            },
-            success: function () {
-               
-            },
-            error: function (data) {
-                alert("Հարցը չի ջնջվել");
-            }
+    console.log("this is removed answers:"+removableAnswers);
+    if (removableAnswers.length != 0) {
+        removableAnswers.forEach(function (item, index) {
+           
         });
-    });
+    }
 }
+$(document).ready(function () {
+    GlobalIndex = $('#AnswerCount').val();
+});

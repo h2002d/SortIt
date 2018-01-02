@@ -33,6 +33,7 @@ namespace SortItResearch.DAO
                             Subject newCategory = new Subject();
                             newCategory.Id = Convert.ToInt32(rdr["Id"]);
                             newCategory.Name = rdr["Name"].ToString();
+                            newCategory.Description = rdr["Description"].ToString();
 
                             newCategoryList.Add(newCategory);
                         }
@@ -47,7 +48,7 @@ namespace SortItResearch.DAO
             }
         }
 
-        public MySubjectViewModel getSubjectByStudentId(string studentId)
+        public List<MySubjectViewModel> getSubjectByStudentId(string studentId)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
@@ -60,15 +61,59 @@ namespace SortItResearch.DAO
 
                         command.Parameters.AddWithValue("@StudentId", studentId);
                         SqlDataReader rdr = command.ExecuteReader();
+                        List<MySubjectViewModel> newSubjectViewList = new List<MySubjectViewModel>();
+                        
+                        while (rdr.Read())
+                        {
+                            MySubjectViewModel newSubjectView = new MySubjectViewModel();
+                            newSubjectView.Id = Convert.ToInt32(rdr["Id"]);
+                            newSubjectView.Name = rdr["Name"].ToString();
+                            newSubjectView.Description = rdr["Description"].ToString();
+
+                            newSubjectView.isAccepted = Convert.ToBoolean(rdr["Accepted"]);
+                            newSubjectView.TeacherId = rdr["TeacherId"].ToString();
+                            newSubjectViewList.Add(newSubjectView);
+                        }
+                        return newSubjectViewList;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+
+            }
+        }
+
+        public List<MySubjectViewModel> getSubjectByStudentIdById(string studentId,int subjectId)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_StudentGetSubjectsByStudentIdById", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        command.Parameters.AddWithValue("@StudentId", studentId);
+                        command.Parameters.AddWithValue("@SubjectId", subjectId);
+
+
+                        SqlDataReader rdr = command.ExecuteReader();
+                        List<MySubjectViewModel> newSubjectViewList = new List<MySubjectViewModel>();
                         MySubjectViewModel newSubjectView = new MySubjectViewModel();
                         while (rdr.Read())
                         {
                             newSubjectView.Id = Convert.ToInt32(rdr["Id"]);
                             newSubjectView.Name = rdr["Name"].ToString();
+                            newSubjectView.Description = rdr["Description"].ToString();
+
                             newSubjectView.isAccepted = Convert.ToBoolean(rdr["Accepted"]);
                             newSubjectView.TeacherId = rdr["TeacherId"].ToString();
+                            newSubjectViewList.Add(newSubjectView);
                         }
-                        return newSubjectView;
+                        return newSubjectViewList;
                     }
                     catch (Exception ex)
                     {
@@ -94,6 +139,8 @@ namespace SortItResearch.DAO
                         else
                             command.Parameters.AddWithValue("@Id", subject.Id);
                         command.Parameters.AddWithValue("@Name", subject.Name);
+                        command.Parameters.AddWithValue("@Description", subject.Description);
+
                         command.ExecuteNonQuery();
                     }
                     catch (Exception ex)

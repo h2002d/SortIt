@@ -1,0 +1,37 @@
+﻿@model List<SortItResearch.Models.InviteViewModel>
+@{
+    ViewBag.Title = "MyStudent";
+}
+
+<h2>Իմ դասընթացները</h2>
+@{
+    int i = 0;
+    foreach (var invite in Model)
+    {
+
+        if (i == 0 || i % 3 == 0)
+        {
+            @Html.Raw("<div class=\"row\" >");
+        }
+
+
+        <div class="col-md-4 item-div" style="padding:10px;">
+
+            <div class="row subject-col mysubjects" align="center" id="@invite.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
+                <div class="col-md-12">
+                    <h3>@invite.Subject.Name</h3>
+                    <p>
+                        <span style="float:left;">@invite.Subject.Description</span>
+                        <span style="float:right">Ուսանող` @invite.Student.Name @invite.Student.SurName</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+        i++;
+        if (i != 0 && i % 3 == 0 || i == Model.Count)
+        {
+            @Html.Raw("</div>")
+        }
+    }
+}

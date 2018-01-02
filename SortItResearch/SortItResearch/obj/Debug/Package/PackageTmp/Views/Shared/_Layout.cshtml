@@ -35,13 +35,11 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("SortIt Research", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Գլխավոր", "Index", "Home")</li>
 
                     @if (this.User.IsInRole("Administrator"))
                     {
@@ -53,8 +51,15 @@
                     @if (this.User.IsInRole("Student"))
                     {
                         <li>@Html.ActionLink("Դասախոսներ", "FindSkill", "Home")</li>
-                        <li>@Html.ActionLink("Իմ դասընթացը", "MySubject", "Student")</li>
+                        <li>@Html.ActionLink("Իմ դասընթացը", "MySubjects", "Student")</li>
                     }
+                    @if (this.User.IsInRole("Teacher"))
+                    {
+                        <li>@Html.ActionLink("Իմ դասընթացը", "MyStudent", "Teacher")</li>
+                        <li>@Html.ActionLink("Աշխատանքներ", "Works", "Teacher")</li>
+
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -117,7 +122,13 @@
 
 
             });
+            $('#login-trigger').click(function () {
+                $(this).next('#login-content').slideToggle();
+                $(this).toggleClass('active');
 
+                if ($(this).hasClass('active')) $(this).find('span').html('&#x25B2;')
+                else $(this).find('span').html('&#x25BC;')
+            })
         });
         function skillsSave() {
 
@@ -173,6 +184,11 @@
             //return false;
 
         });
+
+        function retryTest(id) {
+            window.location.href = "/Student/Tests/" + id;
+        }
+
         function sendRequest(tid) {
             $.ajax({
                 type: "POST",

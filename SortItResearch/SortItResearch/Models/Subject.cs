@@ -12,6 +12,7 @@ namespace SortItResearch.Models
         public int? Id { get; set; }
         [Required]
         public string Name { get; set; }
+        public string Description { get; set; }
         private static SubjectDAO DAO= new SubjectDAO();
         
         public static List<Subject> GetSubject(int? id)

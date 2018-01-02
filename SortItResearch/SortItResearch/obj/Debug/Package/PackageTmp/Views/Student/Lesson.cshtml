@@ -3,16 +3,28 @@
 @{
     ViewBag.Title = "Lesson";
 }
-
-<h2>@Model.Name</h2>
-<p>@Model.Description</p>
-<a>@Model.Attachement</a>
-@if(Model.IsMandatory)
-{
-    <input type="button" value="Անցնել թեստը" class="btn btn-info" onclick="generateTest()"/>
-}
-@if(Model.Type)
-{
-    <input type="button" value="Վերբեռնել աշխատանքը" class="btn btn-info" onclick="showAttachementUpload()" />
-}
+<div align="center">
+    <h2>@Model.Name</h2>
+    <p>@Model.Description</p>
+    <a>@Model.Attachement</a>@*Change to href=attachement*@
+    <br />
+    @if (Model.IsMandatory)
+    {
+        if (ViewBag.IsPassed)
+        {
+            <p style="color:#45a304;">Թեստը արդեն գրված է</p>
+        }
+        else
+        {
+            <input type="button" value="Անցնել թեստը" class="btn btn-info" onclick="generateTest(@Model.Id)" />
+        }
+    }
+    @if (Model.Type)
+    {
+        <input type="button" value="Վերբեռնել աշխատանքը" class="btn btn-info" onclick="showAttachementUpload(@Model.Id)" />
+    }
+</div>
+<div align="center" id="createModule">
+    Բեռնվում է․․․
+</div>
 

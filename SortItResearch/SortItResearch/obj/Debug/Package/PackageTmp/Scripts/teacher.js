@@ -12,3 +12,18 @@
         }
     });
 }
+function changeHomeworkStatus(id)
+{
+    $.ajax({
+        type: "POST",
+        url: "/Teacher/ChangeWorkStatus/"+id,
+        
+        success: function (data) {
+            alert(data)
+            window.location.reload();
+        },
+        failure: function (ex) {
+            alert(ex);
+        }
+    });
+}

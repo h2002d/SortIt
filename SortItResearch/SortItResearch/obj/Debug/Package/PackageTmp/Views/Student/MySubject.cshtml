@@ -4,9 +4,10 @@
 }
 
 <h2>@Model.Name </h2>
+<h3>@Model.Description</h3>
 @if (!Model.isAccepted)
 {
-    <p>Ղեկավարը ընտրված չէ անցեք <a href="/Home/Findskill">հղումով</a> և ընտրեք դասախոսին</p>
+    <p>Ղեկավարը ընտրված չէ անցեք <a href="/Home/Findskill">հղումով</a> և ընտրեք ղեկավարին</p>
 }
 else
 {
@@ -40,7 +41,7 @@ else
             {
                 foreach (var lesson in day.Lessons)
                 {
-                    <td onclick="openLesson('@lesson.Id')">
+                    <td onclick="openLesson('@lesson.Id')" style="@(lesson.Passed? "background-color:green;": "background-color:gray;")">
                         @lesson.Name
                     </td>
 

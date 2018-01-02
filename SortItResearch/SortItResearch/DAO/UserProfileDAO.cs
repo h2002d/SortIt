@@ -65,5 +65,27 @@ namespace SortItResearch.DAO
                 }
             }
         }
+
+        public string getTeacherByProgress(string studentId,int lessonId)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_UserGetTeacherByLessonId", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@StudentId", studentId);
+                        command.Parameters.AddWithValue("@LessonId", lessonId);
+                        return command.ExecuteScalar().ToString() ;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+        }
     }
 }

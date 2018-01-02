@@ -3,6 +3,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    @Html.Hidden("AnswerCount", Model.Answers.Count, new { @id = "AnswerCount" })
 
     <div class="form-horizontal">
         <h2>Հարց</h2>
@@ -40,21 +41,17 @@
                         @Html.HiddenFor(m => m.Answers[i].Id)
                         @Html.HiddenFor(m => m.Answers[i].QuestionId)
                         @Html.EditorFor(m => m.Answers[i].Name)
-
                         @if (Model.Type == 0)
                         {
-                            @Html.RadioButtonFor(m => m.Answers[i].IsRight, true, new { @class = "answers", @onClick = "checkedRadioButton(this)" })
-                            <a onclick="removeFromAnswers(@Model.Answers[i].Id,this)">
-                                <img src="~/images/removeIcon.png" />
-                            </a>
+                            <input value="true" @(Model.Answers[i].IsRight? "checked":"") name="Answers[@i].IsRight" onclick="checkedRadioButton(this)" type="radio" data-val-required="The IsRight field is required.">
                         }
-                        else if (Model.Type == 1)
+                        else
                         {
-                            @Html.CheckBoxFor(m => m.Answers[i].IsRight, new { @class = "answers" })
-                            <a onclick="removeFromAnswers(@Model.Answers[i].Id)">
-                                <img src="~/images/removeIcon.png" />
-                            </a>
+                            <input value="true" @(Model.Answers[i].IsRight? "checked":"") name="Answers[@i].IsRight" onclick="checkedRadioButton(this)" type="checkbox" data-val-required="The IsRight field is required.">
                         }
+                        <a onclick="removeFromAnswers(@Model.Answers[i].Id,this)">
+                            <img src="~/images/removeIcon.png" />
+                        </a>
                         <br />
                     </div>
                 }
@@ -66,7 +63,7 @@
                 <a onclick="addAnswers(@(Model.Answers.Count))">
                     <img src="~/images/addIcon.png" />
                 </a>
-                <input type="submit" onclick="removeAnswersOnSubmit()" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>

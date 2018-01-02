@@ -1,17 +1,19 @@
 ﻿@model Dictionary<int, int>
-<input type="hidden" name="Answers[@Model.Keys.First().ToString()].Id" />
-<input type="text" name="Answers[@Model.Keys.First().ToString()].Name" />
-@*<input type="radio" name="Answers[@Model.ToString()].IsRight" id="Answers[@Model.ToString()].IsRight"/>*@
-<input type="hidden" name="Answers[@Model.Keys.First().ToString()].LessonId" />
-@if (Convert.ToInt32(Model.Values.First()) == 0)
-{
-<input value="true" name="Answers[@Model.Keys.First().ToString()].IsRight" id="Answers_@Model.Keys.First().ToString()__IsRight" onclick="checkedRadioButton(this)" type="radio" data-val-required="The IsRight field is required.">
-}
-else
-{
-    <input value="true" name="Answers[@Model.Keys.First().ToString()].IsRight" id="Answers_@Model.Keys.First().ToString()__IsRight" onclick="checkedRadioButton(this)" type="checkbox" data-val-required="The IsRight field is required.">
-}
-<a onclick="removeFromAnswer(this)">
-    <img src="~/images/removeIcon.png" />
-</a>
-<br />
+<div id="answerDiv">
+    <input type="hidden" name="Answers[@Model.Keys.First().ToString()].Id" />
+    <input type="text" name="Answers[@Model.Keys.First().ToString()].Name" />
+    @*<input type="radio" name="Answers[@Model.ToString()].IsRight" id="Answers[@Model.ToString()].IsRight"/>*@
+    <input type="hidden" name="Answers[@Model.Keys.First().ToString()].LessonId" />
+    @if (Convert.ToInt32(Model.Values.First()) == 0)
+    {
+        <input value="true" name="Answers[@Model.Keys.First().ToString()].IsRight" id="Answers_@Model.Keys.First().ToString()__IsRight" onclick="checkedRadioButton(this)" type="radio" data-val-required="The IsRight field is required.">
+    }
+    else
+    {
+        <input value="true" name="Answers[@Model.Keys.First().ToString()].IsRight" id="Answers_@Model.Keys.First().ToString()__IsRight" onclick="checkedRadioButton(this)" type="checkbox" data-val-required="The IsRight field is required.">
+    }
+    <a onclick="removeFromAnswer(this)">
+        <img src="~/images/removeIcon.png" />
+    </a>
+    <br />
+</div>

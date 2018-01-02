@@ -13,9 +13,14 @@ namespace SortItResearch.Models
 
         private static SubjectDAO DAO = new SubjectDAO();
 
-        public static MySubjectViewModel GetSubjectByStudentId(string studentId)
+        public static List<MySubjectViewModel> GetSubjectByStudentId(string studentId)
         {
             return DAO.getSubjectByStudentId(studentId);
+        }
+
+        public static MySubjectViewModel GetSubjectByStudentIdById(string studentId,int subjectId)
+        {
+            return DAO.getSubjectByStudentIdById(studentId,subjectId).First();
         }
     }
 }

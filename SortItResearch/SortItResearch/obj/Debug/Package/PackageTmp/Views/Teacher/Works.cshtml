@@ -1,0 +1,23 @@
+﻿@model List<SortItResearch.Models.HomeworkViewModel>
+@{
+    ViewBag.Title = "Աշխատանքներ";
+}
+
+<h2>Աշխատանքներ</h2>
+@foreach (var item in Model)
+{
+    <div class="row" style="border:1px solid #808080;padding:10px; margin:10px;@(item.Passed? "background-color:green;":"")">
+        <div class="col-sm-4">
+            <span>@item.Lesson.Name</span>
+
+        </div>
+        <div class="col-sm-4">
+            <span>@item.Student.Name @item.Student.SurName</span>
+        </div>
+        <div class="col-sm-4">
+            <a href="~/Files/homeworks/@item.Attachement">@item.Attachement</a>
+            <input type="button" class="btn btn-info" onclick="changeHomeworkStatus(@item.Id)" value="Հաստատել" />
+
+        </div>
+    </div>
+}

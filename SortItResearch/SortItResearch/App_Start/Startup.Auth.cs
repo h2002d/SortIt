@@ -54,9 +54,9 @@ namespace SortItResearch
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "532167050483718",
+               appSecret: "b763eb856d99cf8548c50a89a1ed49c1");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
