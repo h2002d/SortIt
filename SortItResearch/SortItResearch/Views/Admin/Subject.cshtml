@@ -1,13 +1,13 @@
 ﻿@model List<SortItResearch.Models.Subject>
 @{
-    ViewBag.Title = "Դասընթացներ";
+    ViewBag.Title = "Programs";
 }
 
-<h2>Դասգնթացներ</h2>
+<h2>Programs</h2>
 <table id="customers"class="subjectTable">
     <tr>
-        <th>Անվանումը</th>
-        <th>Նկարագրություն</th>
+        <th>Name</th>
+        <th>Description</th>
         <th></th>
         <th></th>
     </tr>
@@ -15,7 +15,7 @@
     {
         <tr class="clickableTable">
             <td onclick="goToDetails(@item.Id)">@item.Name</td>
-            <td onclick="goToDetails(@item.Id)"></td>
+            <td onclick="goToDetails(@item.Id)">@item.Description</td>
             <td><a class="clickableTable" onclick="editSubject(@item.Id,'@item.Name')">
                     <img src="~/images/editIcon.png" /></a></td>
             <td><a class="clickableTable" onclick="deleteSubject(@item.Id)">

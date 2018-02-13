@@ -1,0 +1,27 @@
+﻿@model List<SortItResearch.Models.DissertationViewModel>
+@{
+    ViewBag.Title = "Finals";
+}
+
+<h2>Finals</h2>
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-sm-10">
+            <span>@item.Student.Name @item.Student.SurName</span>
+            <a href="~/Files/dissertations/@item.Attachement">@item.Attachement</a>
+        </div>
+        <div class="col-sm-2">
+            @if (!item.Accepted)
+            {
+
+                <input type="button" class="btn btn-info" onclick="changeFinalStatus(@item.Id)" value="Հաստատել" />
+
+            }
+            else
+            {
+                <span style="color:green">ՀԱՍՏԱՏՎԱԾ Է</span>
+            }
+        </div>
+    </div>
+}

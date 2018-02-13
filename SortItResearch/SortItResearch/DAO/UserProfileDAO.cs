@@ -8,7 +8,7 @@ using System.Web;
 
 namespace SortItResearch.DAO
 {
-    public class UserProfileDAO:DAO
+    public class UserProfileDAO : DAO
     {
         public UserProfile getUserById(string userId)
         {
@@ -29,6 +29,8 @@ namespace SortItResearch.DAO
                             user.Name = rdr["Name"].ToString();
                             user.SurName = rdr["SurName"].ToString();
                             user.Email = rdr["Email"].ToString();
+                            user.Dissertation = rdr["Dissertation"].ToString();
+
                             //user.DateBirth = Convert.ToDateTime(rdr["DateBirth"]);
                         }
                         return user;
@@ -54,6 +56,11 @@ namespace SortItResearch.DAO
                         command.Parameters.AddWithValue("@Id", user.Id);
                         command.Parameters.AddWithValue("@Name", user.Name);
                         command.Parameters.AddWithValue("@SurName", user.SurName);
+                        if (user.isTeacher)
+                            command.Parameters.AddWithValue("@Dissertation", user.Dissertation);
+                        else
+                            command.Parameters.AddWithValue("@Dissertation", DBNull.Value);
+
                         //command.Parameters.AddWithValue("@DateBirth", user.DateBirth);
 
                         SqlDataReader rdr = command.ExecuteReader();
@@ -66,7 +73,7 @@ namespace SortItResearch.DAO
             }
         }
 
-        public string getTeacherByProgress(string studentId,int lessonId)
+        public string getTeacherByProgress(string studentId, int lessonId)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
@@ -78,7 +85,7 @@ namespace SortItResearch.DAO
                         command.CommandType = CommandType.StoredProcedure;
                         command.Parameters.AddWithValue("@StudentId", studentId);
                         command.Parameters.AddWithValue("@LessonId", lessonId);
-                        return command.ExecuteScalar().ToString() ;
+                        return command.ExecuteScalar().ToString();
                     }
                     catch (Exception ex)
                     {

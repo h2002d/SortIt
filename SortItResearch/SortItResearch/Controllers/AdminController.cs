@@ -1,4 +1,6 @@
-﻿using SortItResearch.Models;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using SortItResearch.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,19 @@ namespace SortItResearch.Controllers
 {
     public class AdminController : Controller
     {
+        private ApplicationSignInManager _signInManager;
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // GET: Admin
         [Authorize(Roles = "Administrator")]
         public ActionResult Index()
@@ -126,7 +141,7 @@ namespace SortItResearch.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Lesson(int? id)
         {
-            var lesson = Models.Lesson.GetLesson(id,0).First();
+            var lesson = Models.Lesson.GetLesson(id, 0).First();
             return View(lesson);
         }
 
@@ -136,7 +151,7 @@ namespace SortItResearch.Controllers
             ViewBag.Subjects = Models.Subject.GetSubject(null);
             if (id != null)
             {
-                var lesson = Models.Lesson.GetLesson(id,0).First();
+                var lesson = Models.Lesson.GetLesson(id, 0).First();
                 return View(lesson);
 
             }
@@ -207,7 +222,7 @@ namespace SortItResearch.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Tests(int? id)
         {
-            ViewBag.Lessons = Models.Lesson.GetLesson(null,0);//temanery menak
+            ViewBag.Lessons = Models.Lesson.GetLesson(null, 0);//temanery menak
             if (id != null)
             {
                 var model = Question.GetQuestionByLessonId(Convert.ToInt32(id));
@@ -223,7 +238,7 @@ namespace SortItResearch.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult EditQuestion(int? id)
         {
-            ViewBag.Lessons = Models.Lesson.GetLesson(null,0);//temanery menak
+            ViewBag.Lessons = Models.Lesson.GetLesson(null, 0);//temanery menak
             if (id == null)
             {
                 Question question = new Question();
@@ -290,8 +305,53 @@ namespace SortItResearch.Controllers
             return View();
         }
 
-       
 
-       
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Teachers()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult Finals(int? id)
+        {
+            if (id == null)
+            {
+                id = Models.Subject.GetSubject(null).First().Id;
+            }
+            var finals = Dissertation.GetDissertationBySubjectId(Convert.ToInt32(id));
+            return View(finals);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult SetFinalStatus(int id)
+        {
+            try
+            {
+                DissertationViewModel dissertation = Dissertation.GetDissertationById(id);
+                dissertation.SaveStatus();
+                Certificate cert = new Certificate();
+                cert.StudentId = dissertation.StudentId;
+                cert.SubjectId = dissertation.SubjectId;
+                int certId = cert.Save();
+                var user = UserManager.FindById(dissertation.StudentId);
+                UserManager.RemoveFromRole(user.Id, "Student");
+                UserManager.AddToRole(user.Id, "Teacher");
+                var callbackUrl = Url.Action("Certificates", "Teacher", new { certId = certId }, protocol: Request.Url.Scheme);
+
+                string email = dissertation.Student.Email;
+                string body = string.Format("Հարգելի {0} {1}, Ձեր աշխատությունը հաստատված է ադմինիստրատորի կողմից:</br> Սերտիֆիկատ գեներացնելու և հաստատելու համար անցեք <a href='{2}'>հղումով</a>", dissertation.Student.Name, dissertation.Student.SurName, callbackUrl);
+                string subject = "SortIt.Աշխատությունը հաստատված է";
+                SendMailModel.SendMail(email, body, subject);
+
+                return Json("Աշխատանքը հաստատվել է");
+            }
+            catch (Exception ex)
+            {
+                return Json("ՁԱԽՈՂՈՒՄ:Չի հաստատվել:", JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
     }
 }

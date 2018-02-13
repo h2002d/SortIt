@@ -3,52 +3,59 @@
 @{
     ViewBag.Title = "ProfileInfo";
 }
-<div class="profileInfo-screen"></div>
+<link href="~/Content/Registration.css" rel="stylesheet" />
+
+<div class="content-agileits">
+    <h1 class="title">Fill in your info</h1>
+    <div class="left">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div align="center" class="form-horizontal profileInfo-content">
-        <h4>UserProfile</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group">
 
-        <div class="form-group">
-            <div class="col-md-12">
-                <h2 style="color:white;">Լրացրեք ձեր անձնական տվյալները</h2>
-                <hr />
-                <p>Անուն</p>
+                <label for="firstname" style="color:rgb(255,51,0);"class="control-label">Select account type</label>
+                <br />
+                @Html.RadioButtonFor(model => model.isTeacher, false)<label for="firstname" class="control-label">Student</label>
+                @Html.RadioButtonFor(model => model.isTeacher, true) <label for="firstname" class="control-label">Facilitator</label>
+
+            </div>
+            <div class="form-group">
+                <label for="firstname" class="control-label">First Name:</label>
                 @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            
-            <div class="col-md-12">
-                <p>Ազգանուն</p>
+            <div class="form-group">
+                <label for="lastname" class="control-label">Last Name:</label>
                 @Html.EditorFor(model => model.SurName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.SurName, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+            <div class="form-group" id="dissertationLink">
+                <label for="lastname" class="control-label">Dissertation Link</label>
 
-        <div class="form-group">
-            <div class="col-md-12">
-                <input type="submit" value="Պահպանել" class="btn btn-default" />
+                @Html.EditorFor(model => model.Dissertation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Dissertation, "", new { @class = "text-danger" })
             </div>
-        </div>
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.DateBirth, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DateBirth, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-registration" />
+            </div>
+
+        }
     </div>
-}
 
-
+    <div class="right"></div>
+    <div class="clear"></div>
+</div>

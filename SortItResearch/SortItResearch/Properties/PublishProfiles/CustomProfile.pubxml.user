@@ -6,8 +6,8 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <EncryptedPassword />
-    <_PublishTargetUrl>ftp://ftp-eu.site4now.net/site1</_PublishTargetUrl>
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAxJTa3luvM0y95j9oiX/HtwAAAAACAAAAAAAQZgAAAAEAACAAAACRdi5o1ARIpBMs5z75RlRWHEZJuIDRG8SM/QecxYprAwAAAAAOgAAAAAIAACAAAAAIHW76dLdOktZlFEwcwI/dJ6dK7GOQk5vuhPTn/nhNVCAAAAC639MZ2uIZrnIObGLaMETtMQcDbOCNaUbDYK9n3mY3TkAAAADotTmf17/gZ185KIVlwAWcrp8YbvsecYOxATk7seo5ImmLYvODzlD15b7OoZcuyVOFr0/vbAJXyO9LQylycmO/</EncryptedPassword>
+    <_PublishTargetUrl>ftp://ftp.site4now.net/site2</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="ApplicationInsights.config">
@@ -176,10 +176,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/28/2016 01:50:24</publishTime>
     </File>
     <File Include="bin/SortItResearch.dll">
-      <publishTime>12/30/2017 18:01:16</publishTime>
+      <publishTime>02/08/2018 14:46:15</publishTime>
     </File>
     <File Include="bin/SortItResearch.pdb">
-      <publishTime>12/30/2017 18:01:16</publishTime>
+      <publishTime>02/08/2018 14:46:15</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
       <publishTime>01/28/2015 15:04:30</publishTime>
@@ -225,6 +225,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/css/theme/red.css">
       <publishTime>11/25/2017 14:32:40</publishTime>
+    </File>
+    <File Include="Content/Registration.css">
+      <publishTime>02/06/2018 16:11:57</publishTime>
     </File>
     <File Include="Content/scss/base/_base.scss">
       <publishTime>11/25/2017 14:32:40</publishTime>
@@ -431,7 +434,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/25/2017 14:32:39</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>12/19/2017 12:39:36</publishTime>
+      <publishTime>02/06/2018 19:57:00</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>11/11/2017 19:53:47</publishTime>
@@ -451,8 +454,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Global.asax">
       <publishTime>11/11/2017 19:53:47</publishTime>
     </File>
+    <File Include="images/34022.png">
+      <publishTime>01/26/2018 12:36:32</publishTime>
+    </File>
     <File Include="images/addIcon.png">
       <publishTime>11/13/2017 12:26:56</publishTime>
+    </File>
+    <File Include="images/bg1.jpg">
+      <publishTime>02/06/2018 08:28:33</publishTime>
+    </File>
+    <File Include="images/bg2.jpg">
+      <publishTime>02/06/2018 16:43:53</publishTime>
+    </File>
+    <File Include="images/certificate-profile.png">
+      <publishTime>02/04/2018 15:41:13</publishTime>
+    </File>
+    <File Include="images/certified-icon.png">
+      <publishTime>01/06/2018 13:24:23</publishTime>
+    </File>
+    <File Include="images/content.jpg">
+      <publishTime>02/06/2018 08:28:33</publishTime>
+    </File>
+    <File Include="images/description_2-512.png">
+      <publishTime>01/26/2018 15:11:40</publishTime>
     </File>
     <File Include="images/editIcon.png">
       <publishTime>11/13/2017 12:26:03</publishTime>
@@ -697,6 +721,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="images/indexImage/mockups/pencil-01.png">
       <publishTime>11/25/2017 18:18:11</publishTime>
     </File>
+    <File Include="images/indexImage/SORT IT.mp4">
+      <publishTime>01/24/2018 10:03:01</publishTime>
+    </File>
+    <File Include="images/indexImage/videotsd.png">
+      <publishTime>01/24/2018 10:27:56</publishTime>
+    </File>
     <File Include="images/indexImage/widgets/gmap/cd-icon-controller.svg">
       <publishTime>11/25/2017 18:18:11</publishTime>
     </File>
@@ -718,20 +748,41 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="images/indexImage/widgets/worldmap.png">
       <publishTime>11/25/2017 18:18:11</publishTime>
     </File>
+    <File Include="images/learning-icon.png">
+      <publishTime>02/01/2018 21:16:18</publishTime>
+    </File>
+    <File Include="images/logo.jpg">
+      <publishTime>02/06/2018 17:19:01</publishTime>
+    </File>
+    <File Include="images/logo.png">
+      <publishTime>02/06/2018 17:17:55</publishTime>
+    </File>
+    <File Include="images/logosmall.png">
+      <publishTime>01/11/2018 14:48:26</publishTime>
+    </File>
     <File Include="images/password-icon.png">
       <publishTime>11/30/2017 12:11:23</publishTime>
     </File>
     <File Include="images/profileInfoBack.png">
       <publishTime>12/01/2017 11:17:43</publishTime>
     </File>
+    <File Include="images/progress-icon.png">
+      <publishTime>02/01/2018 21:15:43</publishTime>
+    </File>
     <File Include="images/removeIcon.png">
       <publishTime>11/13/2017 12:25:12</publishTime>
     </File>
+    <File Include="images/training.mp4">
+      <publishTime>02/06/2018 16:39:41</publishTime>
+    </File>
+    <File Include="images/user-profile.png">
+      <publishTime>02/04/2018 19:40:50</publishTime>
+    </File>
     <File Include="packages.config">
-      <publishTime>12/07/2017 14:27:17</publishTime>
+      <publishTime>02/04/2018 13:08:26</publishTime>
     </File>
     <File Include="Scripts/admin.js">
-      <publishTime>12/19/2017 11:17:45</publishTime>
+      <publishTime>02/08/2018 14:40:23</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>11/11/2017 19:54:28</publishTime>
@@ -747,6 +798,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/jquery-1.10.2.min.map">
       <publishTime>11/11/2017 19:54:29</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.js">
+      <publishTime>02/04/2018 13:08:26</publishTime>
+    </File>
+    <File Include="Scripts/jquery.unobtrusive-ajax.min.js">
+      <publishTime>02/04/2018 13:08:25</publishTime>
     </File>
     <File Include="Scripts/jquery.validate.js">
       <publishTime>11/11/2017 19:55:10</publishTime>
@@ -878,10 +935,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/11/2017 19:55:10</publishTime>
     </File>
     <File Include="Scripts/student.js">
-      <publishTime>12/09/2017 18:48:52</publishTime>
+      <publishTime>02/03/2018 18:23:20</publishTime>
     </File>
     <File Include="Scripts/teacher.js">
-      <publishTime>12/30/2017 18:14:08</publishTime>
+      <publishTime>02/03/2018 18:25:45</publishTime>
     </File>
     <File Include="Scripts/vendor/bootstrap/css/bootstrap.min.css">
       <publishTime>11/25/2017 14:19:45</publishTime>
@@ -1016,7 +1073,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/07/2017 11:43:43</publishTime>
     </File>
     <File Include="Views/Account/Register.cshtml">
-      <publishTime>12/04/2017 08:26:02</publishTime>
+      <publishTime>02/06/2018 16:13:43</publishTime>
     </File>
     <File Include="Views/Account/ResetPassword.cshtml">
       <publishTime>11/11/2017 19:55:45</publishTime>
@@ -1031,7 +1088,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/11/2017 19:55:45</publishTime>
     </File>
     <File Include="Views/Account/_ExternalLoginsListPartial.cshtml">
-      <publishTime>12/08/2017 12:52:33</publishTime>
+      <publishTime>01/10/2018 14:39:58</publishTime>
     </File>
     <File Include="Views/Admin/AddLessonFromDays.cshtml">
       <publishTime>11/20/2017 14:26:32</publishTime>
@@ -1046,16 +1103,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/19/2017 19:50:25</publishTime>
     </File>
     <File Include="Views/Admin/EditLesson.cshtml">
-      <publishTime>11/27/2017 11:01:46</publishTime>
+      <publishTime>01/10/2018 17:30:04</publishTime>
     </File>
     <File Include="Views/Admin/EditLessonPartial.cshtml">
-      <publishTime>11/27/2017 11:02:06</publishTime>
+      <publishTime>01/10/2018 17:21:50</publishTime>
     </File>
     <File Include="Views/Admin/EditQuestion.cshtml">
       <publishTime>12/06/2017 11:13:06</publishTime>
     </File>
     <File Include="Views/Admin/EditQuestionPartial.cshtml">
       <publishTime>12/06/2017 14:18:32</publishTime>
+    </File>
+    <File Include="Views/Admin/Finals.cshtml">
+      <publishTime>01/06/2018 10:55:16</publishTime>
     </File>
     <File Include="Views/Admin/Index.cshtml">
       <publishTime>11/22/2017 20:51:53</publishTime>
@@ -1064,16 +1124,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/19/2017 19:56:49</publishTime>
     </File>
     <File Include="Views/Admin/Lessons.cshtml">
-      <publishTime>11/19/2017 19:57:47</publishTime>
+      <publishTime>02/07/2018 18:24:00</publishTime>
     </File>
     <File Include="Views/Admin/Students.cshtml">
-      <publishTime>12/03/2017 09:34:21</publishTime>
+      <publishTime>02/08/2018 14:39:17</publishTime>
     </File>
     <File Include="Views/Admin/Subject.cshtml">
-      <publishTime>12/19/2017 11:16:12</publishTime>
+      <publishTime>02/07/2018 18:14:36</publishTime>
     </File>
     <File Include="Views/Admin/SubjectDetails.cshtml">
       <publishTime>12/18/2017 15:12:48</publishTime>
+    </File>
+    <File Include="Views/Admin/Teachers.cshtml">
+      <publishTime>02/08/2018 14:39:58</publishTime>
     </File>
     <File Include="Views/Admin/Tests.cshtml">
       <publishTime>11/19/2017 11:45:20</publishTime>
@@ -1085,40 +1148,52 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/11/2017 19:53:47</publishTime>
     </File>
     <File Include="Views/Home/FindSkill.cshtml">
-      <publishTime>11/29/2017 14:41:28</publishTime>
+      <publishTime>01/10/2018 15:30:52</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>11/27/2017 11:03:30</publishTime>
+      <publishTime>02/06/2018 17:13:31</publishTime>
+    </File>
+    <File Include="Views/Home/Info.cshtml">
+      <publishTime>01/13/2018 09:29:02</publishTime>
     </File>
     <File Include="Views/Home/SkillPartial.cshtml">
-      <publishTime>11/28/2017 15:17:41</publishTime>
+      <publishTime>01/10/2018 16:20:14</publishTime>
     </File>
     <File Include="Views/Manage/AddPhoneNumber.cshtml">
       <publishTime>11/11/2017 19:55:45</publishTime>
     </File>
+    <File Include="Views/Manage/Certificates.cshtml">
+      <publishTime>02/04/2018 10:46:23</publishTime>
+    </File>
     <File Include="Views/Manage/ChangePassword.cshtml">
       <publishTime>11/11/2017 19:55:45</publishTime>
+    </File>
+    <File Include="Views/Manage/ConfirmTeacher.cshtml">
+      <publishTime>02/05/2018 16:29:46</publishTime>
     </File>
     <File Include="Views/Manage/FindStudent.cshtml">
       <publishTime>12/03/2017 09:32:25</publishTime>
     </File>
     <File Include="Views/Manage/Index.cshtml">
-      <publishTime>11/24/2017 14:12:44</publishTime>
+      <publishTime>02/04/2018 19:48:50</publishTime>
     </File>
     <File Include="Views/Manage/ManageLogins.cshtml">
       <publishTime>11/11/2017 19:55:45</publishTime>
     </File>
+    <File Include="Views/Manage/ProfileDetails.cshtml">
+      <publishTime>02/06/2018 11:30:48</publishTime>
+    </File>
     <File Include="Views/Manage/ProfileInfo.cshtml">
-      <publishTime>12/04/2017 08:38:00</publishTime>
+      <publishTime>02/06/2018 10:00:26</publishTime>
     </File>
     <File Include="Views/Manage/Requests.cshtml">
-      <publishTime>11/29/2017 12:10:22</publishTime>
+      <publishTime>01/09/2018 13:23:59</publishTime>
     </File>
     <File Include="Views/Manage/SetPassword.cshtml">
       <publishTime>11/11/2017 19:55:45</publishTime>
     </File>
     <File Include="Views/Manage/TeacherSkills.cshtml">
-      <publishTime>11/29/2017 14:42:18</publishTime>
+      <publishTime>02/06/2018 11:27:56</publishTime>
     </File>
     <File Include="Views/Manage/VerifyPhoneNumber.cshtml">
       <publishTime>11/11/2017 19:55:45</publishTime>
@@ -1130,10 +1205,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/11/2017 19:55:45</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>12/30/2017 18:16:15</publishTime>
+      <publishTime>02/08/2018 16:12:39</publishTime>
     </File>
     <File Include="Views/Shared/_LoginPartial.cshtml">
-      <publishTime>12/08/2017 12:59:53</publishTime>
+      <publishTime>02/06/2018 11:45:04</publishTime>
     </File>
     <File Include="Views/Student/Attachement.cshtml">
       <publishTime>12/30/2017 12:19:25</publishTime>
@@ -1141,26 +1216,38 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Student/Failed.cshtml">
       <publishTime>12/18/2017 14:42:56</publishTime>
     </File>
+    <File Include="Views/Student/Final.cshtml">
+      <publishTime>01/03/2018 11:38:19</publishTime>
+    </File>
     <File Include="Views/Student/Lesson.cshtml">
-      <publishTime>12/20/2017 18:02:16</publishTime>
+      <publishTime>02/02/2018 15:23:13</publishTime>
     </File>
     <File Include="Views/Student/MySubject.cshtml">
-      <publishTime>12/18/2017 15:10:11</publishTime>
+      <publishTime>02/02/2018 23:26:18</publishTime>
     </File>
     <File Include="Views/Student/MySubjects.cshtml">
-      <publishTime>12/19/2017 12:40:47</publishTime>
+      <publishTime>02/03/2018 11:04:58</publishTime>
     </File>
     <File Include="Views/Student/Passed.cshtml">
       <publishTime>12/18/2017 12:06:13</publishTime>
     </File>
     <File Include="Views/Student/Subjects.cshtml">
-      <publishTime>12/19/2017 12:35:36</publishTime>
+      <publishTime>02/03/2018 12:31:11</publishTime>
     </File>
     <File Include="Views/Student/Tests.cshtml">
       <publishTime>12/18/2017 14:56:38</publishTime>
     </File>
+    <File Include="Views/Teacher/Certificates.cshtml">
+      <publishTime>01/07/2018 10:19:26</publishTime>
+    </File>
+    <File Include="Views/Teacher/MyCertificates.cshtml">
+      <publishTime>01/06/2018 13:25:53</publishTime>
+    </File>
     <File Include="Views/Teacher/MyStudent.cshtml">
-      <publishTime>12/23/2017 16:02:50</publishTime>
+      <publishTime>01/02/2018 11:47:55</publishTime>
+    </File>
+    <File Include="Views/Teacher/Subject.cshtml">
+      <publishTime>01/10/2018 16:42:58</publishTime>
     </File>
     <File Include="Views/Teacher/Teacher.cshtml">
       <publishTime>12/01/2017 15:07:34</publishTime>
@@ -1175,7 +1262,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/11/2017 19:53:47</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/09/2017 15:16:11</publishTime>
+      <publishTime>02/06/2018 10:04:35</publishTime>
     </File>
   </ItemGroup>
 </Project>

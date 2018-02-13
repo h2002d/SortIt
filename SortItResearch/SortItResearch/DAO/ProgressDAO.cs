@@ -41,6 +41,30 @@ namespace SortItResearch.DAO
             }
         }
 
+        internal bool IsPassed(int subId,string stuId)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_StudentGetFinalBySubject", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@SubjectId", subId);
+                        command.Parameters.AddWithValue("@StudentId", stuId);
+
+                        return Convert.ToBoolean(command.ExecuteScalar());
+                       
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+        }
+
         internal List<HomeworkViewModel> getProgressByTeacherId(string teacherId)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))

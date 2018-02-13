@@ -1,0 +1,25 @@
+﻿@model SortItResearch.Models.Certificate
+@{
+    ViewBag.Title = "Սերտիֆիկատ N" + Model.Id;
+}
+<div class="row">
+    <div class="col-sm-12" align="center">
+        <div style="width:800px; height:600px; padding:20px; text-align:center; border: 10px solid #787878">
+            <div style="width:750px; height:550px; padding:20px; text-align:center; border: 5px solid #787878">
+                <span style="font-size:50px; font-weight:bold">ՍԵՐՏԻՖԻԿԱՏ</span>
+                <br><br>
+                <span style="font-size:25px">N @Model.Id</span>
+                <br />
+                <span style="font-size:25px"><i>Տրվում է</i></span>
+                <br><br>
+                <span style="font-size:30px"><b>@Model.Student.Name  @Model.Student.SurName</b></span><br /><br />
+                <hr />
+                <span style="font-size:30px"><i><b>@Model.Subject.Name</b></i></span> <br /><br />
+                <span style="font-size:25px"><i>դասընթացը ավարտելու կապակցությամբ</i></span> <br /><br />
+                <span style="font-size:20px;float:right">Ամսաթիվ @Model.CreateDate.ToString("dd/MMM/yyyy")</span>
+                <img style="float:left; width:120px; height:120px;" src="~/images/certified-icon.png" />
+          
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,10 +4,10 @@
 
     var subjectId = $('#subjectId').val();
     if (subjectName== '') {
-        $("#validateSubject").append("Անվանումը դատարկ է");
+        $("#validateSubject").append("Name is empty");
         return;
     } if (subjectDescription == '') {
-        $("#validateSubject").append("Նկարագրությունը դատարկ է");
+        $("#validateSubject").append("Description is empty");
         return;
     }
 
@@ -23,11 +23,29 @@
             location.reload();
         },
         error: function (data) {
-            alert("Ձեր թեման չի ավելացել");
+            alert("Error! topic not added.");
         }
     });
 }
-
+function showProfileCertificates() {
+    $('#profileCertificates').load("/Manage/Certificates/");
+}
+function changeFinalStatus(id) {
+    $.ajax({
+        type: "POST",
+        url: "/Admin/SetFinalStatus",
+        data: {
+            id: id,
+        },
+        success: function (data) {
+            alert(data);
+            location.reload();
+        },
+        error: function (data) {
+            alert(data);
+        }
+    });
+}
 function deleteSubject(id) {
     $.ajax({
         type: "POST",
@@ -231,6 +249,13 @@ function setAnswerType() {
       
     }
 }
+function changeMandatory() {
+    $('input[name=Type]').prop('checked', false);
+}
+
+function changeType() {
+    $('input[name=IsMandatory]').prop('checked', false);
+}
 function deleteQuestion(id) {
     $.ajax({
         type: "POST",
@@ -268,6 +293,11 @@ function changeRole(id,roleId) {
 function findStudent() {
 
     $('#StudentContent').load("/Manage/FindStudent?studentMail=" + $('#StudentName').val());
+}
+
+function findTeacher() {
+
+    $('#TeacherContent').load("/Manage/FindTeacher?studentMail=" + $('#StudentName').val());
 }
 var removableAnswers = [];
 

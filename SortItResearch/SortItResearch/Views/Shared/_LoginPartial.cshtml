@@ -39,9 +39,6 @@ else
                             </span>
                         </div>
                     </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox">Remember me next time.</label>
-                    </div>
                     @foreach (ModelState modelState in ViewData.ModelState.Values)
                     {
                         foreach (ModelError error in modelState.Errors)
@@ -49,12 +46,14 @@ else
                             <p style="color:red;">@error.ErrorMessage</p>
                         }
                     }
-                    <div class="form-group sign-btn">
-                        <input type="submit" class="btn" value="Log in">
-                        <p><a href="#" class="forgot">Can't access your account?</a></p>
-                        <p><strong>New to Sort It?</strong><br><a href="/Account/Register" id="flip-btn" class="signup signup_link">Sign up for a new account</a></p>
+                    <div class="form-group sign-btn" align="center">
+                        <input type="submit" class="btn btn-registration" value="Login">
+                        <br />
+                        <a href="/Account/Register" id="flip-btn" class="signup signup_link">New to SortIt?</a>
                     </div>
                 </form>
+               
+                <hr style="color:rgb(255,51,0)" />
                 @Html.Partial("../Account/_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
 
 

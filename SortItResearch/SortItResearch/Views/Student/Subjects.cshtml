@@ -2,35 +2,36 @@
 @{
     ViewBag.Title = "Subjects";
 }
-
-<h2>Դասընթացներ</h2>
-@{
-    int i = 0;
-    foreach (var subject in Model)
-    {
-
-        if (i == 0 || i % 3 == 0)
+<div style="margin: 0 20px;">
+    <h2>Choose the course to start</h2>
+    @{
+        int i = 0;
+        foreach (var subject in Model)
         {
-            @Html.Raw("<div class=\"row\" >");
-        }
+
+            if (i == 0 || i % 3 == 0)
+            {
+                @Html.Raw("<div class=\"row\" >");
+            }
 
 
-        <div class="col-md-4 item-div">
+            <div class="col-sm-3 item-div">
 
-            <div class="row subject-col" align="center" id="@subject.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
-                <div class="col-md-12">
-                    <h3>@subject.Name</h3>
-                    <span style="float:left">@subject.Description</span>
+                <div class="row subject-col" align="center" id="@subject.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
+                    <div class="col-md-12">
+                        <h3>@subject.Name</h3>
+                        <span style="float:left">@subject.Description</span>
+                    </div>
+                </div>
+                <div class="row" align="center">
+                    <input type="button" value="Enroll" class="btn btn-info" onclick="enrollSubject(@subject.Id)" />
                 </div>
             </div>
-            <div class="row" align="center">
-                <input type="button" value="Enroll" class="btn btn-info" onclick="enrollSubject(@subject.Id)" />
-            </div>
-        </div>
-        i++;
-        if (i != 0 && i % 3 == 0 || i == Model.Count)
-        {
-            @Html.Raw("</div>")
+            i++;
+            if (i != 0 && i % 3 == 0 || i == Model.Count)
+            {
+                @Html.Raw("</div>")
+            }
         }
     }
-}
+</div>

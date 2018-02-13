@@ -1,30 +1,46 @@
 ﻿@model SortItResearch.Models.Lesson
+<div class="row">
+    <nav class="main-menu">
+        <ul class="nav-bar">
+            <li class="nav-button nav-button-services"><a href="#" onclick="showinfo()" class="active" style="background:url(../../images/description_2-512.png) no-repeat; padding:0 15px 30px 15px;"></a></li>
+            <li class="nav-button nav-button-home"><a href="#" onclick="showtest()" style="background:url(../../images/34022.png) no-repeat; padding:0 15px 30px 15px"></a></li>
+        </ul>
+    </nav>
+</div>
+<hr style="color:#ff0000" />
+<div class="row" style="margin-top:50px; padding-right:20px;">
+    <div id="lesson-info">
+        <h2 style="color:#2557fa">Introduction to @Model.Name</h2>
+        <p>@Model.Description</p>
+        <iframe style="width:100%;height:auto;min-height:500px" src="@Model.Attachement.Replace(".com/watch?v=",".com/embed/")"></iframe>
+        <br />
+        <span style="  background-color:black; color:white; float:right; padding:15px;" onclick="showtest();">Next</span>
+    </div>
+    <div id="lesson-test" align="center">
+        @if (Model.IsMandatory)
+        {
+            if (ViewBag.IsPassed)
+            {
+                <p style="color:#45a304;">Test is passed</p>
+            }
+            else
+            {
+                <input type="button" value="Write test" class="btn btn-info" onclick="generateTest(@Model.Id)" />
+            }
+        }
+        @if (Model.Type)
+        {
+            <input type="button" value="Upload homework" class="btn btn-info" onclick="showAttachementUpload(@Model.Id)" />
+        }
+        else if (!Model.Type && !Model.IsMandatory)
+        {
+            <input type="button" value="Complete" class="btn btn-info" onclick="endLesson(@Model.Id)" />
 
-@{
-    ViewBag.Title = "Lesson";
-}
-<div align="center">
-    <h2>@Model.Name</h2>
-    <p>@Model.Description</p>
-    <a>@Model.Attachement</a>@*Change to href=attachement*@
-    <br />
-    @if (Model.IsMandatory)
-    {
-        if (ViewBag.IsPassed)
-        {
-            <p style="color:#45a304;">Թեստը արդեն գրված է</p>
         }
-        else
-        {
-            <input type="button" value="Անցնել թեստը" class="btn btn-info" onclick="generateTest(@Model.Id)" />
-        }
-    }
-    @if (Model.Type)
-    {
-        <input type="button" value="Վերբեռնել աշխատանքը" class="btn btn-info" onclick="showAttachementUpload(@Model.Id)" />
-    }
+        <br />
+        <span style="background-color:black; color:white; padding:15px;float:left;" onclick="showinfo()">Previous</span>
+    </div>
 </div>
 <div align="center" id="createModule">
-    Բեռնվում է․․․
+    Loading․․․
 </div>
-

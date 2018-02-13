@@ -1,6 +1,7 @@
 ﻿@import url(https://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300,100);
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css);
+
 body {
     padding-top: 50px;
     padding-bottom: 20px;
@@ -19,35 +20,122 @@ body {
     white-space: normal;
 }
 
+#lesson-test {
+    display: none;
+}
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
 }
-.validationP{
-    color:red;
-    font-size:12px;
+
+.validationP {
+    color: red;
+    font-size: 12px;
 }
-.clickableTable{
-    cursor:pointer;
+
+.clickableTable {
+    cursor: pointer;
 }
+
 #createModule {
     display: none;
     max-width: 40%;
     padding: 20px;
     position: fixed;
     top: 150px;
-    
     left: 0;
     right: 0;
     margin: auto;
     z-index: 999999999;
-    background-color:#ddd;
+    background-color: #ddd;
 }
+
+.centered-div {
+    max-width: 40%;
+    padding: 20px;
+    position: fixed;
+    top: 150px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 999999999;
+    background-color: #ddd;
+}
+
 table, th, td {
     border: 1px solid black;
 }
+
+.g-color--primary {
+    color: rgb(255, 51, 0) !important;
+}
+
+.g-color--blueviolet {
+    color: #9877ea !important;
+}
+
+.g-color--red {
+    color: #c54041 !important;
+}
+
+.g-color--gold {
+    color: #b99769 !important;
+}
+
+.g-color--body {
+    color: #fff !important;
+}
+
+.g-color--dark {
+    color: #222324 !important;
+}
+
+.g-color--dark-light {
+    color: #242526 !important;
+}
+
+.g-color--heading {
+    color: #242424 !important;
+}
+
+.g-color--white {
+    color: #fff !important;
+}
+
+.g-color--text {
+    color: #656565 !important;
+}
+
+.g-color--gray-light {
+    color: #cecece !important;
+}
+
+.g-color--gray-lighter {
+    color: #aeaeae !important;
+}
+
+.g-color--white-opacity {
+    color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.g-color--white-opacity-light {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.g-color--white-opacity-lighter {
+    color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.g-color--white-opacity-lightest {
+    color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.g-color--sky-light {
+    color: #f5f8f9 !important;
+}
+
 #customers {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -102,6 +190,7 @@ table, th, td {
         background-color: rgb(255,51,0);
         color: white;
     }
+
 #lessons {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
@@ -129,6 +218,7 @@ table, th, td {
         background-color: rgb(255,51,0);
         color: white;
     }
+
 .in-page {
     min-height: 520px;
 }
@@ -156,7 +246,7 @@ a {
     }
 
 .form-control:focus {
-    border-color: #1b5a7c;
+    border-color: rgb(255, 51, 0);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(24, 204, 162, 0.6);
     outline: 0 none;
 }
@@ -189,6 +279,7 @@ a {
         top: 0;
         left: 0;
     }
+
 .profileInfo-screen {
     background-image: url('../images/profileInfoBack.png');
     background-position: center;
@@ -249,21 +340,46 @@ a {
     color: #fff;
     opacity: 0.3;
 }
+
 .profileInfo-content .form-group .col-md-12 .form-control {
     background: none !important;
     height: 44px;
     color: #ddd;
 }
 
-.profileInfo-content .form-group .col-md-12  p{
-color:#ddd;
+.profileInfo-content .form-group .col-md-12 p {
+    color: #ddd;
 }
+#dissertationLink{
+    display:none;
+}
+.btn-registration {
+    background-color: rgb(255,51,0);
+    color: white;
+    width: 100%;
+}
+
+    .btn-registration:hover {
+        background-color: rgb(199, 44, 5);
+        color: white;
+    }
+.icon-bar-bg {
+    background-color: rgb(255, 51, 0) !important;
+}
+.profileInfo-content {
+    margin-top:50px;
+}
+
 .profileInfo-content input.btn {
     background: #1b5a7c;
     border-color: #1b5a7c;
     color: #fff;
-    width: 180px;
+    padding:10px 30px;
 }
+    .profileInfo-content input.btn:hover {
+        background: #154762;
+       
+    }
 .login .sign-btn input.btn {
     background: #1b5a7c;
     border-color: #1b5a7c;
@@ -284,18 +400,22 @@ color:#ddd;
     display: inline-block;
     margin: 20px 0;
 }
-.navbar-custom{
-    border-bottom-color:red;
-    color:black;
-    background-color:#f2f2f2;
+
+.navbar-custom {
+    border-bottom-color: red;
+    color: black;
+    background-color: #f2f2f2;
 }
+
 .subject-col {
     padding: 50px;
 }
-.item-div{
-    border:1px solid #0adffc;
-    min-height:200px;
+
+.item-div {
+    border: 1px solid #0adffc;
+    min-height: 200px;
 }
+
 .nav ul {
     margin: 0;
     padding: 0;
@@ -315,15 +435,17 @@ color:#ddd;
     border-right: 1px solid #ddd;
     box-shadow: 1px 0 0 #fff;
 }
-.test-div{
-    border:none;
-    margin-bottom:80px;
-}
-.question-name{
-    font-size:16px;
-    font-family:Sylfaen;
 
+.test-div {
+    border: none;
+    margin-bottom: 80px;
 }
+
+.question-name {
+    font-size: 16px;
+    font-family: Sylfaen;
+}
+
 .nav #login-trigger,
 .nav #signup a {
     display: inline-block;
@@ -438,3 +560,133 @@ color:#ddd;
         top: 2px;
         right: 2px;
     }
+
+video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
+    background-size: cover;
+    transition: 1s opacity;
+}
+
+.welcome-note {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+}
+
+#welcome-content {
+    position: absolute;
+    width: 100%;
+}
+
+.stopfade {
+    opacity: .5;
+}
+
+#polina {
+    font-family: Agenda-Light, Agenda Light, Agenda, Arial Narrow, sans-serif;
+    font-weight: 100;
+    background: rgba(0,0,0,0.3);
+    color: white;
+    padding: 2rem;
+    width: 33%;
+    margin: 2rem;
+    float: right;
+    font-size: 1.2rem;
+}
+
+
+
+    #polina button {
+        display: block;
+        width: 80%;
+        padding: .4rem;
+        border: none;
+        margin: 1rem auto;
+        font-size: 1.3rem;
+        background: rgba(255,255,255,0.23);
+        color: #fff;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: .3s background;
+    }
+
+        #polina button:hover {
+            background: rgba(0,0,0,0.5);
+        }
+
+
+.list-group.panel > .list-group-item {
+    border: none;
+}
+
+.main-menu .nav-bar {
+    list-style: none;
+    margin-top: 40px;
+}
+
+    .main-menu .nav-bar li {
+        display: inline;
+        padding: 0 10px;
+    }
+
+        .main-menu .nav-bar li a :hover {
+            background-color: #ccc;
+        }
+
+    .main-menu .nav-bar .active {
+        border-bottom: 2px solid rgba(0,0,0, 0.5);
+    }
+
+    .main-menu .nav-bar li a {
+        text-decoration: none;
+        width: 30px;
+        height: 30px;
+        text-transform: uppercase;
+        color: #333;
+        text-shadow: 1px 1px 1px #ccc;
+    }
+
+.active-lesson {
+    border-right:2px solid red !important;
+}
+.loader {
+    margin:auto;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/* Icons courtesy of Thom : http://pixelb.in/assorted-pixel-perfect-14px-icon-set-286/ */

@@ -8,7 +8,6 @@ function generateTest(lessonId) {
 
 
 function uploadFile() {
-    alert();
     var parent = $('.fileUpload').parent();
     var data = new FormData();
     var files = $('.fileUpload').parent().find(".uploadEditorImage").get(0).files;
@@ -37,8 +36,113 @@ function uploadFile() {
 
     });
 }
+function chooseTeacher() {
+    alert('Ընտրեք ղեկավար');
+}
+function showtest() {
+    $("#lesson-info").css("display", "none");
+    $("#lesson-test").css("display", "block");
 
+    $(".nav-button-services").find("a").removeClass("active");
+    $(".nav-button-home").find("a").addClass("active");
+}
+function showinfo() {
+    $("#lesson-info").css("display", "block");
+    $("#lesson-test").css("display", "none");
+    $(".nav-button-home").find("a").removeClass("active");
 
+    $(".nav-button-services").find("a").addClass("active");
+}
+function lessonPartial(id) {
+    $('#lesson-container').empty();
+    $('#lesson-container').append("<div class='loader'></div>")
+    $('#lesson-container').load("/Student/Lesson/" + id);
+
+}
+function showProfileCertificates()
+{
+    $("#profileInfo").css("display", "none");
+    $("#profileCertificates").css("display", "block");
+    $('#profileCertificates').load("/Manage/Certificates/");
+
+    $(".nav-button-profileInfo").find("a").removeClass("active");
+
+    $(".nav-button-profileCertificates").find("a").addClass("active");
+}
+
+function showProfileInfo() {
+    $("#profileInfo").css("display", "block");
+    $("#profileCertificates").css("display", "none");
+
+    $(".nav-button-profileCertificates").find("a").removeClass("active");
+
+    $(".nav-button-profileInfo").find("a").addClass("active");
+}
+function showProgress()
+{
+    $("#progress").css("display", "block");
+    $("#learnings").css("display", "none");
+    $(".nav-button-learn").find("a").removeClass("active");
+
+    $(".nav-button-progress").find("a").addClass("active");
+}
+
+function showLesson() {
+    $("#progress").css("display", "none");
+    $("#learnings").css("display", "block");
+    $(".nav-button-progress").find("a").removeClass("active");
+
+    $(".nav-button-learn").find("a").addClass("active");
+}
+function endLesson(lessonId) {
+    $.ajax({
+        url: "/Student/EndLesson/" + lessonId,
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function (response) {
+            //code after success
+            alert(response);
+            window.location.reload();
+
+        },
+        error: function (er) {
+
+            alert(er.responseText);
+        }
+
+    });
+}
+function uploadFinalAttachement() {
+    var parent = $('.fileUpload').parent();
+    var data = new FormData();
+    var files = $('.fileUpload').parent().find(".uploadEditorImage").get(0).files;
+    if (files.length > 0) {
+        data.append("HttpPostedFileBase", files[0]);
+        $('.fileUpload').parent().find('.file').val('/Files/dissertations/' + files[0].name)
+    }
+    var lessonId = $('#lessonId').val();
+    //.val('/images/' + files[0].name);
+    $.ajax({
+        url: "/Student/FinalUpload/" + lessonId,
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function (response) {
+            //code after success
+            alert(response);
+            window.location.reload();
+
+        },
+        error: function (er) {
+
+            alert(er.responseText);
+        }
+
+    });
+}
 
 function submitAnswers() {
    
@@ -96,3 +200,13 @@ function showAttachementUpload(lessonId) {
     $("#createModule").show();
     $('#createModule').load("/Student/Attachement/?lessonId=" + lessonId);
 }
+
+function showFinalUpload(lessonId) {
+    $("#createModule").show();
+    $('#createModule').load("/Student/Final/?lessonId=" + lessonId);
+}
+$(document).ready(function () {
+    $('.list-group-item').click(function () {
+        $(this).addClass('active-lesson');
+    });
+});

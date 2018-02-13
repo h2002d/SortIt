@@ -29,6 +29,8 @@ namespace SortItResearch.Controllers
         public ActionResult MySubject(int id)
         {
             var sId = User.Identity.GetUserId();
+            ViewBag.Passed = Progress.IsPassed(id, sId);
+
             var subject = Models.MySubjectViewModel.GetSubjectByStudentIdById(sId, id);
             if (subject.Id == null)
             {
@@ -88,14 +90,69 @@ namespace SortItResearch.Controllers
                 return Json("ՁՍԽՈՂՈՒՄ:Աշխատանքը վերբեռնված չէ");
             }
         }
+
+        [HttpPost]
+        public JsonResult EndLesson(int id)
+        {
+            try
+            {
+              
+                Progress homework = new Progress();
+                homework.Attachement = "";
+                homework.LessonId = id;
+                homework.Passed = false;
+                homework.StudentId = User.Identity.GetUserId();
+                homework.Save();
+                SendMail(homework);
+                // after successfully uploading redirect the user
+                return Json("Թեման ավարտված է", JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json("ՁՍԽՈՂՈՒՄ:");
+            }
+        }
+
         public void SendMail(Progress work)
         {
-           var Teacher= UserProfile.GetTeacherByStudentLessonId(work.StudentId, work.LessonId);
-            string link = string.Format("<div class='row' style='border:1px solid #808080' align='center'><p style='color:red'>Դուք ունեք նոր դիմում</p>"+
-                "<a href='http://{0}/Files/homeworks/{1}'>{1}</a>"+
+            var Teacher = UserProfile.GetTeacherByStudentLessonId(work.StudentId, work.LessonId);
+            string link = string.Format("<div class='row' style='border:1px solid #808080' align='center'><p style='color:red'>Դուք ունեք նոր դիմում</p>" +
+                "<a href='http://{0}/Files/homeworks/{1}'>{1}</a>" +
                 "<input type='button' value='Հաստատել' onclick='javascript::window.location.href='http://{0}/Teacher/Works''></div>", Request.Url.Authority, work.Attachement);
 
             SendMailModel.SendMail(Teacher.Email, link, "SortIt. Նոր աշխատանք");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Student")]
+        public JsonResult FinalUpload(int id)
+        {
+            try
+            {
+                HttpPostedFile file = null;
+                if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+                {
+                    file = System.Web.HttpContext.Current.Request.Files["HttpPostedFileBase"];
+                }
+                string stamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now);
+                string filename = file.FileName.Split('.')[0] + stamp + "." + file.FileName.Split('.')[1];
+                string pic = System.IO.Path.GetFileName(filename);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Files/dissertations"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+                Dissertation newDissertation = new Dissertation();
+                newDissertation.Attachement = pic;
+                newDissertation.SubjectId = id;
+                newDissertation.StudentId = User.Identity.GetUserId();
+                newDissertation.Save();
+                // after successfully uploading redirect the user
+                return Json("Ավարտական աշխատանքը վերբեռնված է", JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json("ՁՍԽՈՂՈՒՄ:Ավարտական աշխատանքը վերբեռնված չէ");
+            }
         }
 
         [Authorize(Roles = "Student")]
@@ -133,7 +190,7 @@ namespace SortItResearch.Controllers
         {
             var Lesson = Models.Lesson.GetLesson(id, null).First();
             ViewBag.IsPassed = Models.Progress.GetProgressByLessonId(User.Identity.GetUserId(), id).Passed;
-            return View(Lesson);
+            return PartialView(Lesson);
         }
 
         [Authorize(Roles = "Student")]
@@ -235,5 +292,10 @@ namespace SortItResearch.Controllers
             return View(id);
         }
 
+        [Authorize(Roles = "Student")]
+        public ActionResult Final(int lessonId)
+        {
+            return PartialView(lessonId);
+        }
     }
 }

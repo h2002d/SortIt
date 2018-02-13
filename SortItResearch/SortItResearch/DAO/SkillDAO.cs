@@ -90,6 +90,8 @@ namespace SortItResearch.DAO
                             user.Id = rdr["UserId"].ToString();
                             user.Name = rdr["Name"].ToString();
                             user.SurName= rdr["SurName"].ToString();
+                            user.Dissertation = rdr["Dissertation"].ToString();
+
                             skilledUsers.Add(user);
                         }
                         return skilledUsers;

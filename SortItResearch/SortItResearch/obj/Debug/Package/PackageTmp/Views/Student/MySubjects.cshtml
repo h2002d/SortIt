@@ -2,31 +2,60 @@
 @{
     ViewBag.Title = "Իմ դասընթացները";
 }
-<p>Դասընթաց ավելացնել <a href="/Student/Subjects">+</a></p>
-@{
-    int i = 0;
-    foreach (var subject in Model)
-    {
-
-        if (i == 0 || i % 3 == 0)
+<div style="margin:0 20px;">
+    <h3>Select your course</h3>
+    @{
+        int i = 0;
+        foreach (var subject in Model)
         {
-            @Html.Raw("<div class=\"row\" >");
-        }
+            if (i == 0 || i % 3 == 0)
+            {
+                @Html.Raw("<div class=\"row\" >");
+            }
+            <div class="col-sm-3 item-div" style="margin: 0 10px; cursor:pointer;padding:10px;">
 
-
-        <div class="col-md-4 item-div" style="padding:10px;">
-
-            <div class="row subject-col mysubjects" align="center" id="@subject.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
-                <div class="col-md-12">
-                    <h3>@subject.Name</h3>
-                    <span style="float:left;">@subject.Description</span>
+                <div class="row subject-col mysubjects" align="center" id="@subject.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
+                    <div class="col-sm-12">
+                        <h3>@subject.Name</h3>
+                        <span style="float:left;">@subject.Description</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        i++;
-        if (i != 0 && i % 3 == 0 || i == Model.Count)
+            i++;
+            if (i == Model.Count)
+            {
+                <a href="/Student/Subjects" style="text-decoration:none; font-size:100px;">
+
+                    <div class="col-sm-3 item-div" title="Add new course" style="margin:0 10px;padding:10px; cursor:pointer;">
+
+                        <div class="row subject-col" align="center" style="font-size:12px; padding:5px; margin-bottom:20px;">
+                            <div class="col-md-12">
+                                <h3 style="font-size:100px;">+</h3>
+                                @*<p>New Course</p>*@
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+            if (i != 0 && i % 3 == 0 || i == Model.Count)
+            {
+                @Html.Raw("</div>")
+            }
+        }
+        if (Model.Count == 0)
         {
-            @Html.Raw("</div>")
+            <a href="/Student/Subjects" style="text-decoration:none; ">
+
+                <div class="col-sm-3 item-div" title="Add new course" style="margin:0 10px; cursor:pointer;padding:10px;">
+
+                    <div class="row subject-col" align="center" style="font-size:12px; padding:5px; margin-bottom:20px;">
+                        <div class="col-md-12">
+                            <h3 style="font-size:100px;">+</h3>
+                            @*<p>New Course</p>*@
+                        </div>
+                    </div>
+                </div>
+            </a>
         }
     }
-}
+</div>

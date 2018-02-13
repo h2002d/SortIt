@@ -159,6 +159,9 @@ D:\Projects\SortIt\SortItResearch\SortItResearch\bin\System.Web.WebPages.dll
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\System.Web.WebPages.Razor.dll
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\WebGrease.dll
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.Owin.xml
+D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.Owin.Security.xml
+D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.Owin.Security.Facebook.xml
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\System.Web.Helpers.xml
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\System.Web.Mvc.xml
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\System.Web.Optimization.xml
@@ -173,10 +176,7 @@ D:\Projects\SortIt\SortItResearch\SortItResearch\bin\EntityFramework.SqlServer.x
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.AspNet.Identity.Core.xml
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.AspNet.Identity.Owin.xml
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.AspNet.Identity.EntityFramework.xml
-D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.Owin.xml
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.Owin.Host.SystemWeb.xml
-D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.Owin.Security.xml
-D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.Owin.Security.Facebook.xml
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.Owin.Security.Cookies.xml
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.Owin.Security.OAuth.xml
 D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.Owin.Security.Google.xml

@@ -1,19 +1,19 @@
 ﻿@model List<SortItResearch.Models.Lesson>
 @{
-    ViewBag.Title = "Թեմաներ";
+    ViewBag.Title = "Topics";
 }
 
-<h2>Թեմաներ</h2>
+<h2>Topics</h2>
 <div class="row" style="margin-bottom:20px;">
     <div class="col-sm-2">
         @Html.DropDownList("SubjectId",
                                  new SelectList(ViewBag.Subjects,
                                            "Id", "Name"),
-                                            "--Ընտրեք դասընթացը--",
+                                            "--Select program--",
                                 new { @class = "form-control" })
     </div>
     <div class="col-sm-1">
-        <input type="button" class="btn btn-default" onclick="lessonFilter()" value="Ֆիլտրել" />
+        <input type="button" class="btn btn-default" onclick="lessonFilter()" value="Filter" />
     </div>
     <div class="col-sm-1" style="margin-top:5px;">
         <a href="/admin/Editlesson">
@@ -23,15 +23,15 @@
 </div>
 <table id="lessons">
     <tr>
-        <th>Անվանում</th>
-        <th>Բովանդակություն</th>
+        <th>Name</th>
+        <th>Description</th>
         <th></th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr style="background-color:#ff7539;">
             <td style="cursor:pointer" onclick="openLesson(@item.Id)">@item.Name</td>
             <td style="cursor:pointer">@(item.Description.Length > 20 ? item.Description.Substring(0, 20) : item.Description)</td>
             <td>

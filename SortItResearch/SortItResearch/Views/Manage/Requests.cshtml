@@ -3,12 +3,25 @@
     ViewBag.Title = "Requests";
 }
 
-<p>Դուք ունեք հայտ @ViewBag.Inviter.Name @ViewBag.Inviter.SurName</p>
-<div class="row">
-    <div class="col-md-6">
-        <input type="button" value="Ընդունել" onclick="sendRequestApproval('@Model.Id',true)" class="btn btn-info" />
+@if (!Model.Accepted)
+{
+    <p>Դուք ունեք հայտ @ViewBag.Inviter.Name @ViewBag.Inviter.SurName</p>
+    <div align="center" class="row centered-div">
+        <div class="col-md-6">
+            <input type="button" value="Ընդունել" onclick="sendRequestApproval('@Model.Id',true)" class="btn btn-info" />
+        </div>
+        <div class="col-md-6">
+            <input type="button" value="Մերժել" onclick="sendRequestApproval('@Model.Id',false)" class="btn btn-default" />
+        </div>
     </div>
-    <div class="col-md-6">
-        <input type="button" value="Մերժել" onclick="sendRequestApproval('@Model.Id',false)" class="btn btn-default" />
+}
+else
+{
+    <div align="center" class="row centered-div">
+        <div class="col-sm-12">
+            <span style="font-size:30px;">Այս հայտը արդեն ուղարկված է</span>
+            <br />
+            <span>վերադառնալ <a href="~/">գլխավոր</a> էջ</span>
+        </div>
     </div>
-</div>
+}

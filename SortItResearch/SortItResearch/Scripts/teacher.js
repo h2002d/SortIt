@@ -28,3 +28,23 @@ function changeHomeworkStatus(id) {
 function openSubject(id,sId) {
     window.location.href = "/Teacher/Subject?id=" + id+"&sId="+sId;
 };
+
+
+function showProfileCertificates() {
+    $("#profileInfo").css("display", "none");
+    $("#profileCertificates").css("display", "block");
+    $('#profileCertificates').load("/Manage/Certificates/");
+
+    $(".nav-button-profileInfo").find("a").removeClass("active");
+
+    $(".nav-button-profileCertificates").find("a").addClass("active");
+}
+
+function showProfileInfo() {
+    $("#profileInfo").css("display", "block");
+    $("#profileCertificates").css("display", "none");
+
+    $(".nav-button-profileCertificates").find("a").removeClass("active");
+
+    $(".nav-button-profileInfo").find("a").addClass("active");
+}

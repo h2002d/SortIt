@@ -7,9 +7,9 @@
     </tr>
     @foreach(var user in Model)
     {
-        <tr>
-            <td onclick="window.location.href='/Teacher/Teacher?userId=@user.Id'">@user.Name</td>
-            <td></td>
+        <tr style="cursor:pointer;" onclick="window.location.href='/Teacher/Teacher?userId=@user.Id'">
+            <td>@user.Name @user.SurName</td>
+            <td>@user.Email</td>
             <td></td>
         </tr>
     }

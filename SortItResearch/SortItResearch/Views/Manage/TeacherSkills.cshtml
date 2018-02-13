@@ -1,19 +1,29 @@
-﻿<dt>Դասընթացները</dt>
-<dd>
-    @foreach (var item in ViewBag.Skills)
+﻿<div class="form-horizontal">
+    <h4 style="color:rgb(255,51,0)" >Skills and interests</h4>
+    <hr />
+
+    <div class="form-group">
+        <div class="col-md-10 col-md-offset-2">
+            @foreach (var item in ViewBag.Skills)
             {
-        <div class="checkBoxContainer">
-            <input type="checkbox" class="skillSubject" value="@item.Subject.Id">@item.Subject.Name
-            <br />
-            <div class="skillContainer">
-                @foreach (var module in item.Modules)
-                {
-                    <input class="col-md-offset-1" type="checkbox" name="skillModule" @(ViewBag.SelectedSkills.IndexOf(@module.Id) != -1 ? "checked" : "") value="@module.Id"><i>@module.Name</i>
+                <div class="checkBoxContainer">
+                    <p>Select the trainings and modules that you are interested in</p>
+                    <input type="checkbox" class="skillSubject" value="@item.Subject.Id">@item.Subject.Name
                     <br />
-                }
-            </div>
+                    <div class="skillContainer">
+                        @foreach (var module in item.Modules)
+                        {
+                            <input class="col-md-offset-2" type="checkbox" name="skillModule" @(ViewBag.SelectedSkills.IndexOf(@module.Id) != -1 ? "checked" : "") value="@module.Id"><i>@module.Name</i>
+                            <br />
+                        }
+                    </div>
+                </div>
+            }
+            <input type="button" class="btn btn-registration" value="Submit Skills" onclick="skillsSave()" />
         </div>
-    }
-    <input type="button" class="btn btn-primary" value="Պահպանել" onclick="skillsSave()" />
-</dd>
+    </div>
+
+</div>
+
+
 

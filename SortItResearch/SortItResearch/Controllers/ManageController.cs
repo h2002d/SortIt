@@ -421,13 +421,30 @@ namespace SortItResearch.Controllers
             user.Id = userId;
             return View(user);
         }
-
+        [Authorize(Roles = "Administrator")]
+        public ActionResult ConfirmTeacher(string userId)
+        {
+            var user = UserManager.FindById(userId);
+            UserManager.RemoveFromRole(user.Id, "Student");
+            UserManager.AddToRole(user.Id, "Teacher");
+            var info = new UserProfile(user.Id);
+            return View(info);
+        }
         [HttpPost]
         public ActionResult ProfileInfo(UserProfile user)
         {
             if (ModelState.IsValid)
             {
                 user.Save();
+                if (user.isTeacher)
+                {
+
+                    var callbackUrl = Url.Action("ConfirmTeacher", "Manage", new { userId = user.Id}, protocol: Request.Url.Scheme);
+                    string email= System.Web.Configuration.WebConfigurationManager.AppSettings["AdminEmail"];
+                    SendMailModel.SendMail(email, "User "+user.Name+" "+user.SurName+" wants to register as facilitator click <a href='" + callbackUrl + "'>here</a>"+
+                        " to confirm <br/>Dissertation link <a href='"+user.Dissertation+"'>"+user.Dissertation+"</a>", "SortIt. Facilitator request!");
+
+                }
                 if (User.IsInRole("Student"))
                     return RedirectToAction("MySubjects", "Student");
                 else
@@ -473,7 +490,7 @@ namespace SortItResearch.Controllers
         [Authorize(Roles = "Teacher")]
         public ActionResult Requests(int t, bool accepted)//t=token
         {
-            InviteModel.SaveStatus(t, accepted,User.Identity.GetUserId());
+            InviteModel.SaveStatus(t, accepted, User.Identity.GetUserId());
             return null;
         }
         [HttpPost]
@@ -491,12 +508,49 @@ namespace SortItResearch.Controllers
             if (String.IsNullOrEmpty(studentMail))
                 return null;
             var user = UserManager.FindByEmail(studentMail);
+            if (user == null)
+                return null;
             if (!user.Roles.SingleOrDefault().RoleId.Equals("88"))
                 return null;
             var student = new UserProfile(user.Id);
             if (student == null)
                 return null;
             return PartialView(student);
+        }
+        [Authorize(Roles = "Administrator")]
+        public ActionResult FindTeacher(string studentMail)
+        {
+            if (String.IsNullOrEmpty(studentMail))
+                return null;
+            var user = UserManager.FindByEmail(studentMail);
+            if (user == null)
+                return null;
+            if (!user.Roles.SingleOrDefault().RoleId.Equals("59"))
+                return null;
+            var student = new UserProfile(user.Id);
+            if (student == null)
+                return null;
+            return PartialView(student);
+        }
+        [Authorize]
+        public ActionResult Certificates()
+        {
+            var certificates = Certificate.GetCertificateByStudentId(User.Identity.GetUserId());
+            return PartialView(certificates);
+        }
+        #endregion
+
+        #region Profile edit
+        public ActionResult ProfileDetails()
+        {
+            UserProfile user = new UserProfile(User.Identity.GetUserId());
+            return PartialView(user);
+        }
+        [HttpPost]
+        public ActionResult ProfileDetails(UserProfile user)
+        {
+            user.Save();
+            return Json("Your info has been chanhed!",JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

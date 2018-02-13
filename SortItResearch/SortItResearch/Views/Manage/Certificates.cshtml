@@ -1,0 +1,25 @@
+﻿@model List<SortItResearch.Models.Certificate>
+
+@{
+    int i = 0;
+    foreach (var certificate in Model)
+    {
+        if (i == 0 || i % 3 == 0)
+        {
+            @Html.Raw("<div class=\"row\" >");
+        }
+        <div class="col-sm-3 item-div">
+            <div class="row subject-col" align="center" id="@certificate.Id" style="font-size:12px; padding:5px; margin-bottom:20px;">
+                <div class="col-md-12">
+                    <h3>Դասընթացը` @certificate.Subject.Name</h3>
+                    <span style="float:left">Տրված է: @certificate.CreateDate</span>
+                </div>
+            </div>
+        </div>
+        i++;
+        if (i != 0 && i % 3 == 0 || i == Model.Count)
+        {
+            @Html.Raw("</div>")
+        }
+    }
+}

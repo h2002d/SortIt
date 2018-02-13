@@ -49,7 +49,7 @@
             @Html.Label("Պարտադիր է", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.IsMandatory)
+                    @Html.RadioButtonFor(model => model.IsMandatory,true, new { @onchange = "changeMandatory()" })
                     @Html.ValidationMessageFor(model => model.IsMandatory, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -58,7 +58,7 @@
             @Html.Label("Հանձնարարություն", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.Type)
+                    @Html.RadioButtonFor(model => model.Type,true, new { @onchange = "changeType()" })
                     @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
                 </div>
             </div>

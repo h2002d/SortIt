@@ -24,7 +24,12 @@ namespace SortItResearch.Models
         {
             return DAO.getProgressByLessonId(studentId, lessonId);
         }
-        
+
+        public static bool IsPassed(int subjectId,string studentId)
+        {
+            return DAO.IsPassed(subjectId, studentId);
+        }
+
         public static List<HomeworkViewModel> GetProgressByTeacher(string teacherId)
         {
             return DAO.getProgressByTeacherId(teacherId);

@@ -2,57 +2,133 @@
 @{
     ViewBag.Title = Model.Name;
 }
-
-<h2>@Model.Name </h2>
-<h3>@Model.Description</h3>
-@if (!Model.isAccepted)
-{
-    <p>Ղեկավարը ընտրված չէ անցեք <a href="/Home/Findskill">հղումով</a> և ընտրեք ղեկավարին</p>
-}
-else
-{
-    <p>Ղեկավար @ViewBag.Teacher.Name @ViewBag.Teacher.SurName </p>
-}
-<table class="subjectTable" id="subject">
-
-    <tr>
-        @foreach (var item in ViewBag.Modules)
+<div style="margin:0 20px 0 20px;">
+    <h2>@Model.Name </h2>
+    <h3>@Model.Description</h3>
+    <div class="row" style="padding-left:270px;">
+        <nav class="main-menu">
+            <ul class="nav-bar">
+                <li class="nav-button nav-button-learn"><a href="#" onclick="showLesson()" class="active" style="padding-top:55px;background:url(../../images/learning-icon.png) no-repeat 50%;">Learnings</a></li>
+                <li class="nav-button nav-button-progress"><a href="#" onclick="showProgress()" style="padding-top:55px;background:url(../../images/progress-icon.png) no-repeat 50%;">Progress</a></li>
+            </ul>
+        </nav>
+    </div>
+    <div id="learnings">
+        @if (!Model.isAccepted)
         {
-            <th colspan="@(item.ModuleDays.Count)">
-                @item.Name
-            </th>
+            <p>Click  <a href="/Home/Findskill">here</a> to choose your facilitator </p>
         }
-    </tr>
-    <tr>
-        @foreach (var item in ViewBag.Modules)
+        else
         {
-            foreach (var day in item.ModuleDays)
-            {
-                <td colspan="@(day.Lessons.Count==0?1:day.Lessons.Count)">
-                    @day.Name
-                </td>
-            }
+            <p>Facilitator: @ViewBag.Teacher.Name @ViewBag.Teacher.SurName </p>
         }
-    </tr>
-    <tr>
-        @foreach (var item in ViewBag.Modules)
+        @if (ViewBag.Passed)
         {
-            foreach (var day in item.ModuleDays)
-            {
-                foreach (var lesson in day.Lessons)
+            <input type="button" class="btn btn-info" onclick="showFinalUpload(@Model.Id)" value="Upload" />
+        }
+        <div class="col-sm-3">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <!-- menu -->
+                        <div id="MainMenu">
+                            <div class="list-group panel">
+                                @{
+                                    int index = 3;
+                                    foreach (var item in ViewBag.Modules)
+                                    {
+                                        int dayIndex = 1;
+                                        <a href="@("#demo"+index)" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#MainMenu">@item.Name <i class="fa fa-caret-down"></i></a>
+
+                                        <div class="collapse" id="@("demo"+index)">
+
+                                            @foreach (var day in item.ModuleDays)
+                                            {
+                                                <a href="@("#SubMenu"+dayIndex)" style="border:none " class="list-group-item" data-toggle="collapse" data-parent="@("#SubMenu"+dayIndex)">@day.Name<i class="fa fa-caret-down"></i></a>
+                                                <div style="border:none " class="collapse list-group-submenu" id="@("SubMenu"+dayIndex)">
+                                                    @*<a href="#SubSubMenu1" class="list-group-item" data-toggle="collapse" data-parent="#SubSubMenu1">Subitem 3 c <i class="fa fa-caret-down"></i></a>
+                                                        <div class="collapse list-group-submenu list-group-submenu-1" id="SubSubMenu1">
+                                                            <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 1</a>
+                                                            <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 2</a>
+                                                        </div>*@
+
+                                                    @foreach (var lesson in day.Lessons)
+                                                    {
+                                                        <a onclick="lessonPartial(@lesson.Id)" style="border:none" class="list-group-item" data-parent="#SubMenu1">@lesson.Name</a>
+                                                    }
+                                                </div>
+                                                dayIndex++;
+                                            }
+                                        </div>
+                                        index++;
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-9" id="lesson-container">
+
+        </div>
+    </div>
+    <div id="progress" style="display:none;">
+        <table class="subjectTable" id="subject">
+
+            <tr>
+                @{
+                    int indx = 0;
+
+                    foreach (var item in ViewBag.Modules)
+                    {
+                        indx = 0;
+                        foreach (var day in item.ModuleDays)
+                        {
+                            indx += day.Lessons.Count == 0 ? 1 : day.Lessons.Count;
+                        }
+                        <th colspan="@indx">
+                            @item.Name
+                        </th>
+                    }
+                }
+            </tr>
+            <tr>
+                @foreach (var item in ViewBag.Modules)
                 {
-                    <td onclick="openLesson('@lesson.Id')" style="@(lesson.Passed? "background-color:green;": "background-color:gray;")">
-                        @lesson.Name
-                    </td>
+                    foreach (var day in item.ModuleDays)
+                    {
+                        <td colspan="@(day.Lessons.Count==0?1:day.Lessons.Count)">
+                            @day.Name
+                        </td>
+                    }
+                }
+            </tr>
+            <tr>
+                @foreach (var item in ViewBag.Modules)
+                {
+                    foreach (var day in item.ModuleDays)
+                    {
+                        foreach (var lesson in day.Lessons)
+                        {
+                            <td @(Model.isAccepted ? "onclick=openLesson(" + lesson.Id + ")" : "onclick=chooseTeacher()") style="@(lesson.Passed? "background-color:green;": "background-color:gray;")">
+                                @lesson.Name
+                            </td>
+
+                        }
+                        if (day.Lessons.Count == 0)
+                        {
+                            <td></td>
+                        }
+
+                    }
 
                 }
-                if (day.Lessons.Count == 0)
-                {
-                    <td></td>
-                }
-
-            }
-           
-        }
-    </tr>
-</table>
+            </tr>
+        </table>
+    </div>
+</div>
+<div align="center" id="createModule">
+    Բեռնվում է․․․
+</div>

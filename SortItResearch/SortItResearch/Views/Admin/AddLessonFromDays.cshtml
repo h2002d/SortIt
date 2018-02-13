@@ -3,10 +3,10 @@
 @Html.DropDownList("LessonId",
                                  new SelectList(Model,
                                            "Id", "Name"),
-                                            "--Ընտրեք թեման--",
+                                            "--Select from topics--",
                                 new { @class = "form-control" })
-<p>կամ</p>
-<input type="button" class="btn btn-default" value="Ավելացնել" onclick="addLessonPartial(@ViewBag.DayId)" />
+<p>or</p>
+<input type="button" class="btn btn-default" value="Add new" onclick="addLessonPartial(@ViewBag.DayId)" />
 <br />
-<input style="margin-top:25px;" type="button" value="Պահպանել" class="btn btn-info" onclick="addLessonForDay(@ViewBag.DayId)" />
+<input style="margin-top:25px;" type="button" value="Submit" class="btn btn-info" onclick="addLessonForDay(@ViewBag.DayId)" />
 

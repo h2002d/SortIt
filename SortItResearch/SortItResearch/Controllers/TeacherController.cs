@@ -82,7 +82,6 @@ namespace SortItResearch.Controllers
                 ViewBag.Teacher = Teacher;
                 return View(subject);
             }
-            return View();
         }
 
         [HttpPost]
@@ -98,6 +97,20 @@ namespace SortItResearch.Controllers
             {
                 return Json("Փորձեք կրկին:", JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [Authorize(Roles = "Teacher")]
+        public ActionResult MyCertificates()
+        {
+            var certificates = Certificate.GetCertificateByStudentId(User.Identity.GetUserId());
+            return View(certificates);
+        }
+
+
+        public ActionResult Certificates(int certId)
+        {
+            var certificate = Certificate.GetCertificate(certId).First();
+            return View(certificate);
         }
 
     }

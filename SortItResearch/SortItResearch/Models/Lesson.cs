@@ -20,10 +20,14 @@ namespace SortItResearch.Models
         [Required]
         public string Attachement { get; set; }
         [Required]
-        public bool IsMandatory { get; set; }
+        public string Duration { get; set; }
         [Required]
+        public string Facilitator { get; set; }
+
+        public bool IsMandatory { get; set; }
+
         public bool Type { get; set; }
-        
+
         public bool Passed { get; set; }
         static LessonDAO DAO = new LessonDAO();
 
@@ -37,17 +41,17 @@ namespace SortItResearch.Models
             DAO.deleteLesson(id);
         }
 
-        public static void DeleteLessonFromDay(int DayId,int LessonId)
+        public static void DeleteLessonFromDay(int DayId, int LessonId)
         {
-            DAO.deleteLessonFromDay(DayId,LessonId);
+            DAO.deleteLessonFromDay(DayId, LessonId);
         }
 
         public static void SaveLessonFromDay(int DayId, int LessonId)
         {
-            DAO.saveLessonFromDay(DayId,LessonId);
+            DAO.saveLessonFromDay(DayId, LessonId);
         }
 
-        public static List<Lesson> GetLesson(int? id,int? typeId)
+        public static List<Lesson> GetLesson(int? id, int? typeId)
         {
             return DAO.getLesson(id, typeId);
         }

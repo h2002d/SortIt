@@ -2,9 +2,10 @@
 @{
     ViewBag.Title = "FindSkill";
 }
-
+<h3>Փնտրեք ղեկավարին ըստ դասընթացների</h3>
 <div class="row" style="margin-bottom:50px;">
     <div class="col-sm-2">
+        <p>Դասընթացը</p>
         @Html.DropDownList("SubjectId",
                                  new SelectList(ViewBag.Subjects,
                                            "Id", "Name"),
@@ -12,6 +13,8 @@
                                 new { @class = "form-control",@onChange= "GetDropDownData()" })
     </div>
     <div class="col-sm-2">
+        <p>Մոդուլը</p>
+
       <select class="form-control" id="ModuleId">
           <option value="0">Ընտրեք մոդուլը</option>
       </select>
@@ -19,11 +22,7 @@
     <div class="col-sm-1">
         <input type="button" class="btn btn-default" onclick="moduleFilter()" value="Ֆիլտրել" />
     </div>
-    <div class="col-sm-1" style="margin-top:5px;">
-        <a href="/admin/Editlesson">
-            <img src="~/images/addIcon.png" />
-        </a>
-    </div>
+ 
 </div>
 <div id="skill-container">
 

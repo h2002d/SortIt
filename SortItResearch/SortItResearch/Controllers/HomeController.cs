@@ -20,7 +20,10 @@ namespace SortItResearch.Controllers
 
             return View();
         }
-
+        public ActionResult Info()
+        {
+            return View();
+        }
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
