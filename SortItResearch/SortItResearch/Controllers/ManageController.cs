@@ -389,10 +389,11 @@ namespace SortItResearch.Controllers
 
         #region CustomActions
         [HttpPost]
-        public ActionResult SaveSkills(List<int> moduleIds)
+        public ActionResult SaveSkills(List<int> moduleIds, List<int> interestsIds)
         {
             TeacherSkillViewModel skill = new TeacherSkillViewModel();
             skill.Save(User.Identity.GetUserId(), moduleIds);
+            ResearchTopics.SaveProfileAreas(interestsIds, User.Identity.GetUserId());
             return null;
         }
 
@@ -409,16 +410,25 @@ namespace SortItResearch.Controllers
                 skills.Add(skill);
             }
             ViewBag.Skills = skills;
+            ViewBag.Areas = TopicArea.GetTopicArea(null);
             ViewBag.SelectedSkills = TeacherSkillViewModel.GetSelectedSkills(User.Identity.GetUserId());
             return PartialView();
         }
 
-        public ActionResult ProfileInfo(string userId)
+        public ActionResult ProfileInfo()
         {
-            if (String.IsNullOrEmpty(userId))
-                userId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();
             UserProfile user = new UserProfile();
+
+            if (Request.Cookies["Info"] != null)
+            {
+                var name = Request.Cookies["Info"]["Name"];
+                var lastname = Request.Cookies["Info"]["Surname"];
+                user.Name = name;
+                user.SurName = lastname;
+            }
             user.Id = userId;
+            ViewBag.Countries = Country.GetCountries();
             return View(user);
         }
         [Authorize(Roles = "Administrator")]
@@ -439,10 +449,10 @@ namespace SortItResearch.Controllers
                 if (user.isTeacher)
                 {
 
-                    var callbackUrl = Url.Action("ConfirmTeacher", "Manage", new { userId = user.Id}, protocol: Request.Url.Scheme);
-                    string email= System.Web.Configuration.WebConfigurationManager.AppSettings["AdminEmail"];
-                    SendMailModel.SendMail(email, "User "+user.Name+" "+user.SurName+" wants to register as facilitator click <a href='" + callbackUrl + "'>here</a>"+
-                        " to confirm <br/>Dissertation link <a href='"+user.Dissertation+"'>"+user.Dissertation+"</a>", "SortIt. Facilitator request!");
+                    var callbackUrl = Url.Action("ConfirmTeacher", "Manage", new { userId = user.Id }, protocol: Request.Url.Scheme);
+                    string email = System.Web.Configuration.WebConfigurationManager.AppSettings["AdminEmail"];
+                    SendMailModel.SendMail(email, "User " + user.Name + " " + user.SurName + " wants to register as facilitator click <a href='" + callbackUrl + "'>here</a>" +
+                        " to confirm <br/>Dissertation link <a href='" + user.Dissertation + "'>" + user.Dissertation + "</a>", "SortIt. Facilitator request!");
 
                 }
                 if (User.IsInRole("Student"))
@@ -474,7 +484,27 @@ namespace SortItResearch.Controllers
             SendMailModel.SendMail(UserManager.FindByIdAsync(tId).Result.Email, link, "SortIt. Դուք ունեք նոր դիմում");
             return null;
         }
-
+        
+        [Authorize(Roles = "Teacher")]
+        public ActionResult SendRequestTeacher(string tId, string subId)
+        {
+            //Notif part via email
+            //collect the link and send it via email
+            //save request row in db without approved generate token
+            InviteModel newInvite = new InviteModel();
+            newInvite.StudentId = tId;
+            newInvite.TeacherId = User.Identity.GetUserId();
+            newInvite.Type = 0;
+            newInvite.SubjectId = Convert.ToInt32(subId);
+            int token = newInvite.Save();
+            if (token == -55)
+            {
+                throw new HttpException(404, "Some description");
+            }
+            string link = string.Format("<p style=\"color:red\">Դուք ունեք նոր դիմում</p><a href=\"{0}/Manage/Requests?t={1}\">{0}/Manage/Requests?t={1}</a>", Request.Url.Authority, token.ToString());
+            SendMailModel.SendMail(UserManager.FindByIdAsync(tId).Result.Email, link, "SortIt. Դուք ունեք նոր դիմում");
+            return RedirectToAction("Action");
+        }
         [Authorize(Roles = "Teacher")]
         public ActionResult Requests(int t)//t=token
         {
@@ -517,6 +547,15 @@ namespace SortItResearch.Controllers
                 return null;
             return PartialView(student);
         }
+
+        [Authorize(Roles = "Administrator")]
+        public ActionResult FindStudentByGender(string isMale)
+        {
+            bool gender = Convert.ToBoolean(Convert.ToInt32(isMale));
+            var students = UserProfile.GetUserByGender(gender, "88");
+            return PartialView("FindStudent", students);
+
+        }
         [Authorize(Roles = "Administrator")]
         public ActionResult FindTeacher(string studentMail)
         {
@@ -532,6 +571,7 @@ namespace SortItResearch.Controllers
                 return null;
             return PartialView(student);
         }
+
         [Authorize]
         public ActionResult Certificates()
         {
@@ -544,13 +584,16 @@ namespace SortItResearch.Controllers
         public ActionResult ProfileDetails()
         {
             UserProfile user = new UserProfile(User.Identity.GetUserId());
+            ViewBag.Countries = Country.GetCountries();
+            ViewBag.Areas = TopicArea.GetTopicArea(null);
+
             return PartialView(user);
         }
         [HttpPost]
         public ActionResult ProfileDetails(UserProfile user)
         {
             user.Save();
-            return Json("Your info has been chanhed!",JsonRequestBehavior.AllowGet);
+            return Json("Your info has been changed!", JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

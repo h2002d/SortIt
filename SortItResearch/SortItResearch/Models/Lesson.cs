@@ -24,6 +24,10 @@ namespace SortItResearch.Models
         [Required]
         public string Facilitator { get; set; }
 
+        public string Presentation { get; set; }
+
+        public string PresentationLink { get; set; }
+
         public bool IsMandatory { get; set; }
 
         public bool Type { get; set; }

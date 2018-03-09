@@ -59,8 +59,7 @@ function lessonPartial(id) {
     $('#lesson-container').load("/Student/Lesson/" + id);
 
 }
-function showProfileCertificates()
-{
+function showProfileCertificates() {
     $("#profileInfo").css("display", "none");
     $("#profileCertificates").css("display", "block");
     $('#profileCertificates').load("/Manage/Certificates/");
@@ -78,8 +77,7 @@ function showProfileInfo() {
 
     $(".nav-button-profileInfo").find("a").addClass("active");
 }
-function showProgress()
-{
+function showProgress() {
     $("#progress").css("display", "block");
     $("#learnings").css("display", "none");
     $(".nav-button-learn").find("a").removeClass("active");
@@ -123,13 +121,23 @@ function uploadFinalAttachement() {
         $('.fileUpload').parent().find('.file').val('/Files/dissertations/' + files[0].name)
     }
     var lessonId = $('#lessonId').val();
+    var category = $('#category').val();
+    var description = $('#description').val();
+    var shortDesc = $('#shortDesc').val();
+    var title = $('#title').val();
+    var design = $('#design').val();
+    var status = $('#status').val();
+
     //.val('/images/' + files[0].name);
     $.ajax({
-        url: "/Student/FinalUpload/" + lessonId,
+        url: "/Student/FinalUpload/",
         type: "POST",
         processData: false,
         contentType: false,
-        data: data,
+        data: {
+            SubjectId: lessonId, Category: category, Description: description,
+            ShortDescription: shortDesc, Title: title, Design: design, Status: status
+        },
         success: function (response) {
             //code after success
             alert(response);
@@ -145,7 +153,7 @@ function uploadFinalAttachement() {
 }
 
 function submitAnswers() {
-   
+
     var dict = {}; // create an empty array
     $(".test-div").each(function (index) {
         var rightAnswers = [];
@@ -173,26 +181,46 @@ function submitAnswers() {
 
 }
 
-function enrollSubject(subjectId) {
-    $.ajax({       
+function enrollSubject(subjectId, listIds) {
+
+    var topic = $("#topic").val();
+    var desc = $("#shortDesc").val();
+    $.ajax({
+
         type: "POST",
         url: "/Student/AddSubject",
         data: {
-            subject: subjectId
+            subject: subjectId,
+            categoryId: listIds,
+            topicName: topic,
+            description: desc
         },
+        dataType: "json",
         success: function (data) {
-            alert("Դասընթացը ավելացված է");
+            alert("Course selected");
             window.location.href = "/Student/MySubjects";
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert("Դասընթացն առկա է");
+            alert("You already have this course");
         }
     })
 }
 
 $(document).ready(function () {
+
     $(".mysubjects").click(function () {
         window.location.href = "/Student/MySubject/" + $(this).prop('id');
+    });
+    $('.list-group-item').click(function () {
+        $(this).addClass('active-lesson');
+    });
+    $('.btn-enroll').click(function () {
+        var id = $(this).prop('id');
+        event.preventDefault();
+        var searchIDs = $(".checkbox-areas input:checkbox:checked").map(function () {
+            return $(this).val();
+        }).get();
+        enrollSubject(id, searchIDs);
     });
 });
 
@@ -201,12 +229,31 @@ function showAttachementUpload(lessonId) {
     $('#createModule').load("/Student/Attachement/?lessonId=" + lessonId);
 }
 
+function showEnroll(id) {
+
+    $(".createModule").show();
+
+    $('.btn-enroll').attr('id', id)
+}
 function showFinalUpload(lessonId) {
     $("#createModule").show();
     $('#createModule').load("/Student/Final/?lessonId=" + lessonId);
 }
-$(document).ready(function () {
-    $('.list-group-item').click(function () {
-        $(this).addClass('active-lesson');
+
+function acceptRequest(id,status) {
+    $.ajax({
+        type: "POST",
+        url: "/Student/AcceptRequest",
+        data: {
+            id: id,
+            status: status
+        },
+        success: function (data) {
+            alert(data);
+            location.reload();
+        },
+        error: function (data) {
+            alert(data);
+        }
     });
-});
+}

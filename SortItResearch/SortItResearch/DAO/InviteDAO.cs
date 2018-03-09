@@ -27,8 +27,8 @@ namespace SortItResearch.DAO
                         {
                             invite.Id = Convert.ToInt32(rdr["Id"]);
                             invite.StudentId = rdr["StudentId"].ToString();
-                            invite.TeacherId= rdr["TeacherId"].ToString();
-                            invite.SubjectId= Convert.ToInt32(rdr["SubjectId"]);
+                            invite.TeacherId = rdr["TeacherId"].ToString();
+                            invite.SubjectId = Convert.ToInt32(rdr["SubjectId"]);
                             invite.Accepted = Convert.ToBoolean(rdr["Accepted"]);
                             invite.CreateDate = Convert.ToDateTime(rdr["CreateDate"]);
                         }
@@ -75,6 +75,39 @@ namespace SortItResearch.DAO
                 }
             }
         }
+        internal List<InviteViewModel> getInviteByStudentId(string studentId)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_UserGetInvitesByStudentId", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@Student", studentId);
+                        SqlDataReader rdr = command.ExecuteReader();
+                        List<InviteViewModel> inviteList = new List<InviteViewModel>();
+                        while (rdr.Read())
+                        {
+                            InviteViewModel invite = new InviteViewModel();
+                            invite.Id = Convert.ToInt32(rdr["Id"]);
+                            invite.StudentId = rdr["StudentId"].ToString();
+                            invite.TeacherId = rdr["TeacherId"].ToString();
+                            invite.SubjectId = Convert.ToInt32(rdr["SubjectId"]);
+                            invite.Accepted = Convert.ToBoolean(rdr["Accepted"]);
+                            invite.CreateDate = Convert.ToDateTime(rdr["CreateDate"]);
+                            inviteList.Add(invite);
+                        }
+                        return inviteList;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+        }
 
         public int saveInvite(InviteModel invite)
         {
@@ -86,12 +119,17 @@ namespace SortItResearch.DAO
                     {
                         sqlConnection.Open();
                         command.CommandType = CommandType.StoredProcedure;
-                        if(invite.TeacherId==null)
+                        if (invite.TeacherId == null)
                             command.Parameters.AddWithValue("@TeacherId", DBNull.Value);
 
                         else
                             command.Parameters.AddWithValue("@TeacherId", invite.TeacherId);
-                        command.Parameters.AddWithValue("@StudentId", invite.StudentId);
+
+                        if (invite.TeacherId == null)
+                            command.Parameters.AddWithValue("@StudentId", DBNull.Value);
+
+                        else
+                            command.Parameters.AddWithValue("@StudentId", invite.StudentId);
                         command.Parameters.AddWithValue("@Type", invite.Type);
                         command.Parameters.AddWithValue("@SubjectId", invite.SubjectId);
 
@@ -107,7 +145,7 @@ namespace SortItResearch.DAO
             }
         }
 
-        public int saveInviteStatus(int token,bool accepted,string teacherId)
+        public int saveInviteStatus(int token, bool accepted, string teacherId)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
             {
@@ -131,5 +169,30 @@ namespace SortItResearch.DAO
                 }
             }
         }
+        public int saveInviteStatusStudent(int token, bool accepted)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_UserChangeInviteStatusByToken", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@Token", token);
+                        command.Parameters.AddWithValue("@Accepted", accepted);
+
+
+                        return Convert.ToInt32(command.ExecuteScalar());
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+        }
+
+
     }
 }

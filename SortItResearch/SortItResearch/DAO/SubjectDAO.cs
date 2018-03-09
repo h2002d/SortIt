@@ -108,7 +108,7 @@ namespace SortItResearch.DAO
                             newSubjectView.Id = Convert.ToInt32(rdr["Id"]);
                             newSubjectView.Name = rdr["Name"].ToString();
                             newSubjectView.Description = rdr["Description"].ToString();
-
+                           
                             newSubjectView.isAccepted = Convert.ToBoolean(rdr["Accepted"]);
                             newSubjectView.TeacherId = rdr["TeacherId"].ToString();
                             newSubjectViewList.Add(newSubjectView);

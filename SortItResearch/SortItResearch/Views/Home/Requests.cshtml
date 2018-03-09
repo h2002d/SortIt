@@ -1,0 +1,21 @@
+﻿@model List<SortItResearch.Models.InviteViewModel>
+@{
+    ViewBag.Title = "Requests";
+}
+
+<h2>Incoming requests</h2>
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-sm-10">
+                <span>You have request from @item.Teacher.Name @item.Teacher.SurName for your course @item.Subject.Name</span>
+            </div>
+            <div class="col-sm-2">
+                <input type="button" onclick="acceptRequest(@item.Id,1)" value="Accept"/>
+                <input type="button" onclick="acceptRequest(@item.Id,0)" value="Decline" />
+
+            </div>
+        </div>
+    }
+</div>

@@ -203,6 +203,7 @@
     <Compile Include="DAO\ModuleDayDAO.cs" />
     <Compile Include="DAO\ProgressDAO.cs" />
     <Compile Include="DAO\QuestionDAO.cs" />
+    <Compile Include="DAO\ResearchTopicDAO.cs" />
     <Compile Include="DAO\SkillDAO.cs" />
     <Compile Include="DAO\SubjectDAO.cs" />
     <Compile Include="DAO\UserProfileDAO.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Certificate.cs" />
+    <Compile Include="Models\Country.cs" />
     <Compile Include="Models\Dissertation.cs" />
     <Compile Include="Models\DissertationViewModel.cs" />
     <Compile Include="Models\HomeworkViewModel.cs" />
@@ -224,6 +226,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Module.cs" />
     <Compile Include="Models\ModuleDay.cs" />
+    <Compile Include="Models\ResearchTopics.cs" />
     <Compile Include="Models\SendMailModel.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Models\MySubjectViewModel.cs" />
@@ -597,11 +600,14 @@
     <Content Include="Views\Manage\ProfileDetails.cshtml" />
     <Content Include="Views\Manage\ConfirmTeacher.cshtml" />
     <Content Include="Views\Admin\Teachers.cshtml" />
+    <Content Include="Views\Account\ConfirmAccount.cshtml" />
+    <Content Include="Views\Home\Requests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Files\dissertations\" />
     <Folder Include="Files\homeworks\" />
+    <Folder Include="Files\presentations\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -1,11 +1,43 @@
-﻿
+﻿@model List<SortItResearch.Models.UserProfile>
 @{
     ViewBag.Title = "Students";
 }
 
 <h2>Students</h2>
 <input type="text" class="form-control" placeholder="Student Email-ը" id="StudentName" />
+<select id="gender">
+    <option value="0">Female</option>
+    <option value="1">Male</option>
+</select>
 <input type="button" value="Search" class="btn btn-default" onclick="findStudent()" />
 <div id="StudentContent">
 
+    <table id="customers">
+        <tr>
+            <th>Name</th>
+            <th>Affiliation</th>
+            <th>Degree</th>
+            <th>Profession</th>
+            <th>Country</th>
+            <th>Phone</th>
+            <th></th>
+        </tr>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Name @user.SurName</td>
+                <td>@user.Affiliation</td>
+                <td>@user.Degree</td>
+                <td>@user.Profession</td>
+                <td>@user.Country</td>
+                <td>@user.Phone</td>
+                <td>
+                    @if (!user.isTeacher)
+                {
+                        <input type="button" value="Հաստատել" onclick="changeRole('@user.Id','Teacher')" />
+                    }
+                </td>
+            </tr>
+        }
+    </table>
 </div>

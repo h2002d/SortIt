@@ -149,6 +149,17 @@ namespace SortItResearch.Controllers
         public ActionResult EditLesson(int? id)
         {
             ViewBag.Subjects = Models.Subject.GetSubject(null);
+            var context = new ApplicationDbContext();
+            var users = context.Users
+    .Where(x => x.Roles.Select(y => y.RoleId).Contains("59"))
+    .ToList();
+            List<UserProfile> profiles = new List<UserProfile>();
+            foreach (var user in users)
+            {
+                UserProfile profile = new UserProfile(user.Id);
+                profiles.Add(profile);
+            }
+            ViewBag.Teacher = profiles;
             if (id != null)
             {
                 var lesson = Models.Lesson.GetLesson(id, 0).First();
@@ -166,6 +177,18 @@ namespace SortItResearch.Controllers
         {
             Lesson lesson = new Models.Lesson();
             lesson.DayId = DayId;
+            lesson.SubjectId = Models.Module.GetModules(Models.ModuleDay.GetDay(DayId).First().ModuleId).First().SubjectId;
+            var context = new ApplicationDbContext();
+            var users = context.Users
+    .Where(x => x.Roles.Select(y => y.RoleId).Contains("59"))
+    .ToList();
+            List<UserProfile> profiles = new List<UserProfile>();
+            foreach (var user in users)
+            {
+                UserProfile profile = new UserProfile(user.Id);
+                profiles.Add(profile);
+            }
+            ViewBag.Teacher = profiles;
             ViewBag.Subjects = Models.Subject.GetSubject(null);
             return PartialView(lesson);
         }
@@ -302,14 +325,36 @@ namespace SortItResearch.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult Students()
         {
-            return View();
+            ApplicationDbContext context = new ApplicationDbContext();
+            var users = context.Users
+   .Where(x => x.Roles.Select(y => y.RoleId).Contains("88"))
+   .ToList();
+            List<UserProfile> profiles = new List<UserProfile>();
+            foreach (var user in users)
+            {
+                UserProfile profile = new UserProfile(user.Id);
+                profile.isTeacher = true;
+                profiles.Add(profile);
+            }
+            return View(profiles);
         }
 
 
         [Authorize(Roles = "Administrator")]
         public ActionResult Teachers()
         {
-            return View();
+            ApplicationDbContext context = new ApplicationDbContext();
+            var users = context.Users
+   .Where(x => x.Roles.Select(y => y.RoleId).Contains("59"))
+   .ToList();
+            List<UserProfile> profiles = new List<UserProfile>();
+            foreach (var user in users)
+            {
+                UserProfile profile = new UserProfile(user.Id);
+                profile.isTeacher = true;
+                profiles.Add(profile);
+            }
+            return View(profiles);
         }
 
         [Authorize(Roles = "Administrator")]
@@ -321,6 +366,33 @@ namespace SortItResearch.Controllers
             }
             var finals = Dissertation.GetDissertationBySubjectId(Convert.ToInt32(id));
             return View(finals);
+        }
+
+        [HttpPost]
+        public JsonResult PresentationUpload()
+        {
+            try
+            {
+                HttpPostedFile file = null;
+                if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+                {
+                    file = System.Web.HttpContext.Current.Request.Files["HttpPostedFileBase"];
+                }
+                string stamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now);
+                string filename = file.FileName;
+                string pic = System.IO.Path.GetFileName(filename);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/Files/presentations"), pic);
+                // file is uploaded
+                file.SaveAs(path);
+
+                // after successfully uploading redirect the user
+                return Json("File Uploaded", JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json("Eror");
+            }
         }
 
         [Authorize(Roles = "Administrator")]

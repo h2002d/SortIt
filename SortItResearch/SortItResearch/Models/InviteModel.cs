@@ -27,6 +27,11 @@ namespace SortItResearch.Models
         {
             return DAO.getInviteByTeacherId(teacherId);
         }
+
+        public static List<InviteViewModel> GetInviteByStudentId(string studentId)
+        {
+            return DAO.getInviteByStudentId(studentId);
+        }
         public int Save()
         {
             return DAO.saveInvite(this);
@@ -36,6 +41,9 @@ namespace SortItResearch.Models
         {
             DAO.saveInviteStatus(token, accepted,teacherId);
         }
-
+        public static void SaveStatusStudent(int token, bool accepted)
+        {
+            DAO.saveInviteStatusStudent(token, accepted);
+        }
     }
 }

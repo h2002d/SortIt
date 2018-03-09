@@ -39,7 +39,7 @@ textarea {
     cursor: pointer;
 }
 
-#createModule {
+.createModule {
     display: none;
     max-width: 40%;
     padding: 20px;
@@ -51,7 +51,9 @@ textarea {
     z-index: 999999999;
     background-color: #ddd;
 }
-
+.createModule .row a{
+    float:right;
+}
 .centered-div {
     max-width: 40%;
     padding: 20px;
@@ -351,7 +353,7 @@ a {
     color: #ddd;
 }
 
-#dissertationLink {
+.dissertationLink {
     display: none;
 }
 

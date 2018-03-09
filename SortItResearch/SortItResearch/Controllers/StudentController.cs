@@ -125,7 +125,7 @@ namespace SortItResearch.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Student")]
-        public JsonResult FinalUpload(int id)
+        public JsonResult FinalUpload(Dissertation newDissertation)
         {
             try
             {
@@ -141,9 +141,8 @@ namespace SortItResearch.Controllers
                                        Server.MapPath("~/Files/dissertations"), pic);
                 // file is uploaded
                 file.SaveAs(path);
-                Dissertation newDissertation = new Dissertation();
+
                 newDissertation.Attachement = pic;
-                newDissertation.SubjectId = id;
                 newDissertation.StudentId = User.Identity.GetUserId();
                 newDissertation.Save();
                 // after successfully uploading redirect the user
@@ -159,6 +158,7 @@ namespace SortItResearch.Controllers
         public ActionResult Subjects()
         {
             var subjects = Models.Subject.GetSubject(null);
+            ViewBag.Areas = TopicArea.GetTopicArea(null);
             return View(subjects);
         }
 
@@ -170,19 +170,45 @@ namespace SortItResearch.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Student")]
-        public ActionResult AddSubject(int subject)
+        public ActionResult AddSubject(int subject,List<int> categoryId,string topicName,string description)
         {
             InviteModel newInvite = new InviteModel();
             newInvite.TeacherId = null;
             newInvite.StudentId = User.Identity.GetUserId();
             newInvite.Type = 1;
             newInvite.SubjectId = Convert.ToInt32(subject);
+           
             int token = newInvite.Save();
             if (token == -55)
             {
                 throw new HttpException(404, "Some description");
             }
+            else
+            {
+                ResearchTopics topic = new ResearchTopics();
+                topic.Topic = topicName;
+                topic.SubjectId = subject;
+                topic.ShortDescription = description;
+                topic.UserId = User.Identity.GetUserId();
+                topic.ResearchIds = categoryId;
+                topic.Save();
+                foreach (int id in categoryId)
+                {
+                    MailSender(id,subject);
+                }
+            }
             return null;
+        }
+
+        public void MailSender(int categoryId,int subject)
+        {
+            var users = UserProfile.GetUserByInterest(categoryId);
+            var currentUser = new UserProfile(User.Identity.GetUserId());
+            var callbackUrl = Url.Action("SendRequestTeacher", "Manage", new { tId = User.Identity.GetUserId(), subId = subject }, protocol: Request.Url.Scheme);
+            foreach (var user in users)
+            {
+                SendMailModel.SendMail(user.Email, string.Format("Dear {0} {1}, <br> We have new student matching your account. Student name {2} {3}", currentUser.Name, currentUser.SurName, user.Name, user.SurName), string.Format("SortIt.Interest matching for {0} {1}", currentUser.Name, currentUser.SurName));
+            }
         }
 
         [Authorize(Roles = "Student")]
@@ -218,6 +244,21 @@ namespace SortItResearch.Controllers
                 tests.Add(question.ElementAt(item));
             }
             return View(tests);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Student")]
+        public JsonResult AcceptRequest(int id,int status)
+        {
+            try
+            {
+                InviteModel.SaveStatusStudent(id, Convert.ToBoolean(status));
+                return Json(string.Format("Your request has been {0}", Convert.ToBoolean(status) ? "accepted" : "declined"));
+            }
+            catch(Exception ex)
+            {
+                return Json(string.Format("An error occured please refresh the page"));
+            }
         }
 
         [HttpPost]

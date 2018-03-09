@@ -3,7 +3,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-   
+
     <div class="form-horizontal">
         <h4>New Topic</h4>
         <hr />
@@ -44,32 +44,65 @@
                 @Html.ValidationMessageFor(model => model.Attachement, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.Label("Test", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Facilitator", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.CheckBoxFor(model => model.IsMandatory, new { @onchange = "changeMandatory()" })
-                    @Html.ValidationMessageFor(model => model.IsMandatory, "", new { @class = "text-danger" })
-                </div>
-            </div>
+                @Html.DropDownListFor(model => model.Facilitator,
+                                 new SelectList(ViewBag.Teacher,
+                                           "Id", "Name"),
+                                            "--Select facilitator--",
+                                new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Facilitator, "", new { @class = "text-danger" })
         </div>
-        <div class="form-group">
-            @Html.Label("Homework", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.CheckBoxFor(model => model.Type, new { @onchange = "changeType()" })
-                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-                </div>
-            </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Duration in minutes", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
         </div>
-        @Html.HiddenFor(model => model.DayId)
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+    <div class="form-group">
+        @Html.Label("Link to presentation", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PresentationLink, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PresentationLink, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Upload presentation", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" class="form-control uploadEditorImage" />
+            <input type="button" value="Upload" class="btn btn-default fileUpload" onclick="upload()" />
+            @Html.TextBoxFor(model => model.Presentation, new { @class = "image", @style = "display:none;" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("Test", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.CheckBoxFor(model => model.IsMandatory, new { @onchange = "changeMandatory()" })
+                @Html.ValidationMessageFor(model => model.IsMandatory, "", new { @class = "text-danger" })
             </div>
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.Label("Homework", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.CheckBoxFor(model => model.Type, new { @onchange = "changeType()" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    @Html.HiddenFor(model => model.DayId)
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 

@@ -55,6 +55,7 @@
                     {
                         <li>@Html.ActionLink("Facilitator", "FindSkill", "Home")</li>
                         <li>@Html.ActionLink("Courses", "MySubjects", "Student")</li>
+                        <li>@Html.ActionLink("Select your course", "Subjects", "Student")</li>
                     }
                     @if (this.User.IsInRole("Teacher"))
                     {
@@ -68,7 +69,7 @@
             </div>
         </div>
     </div>
-    <div>
+    <div style="margin-top:50px;">
         @RenderBody()
 
         @*@if (!(isHome && isIndex))
@@ -108,7 +109,7 @@
             var scroll_pos = 0;
             $(window).scroll(function () {
                 scroll_pos = $(this).scrollTop();
-                alert();
+                
                 if (scroll_pos > 0) {
                     $(".navbar-custom").css('background-color', '#fff');
                 } else {
@@ -148,14 +149,14 @@
             $("input:radio[name=isTeacher]").change(function () {
                 if ($(this).val() == 'True')
                 {
-                    $('#dissertationLink').css('display','block')
+                    $('.dissertationLink').css('display','block')
                 }
                 else {
-                    $('#dissertationLink').css('display', 'none')
+                    $('.dissertationLink').css('display', 'none')
                 }
             });
-          onsole.log(scroll_pos);
-            });
+          console.log(scroll_pos);
+           
         });
         function skillsSave() {
             var searchIDs = $(".skillContainer input:checkbox:checked").map(function () {

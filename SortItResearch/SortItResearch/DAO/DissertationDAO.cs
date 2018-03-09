@@ -33,7 +33,11 @@ namespace SortItResearch.DAO
                             dissertation.SubjectId = Convert.ToInt32(rdr["SubjectId"]);
                             dissertation.CreateDate = Convert.ToDateTime(rdr["CreateDate"]);
                             dissertation.Accepted = Convert.ToBoolean(rdr["Accepted"] == DBNull.Value ? false : rdr["Accepted"]);
-
+                            dissertation.Category = rdr["Category"].ToString();
+                            dissertation.Design = rdr["Design"].ToString();
+                            dissertation.Title = rdr["Title"].ToString();
+                            dissertation.ShortDescription = rdr["ShortDescription"].ToString();
+                            dissertation.Status = rdr["Status"].ToString();
                             dissertationList.Add(dissertation);
                         }
                         return dissertationList;
@@ -69,7 +73,11 @@ namespace SortItResearch.DAO
                             dissertation.SubjectId = Convert.ToInt32(rdr["SubjectId"]);
                             dissertation.CreateDate = Convert.ToDateTime(rdr["CreateDate"]);
                             dissertation.Accepted = Convert.ToBoolean(rdr["Accepted"]==DBNull.Value? false:rdr["Accepted"]);
-
+                            dissertation.Category = rdr["Category"].ToString();
+                            dissertation.Design = rdr["Design"].ToString();
+                            dissertation.Title = rdr["Title"].ToString();
+                            dissertation.ShortDescription = rdr["ShortDescription"].ToString();
+                            dissertation.Status = rdr["Status"].ToString();
                             dissertationList.Add(dissertation);
                         }
                         return dissertationList;
@@ -104,6 +112,11 @@ namespace SortItResearch.DAO
                             dissertation.Attachement = rdr["Attachement"].ToString();
                             dissertation.SubjectId = Convert.ToInt32(rdr["SubjectId"]);
                             dissertation.Accepted = Convert.ToBoolean(rdr["Accepted"] == DBNull.Value ? false : rdr["Accepted"]);
+                            dissertation.Category = rdr["Category"].ToString();
+                            dissertation.Design = rdr["Design"].ToString();
+                            dissertation.Title = rdr["Title"].ToString();
+                            dissertation.ShortDescription = rdr["ShortDescription"].ToString();
+                            dissertation.Status= rdr["Status"].ToString();
 
                             dissertation.CreateDate = Convert.ToDateTime(rdr["CreateDate"]);
 
@@ -135,6 +148,11 @@ namespace SortItResearch.DAO
                         command.Parameters.AddWithValue("@Attachement", dissertation.Attachement);
                         command.Parameters.AddWithValue("@StudentId", dissertation.StudentId);
                         command.Parameters.AddWithValue("@SubjectId", dissertation.SubjectId);
+                        command.Parameters.AddWithValue("@Title", dissertation.Title);
+                        command.Parameters.AddWithValue("@ShortDescription", dissertation.ShortDescription);
+                        command.Parameters.AddWithValue("@Status", dissertation.Status);
+                        command.Parameters.AddWithValue("@Category", dissertation.Category);
+                        command.Parameters.AddWithValue("@Design", dissertation.Design);
 
                         //command.Parameters.AddWithValue("@DateBirth", user.DateBirth);
                         command.ExecuteNonQuery();

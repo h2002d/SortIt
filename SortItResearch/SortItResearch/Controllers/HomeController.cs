@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 
 namespace SortItResearch.Controllers
 {
@@ -58,6 +59,11 @@ namespace SortItResearch.Controllers
             }
             return View();
         }
-
+        [Authorize]
+        public ActionResult Requests()
+        {
+            var invites = InviteModel.GetInviteByStudentId(User.Identity.GetUserId());
+            return View(invites);
+        }
     }
 }

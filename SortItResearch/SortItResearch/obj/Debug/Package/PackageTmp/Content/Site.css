@@ -39,7 +39,7 @@ textarea {
     cursor: pointer;
 }
 
-#createModule {
+.createModule {
     display: none;
     max-width: 40%;
     padding: 20px;
@@ -51,7 +51,9 @@ textarea {
     z-index: 999999999;
     background-color: #ddd;
 }
-
+.createModule .row a{
+    float:right;
+}
 .centered-div {
     max-width: 40%;
     padding: 20px;
@@ -166,14 +168,14 @@ table, th, td {
 #subject {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 60%;
-    white-space: nowrap;
+    table-layout: auto;
 }
 
     #subject td, #subject th {
         border: 1px solid #ddd;
         padding: 8px;
     }
+
 
     #subject tr:nth-child(even) {
         background-color: #f2f2f2;
@@ -350,9 +352,11 @@ a {
 .profileInfo-content .form-group .col-md-12 p {
     color: #ddd;
 }
-#dissertationLink{
-    display:none;
+
+.dissertationLink {
+    display: none;
 }
+
 .btn-registration {
     background-color: rgb(255,51,0);
     color: white;
@@ -363,23 +367,26 @@ a {
         background-color: rgb(199, 44, 5);
         color: white;
     }
+
 .icon-bar-bg {
     background-color: rgb(255, 51, 0) !important;
 }
+
 .profileInfo-content {
-    margin-top:50px;
+    margin-top: 50px;
 }
 
-.profileInfo-content input.btn {
-    background: #1b5a7c;
-    border-color: #1b5a7c;
-    color: #fff;
-    padding:10px 30px;
-}
-    .profileInfo-content input.btn:hover {
-        background: #154762;
-       
+    .profileInfo-content input.btn {
+        background: #1b5a7c;
+        border-color: #1b5a7c;
+        color: #fff;
+        padding: 10px 30px;
     }
+
+        .profileInfo-content input.btn:hover {
+            background: #154762;
+        }
+
 .login .sign-btn input.btn {
     background: #1b5a7c;
     border-color: #1b5a7c;
@@ -656,10 +663,11 @@ video {
     }
 
 .active-lesson {
-    border-right:2px solid red !important;
+    border-right: 2px solid red !important;
 }
+
 .loader {
-    margin:auto;
+    margin: auto;
     border: 16px solid #f3f3f3;
     border-radius: 50%;
     border-top: 16px solid #3498db;

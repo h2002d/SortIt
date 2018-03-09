@@ -74,27 +74,29 @@ function openLesson(id) {
     window.location.href = "/Admin/Lesson/" + id;
 }
 function addModule(subject,moduleId) {
-    $("#createModule").show();
+    $(".createModule").show();
     $('#createModule').load("/Admin/CreateModule/?moduleId=" + moduleId+'&subjectId='+subject);
 }
 
 function addLessonToDay(day,subject) {
-    $("#createModule").show();
+    $(".createModule").show();
     $('#createModule').load("/Admin/AddLessonFromDays?dayId=" + day + "&subjectId=" + subject);
 }
 
 function addDay(module,dayId) {
-    $("#createModule").show();
+    $(".createModule").show();
     $('#createModule').load("/Admin/CreateModuleDay/?dayId=" + dayId + '&moduleId=' + module);
 }
-
+function closePopup() {
+    $('.createModule').hide();
+}
 function addLessonPartial(id) {
-
+    $(".createModule").show();
     $('#createModule').load("/Admin/EditLessonPartial?DayId="+id);
 }
 function addQuestionPartial(id)
 {
-    $("#createModule").show();
+    $(".createModule").show();
     $('#createModule').load("/Admin/EditQuestionPartial?LessonId=" + id);
 }
 function deleteModule(id) {
@@ -334,5 +336,38 @@ function removeAnswersOnSubmit()
     }
 }
 $(document).ready(function () {
+    $('#gender').change(function () {
+        var value = $(this).val();
+        $('#StudentContent').load("/Manage/FindStudentByGender?isMale=" + value);
+
+    });
+
     GlobalIndex = $('#AnswerCount').val();
 });
+function upload() {
+    alert();
+    var data = new FormData();
+    var files = $(".uploadEditorImage").get(0).files;
+    if (files.length > 0) {
+        data.append("HttpPostedFileBase", files[0]);
+        $('.image').val('/Files/presentation/' + files[0].name)
+    }
+    //.val('/images/' + files[0].name);
+    $.ajax({
+        url: "/Admin/PresentationUpload/",
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: data,
+        success: function (response) {
+            //code after success
+            alert(response)
+        },
+        error: function (er) {
+
+            alert(er.responseText);
+        }
+
+
+    });
+}

@@ -1,13 +1,13 @@
 ﻿<div class="form-horizontal">
-    <h4 style="color:rgb(255,51,0)" >Skills and interests</h4>
+    <h4 style="color:rgb(255,51,0)">Skills and interests</h4>
     <hr />
 
     <div class="form-group">
         <div class="col-md-10 col-md-offset-2">
+            <p>Select the trainings and modules that you are interested in</p>
             @foreach (var item in ViewBag.Skills)
             {
                 <div class="checkBoxContainer">
-                    <p>Select the trainings and modules that you are interested in</p>
                     <input type="checkbox" class="skillSubject" value="@item.Subject.Id">@item.Subject.Name
                     <br />
                     <div class="skillContainer">
@@ -19,10 +19,21 @@
                     </div>
                 </div>
             }
+             </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-10 col-md-offset-2">
+            <p>Select the fields that you are interested in</p>
+
+            <div class="checkbox-areas">
+                @foreach (var item in ViewBag.Areas)
+                {
+                    <input type="checkbox" value="@item.Id" class="areas" />@item.Name <br />
+                }
+            </div>
             <input type="button" class="btn btn-registration" value="Submit Skills" onclick="skillsSave()" />
         </div>
     </div>
-
 </div>
 
 

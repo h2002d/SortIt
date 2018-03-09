@@ -1,43 +1,62 @@
 ﻿@model SortItResearch.Models.Lesson
 
 @{
-    ViewBag.Title = "Թեմա";
+    ViewBag.Title = "Topic";
 }
 
 
 
 <div>
-    
+
     <dl class="dl-horizontal">
         <dt>
-          Անվանումը
+            Name
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-           Բովանդակություն
+            Description
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
         <dt>
-           Հղում
+            Online lecture link
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Attachement)
         </dd>
-
         <dt>
-           Պարտադիր է
+            Facilitator
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IsMandatory)
+            @Html.DisplayFor(model => model.Facilitator)
         </dd>
+        <dt>
+            Duration in minutes
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+        <dt>
+            Presentation
+        </dt>
+
+        <dd>
+           <a href="@Model.Presentation">@Model.Presentation</a>
+        </dd>
+        <dt>
+            PresentationLink
+        </dt>
+
+        <dd>
+            <a href="@Model.PresentationLink">@Model.PresentationLink</a>
+        </dd>
     </dl>
 </div>

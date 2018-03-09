@@ -1,7 +1,17 @@
 ﻿@model int
-<h2>Ավարտական աշխատանք</h2>
+<h2>Dissertation</h2>
 <hr />
 <input type="hidden" class="file" />
 <input type="hidden" id="lessonId" value="@Model" />
+<p>Category</p>
+<input type="text" id="category" />
+<p>Title</p>
+<input type="text" id="title" />
+<p>Short description</p>
+<input type="text" id="shortDesc" />
+<p>Study design</p>
+<input type="text" id="design" />
+<p>Publication status</p>
+<input type="text" id="status" />
 <input type="file" class="form-control uploadEditorImage" />
 <input type="button" value="Վերբեռնել" onclick="uploadFinalAttachement()" class="btn btn-info fileUpload" />

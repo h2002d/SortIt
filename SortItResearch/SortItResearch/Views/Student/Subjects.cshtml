@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="row" align="center">
-                    <input type="button" value="Enroll" class="btn btn-info" onclick="enrollSubject(@subject.Id)" />
+                    <input type="button" value="Enroll" class="btn btn-info" onclick="showEnroll(@subject.Id)" />
                 </div>
             </div>
             i++;
@@ -34,4 +34,22 @@
             }
         }
     }
+</div>
+<div class="createModule">
+    <div class="row"><a onclick="closePopup()">X</a></div>
+    <div align="center" id="createModule">
+       <p>Topic</p>
+        <input type="text" id="topic" />
+        <p>Short description</p>
+        <input type="text" id="shortDesc" />
+        <hr />
+        <p>Areas</p>
+        <div class="checkbox-areas">
+            @foreach (var item in ViewBag.Areas)
+            {
+                <input type="checkbox" value="@item.Id" class="areas" />@item.Name <br />
+            }
+        </div>
+        <input type="button" value="Continue" class="btn btn-info btn-enroll" />
+    </div>
 </div>

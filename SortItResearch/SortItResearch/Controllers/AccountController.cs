@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SortItResearch.Models;
+using System.Text;
 
 namespace SortItResearch.Controllers
 {
@@ -22,7 +23,7 @@ namespace SortItResearch.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +35,9 @@ namespace SortItResearch.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -57,7 +58,7 @@ namespace SortItResearch.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            
+
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -76,22 +77,52 @@ namespace SortItResearch.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            var user = await UserManager.FindAsync(model.Email, model.Password);
+            if (user != null && !user.EmailConfirmed)
             {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                return RedirectToAction("ConfirmAccount", new { email = model.Email });
+            }
+            else
+            {
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                if (result == SignInStatus.Success)
+                {
+
+                    var userInfo = new UserProfile(user.Id);
+                    if (userInfo == null)
+                    {
+                        return RedirectToAction("ProfileInfo", "Manage");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+
+                }
+                else
+                {
+                    switch (result)
+                    {
+                        case SignInStatus.Success:
+                            return RedirectToLocal(returnUrl);
+                        case SignInStatus.LockedOut:
+                            return View("Lockout");
+                        case SignInStatus.RequiresVerification:
+                            return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                        case SignInStatus.Failure:
+                        default:
+                            ModelState.AddModelError("", "Invalid login attempt.");
+                            return View(model);
+                    }
+                }
             }
         }
-
+        [AllowAnonymous]
+        public ActionResult ConfirmAccount(string email)
+        {
+            ViewBag.Email = email;
+            return View();
+        }
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -121,7 +152,7 @@ namespace SortItResearch.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -152,26 +183,40 @@ namespace SortItResearch.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email ,};
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     var currentUser = UserManager.FindByName(user.UserName);
 
                     var roleresult = UserManager.AddToRole(currentUser.Id, "Student");
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                   // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                    SendMailModel.SendMail(user.Email, "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>", "Հաստատեք ձեր էջը");
-                    return RedirectToAction("ProfileInfo", "Manage");
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    StringBuilder body = new StringBuilder();
+                    body.Append("<img src='http://www.sortitresearch.com/images/logo.jpg' ><br>")
+                    .Append("<p>Dear " + model.Name + " " + model.LastName + "</p>")
+                    .Append("<p>Welcome to SortIT.You recieved this email because you have registered a new account on SORTIT</p>")
+                    .Append("<p>Please confirm your email by clicking on the following link: <a href=\"" + callbackUrl + "\">Confirm link</a>");
+                    SendMailModel.SendMail(user.Email, body.ToString(), "SortIt. Confirm email");
+
+                    
+
+                    HttpCookie myCookie = new HttpCookie("Info");
+                    myCookie["Name"] = model.Name;
+                    myCookie["Surname"] = model.LastName;
+                    myCookie.Expires = DateTime.Now.AddDays(1d);
+                    Response.Cookies.Add(myCookie);
+
+                    return RedirectToAction("ConfirmAccount", "Account", new { email = model.Email });
                 }
                 AddErrors(result);
             }
-          
+
             // If we got this far, something failed, redisplay form
             return View();
         }

@@ -15,6 +15,11 @@ namespace SortItResearch.Models
         public string StudentId { get; set; }
         public int SubjectId { get; set; }
         public bool Accepted { get; set; }
+        public string Category { get; set; }
+        public string ShortDescription { get; set; }
+        public string Title { get; set; }
+        public string Status { get; set; }
+        public string Design { get; set; }
 
         static DissertationDAO DAO = new DissertationDAO();
 

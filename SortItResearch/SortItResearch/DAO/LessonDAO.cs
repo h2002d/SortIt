@@ -29,6 +29,14 @@ namespace SortItResearch.DAO
                         command.Parameters.AddWithValue("@SubjectId", lesson.SubjectId);
                         command.Parameters.AddWithValue("@Duration", lesson.Duration);
                         command.Parameters.AddWithValue("@Facilitator", lesson.Facilitator);
+                        if (lesson.Presentation == null)
+                            command.Parameters.AddWithValue("@Presentation", DBNull.Value);
+                        else
+                            command.Parameters.AddWithValue("@Presentation", lesson.Presentation);
+                        if (lesson.PresentationLink == null)
+                            command.Parameters.AddWithValue("@PresentationLink", DBNull.Value);
+                        else
+                            command.Parameters.AddWithValue("@PresentationLink", lesson.PresentationLink);
 
                         command.Parameters.AddWithValue("@IsMandatory", lesson.IsMandatory);
                         command.Parameters.AddWithValue("@Attachement", lesson.Attachement);
@@ -126,7 +134,12 @@ namespace SortItResearch.DAO
                             newModule.Type = Convert.ToInt32(rdr["Type"]) == 1;//1 =homework
                             newModule.SubjectId = Convert.ToInt32(rdr["SubjectId"]);
                             newModule.Attachement = rdr["Attachement"].ToString();
+                            newModule.Duration = rdr["Duration"].ToString();
+                            newModule.Facilitator = rdr["Facilitator"].ToString();
                             newModule.IsMandatory = Convert.ToBoolean(rdr["IsMandatory"]);
+
+                            newModule.Presentation = rdr["Presentation"].ToString();
+                            newModule.PresentationLink = rdr["PresentationLink"].ToString();
                             //SqlCommand cmd = new SqlCommand("sp_AdminGetModuleDayByModuleId", sqlConnection);
                             //cmd.CommandType = CommandType.StoredProcedure;
                             //cmd.Parameters.AddWithValue("@Id", Convert.ToInt32(newModule.Id));
@@ -185,6 +198,8 @@ namespace SortItResearch.DAO
                             newModule.Facilitator = rdr["Facilitator"].ToString();
                             newModule.IsMandatory = Convert.ToBoolean(rdr["IsMandatory"]);
 
+                            newModule.Presentation = rdr["Presentation"].ToString();
+                            newModule.PresentationLink = rdr["PresentationLink"].ToString();
                             //SqlCommand cmd = new SqlCommand("sp_AdminGetModuleDayByModuleId", sqlConnection);
                             //cmd.CommandType = CommandType.StoredProcedure;
                             //cmd.Parameters.AddWithValue("@Id", Convert.ToInt32(newModule.Id));
@@ -242,6 +257,8 @@ namespace SortItResearch.DAO
                             newModule.IsMandatory = Convert.ToBoolean(rdr["IsMandatory"]);
                             newModule.Duration = rdr["Duration"].ToString();
                             newModule.Facilitator = rdr["Facilitator"].ToString();
+                            newModule.Presentation = rdr["Presentation"].ToString();
+                            newModule.PresentationLink = rdr["PresentationLink"].ToString();
 
                             //SqlCommand cmd = new SqlCommand("sp_AdminGetModuleDayByModuleId", sqlConnection);
                             //cmd.CommandType = CommandType.StoredProcedure;
