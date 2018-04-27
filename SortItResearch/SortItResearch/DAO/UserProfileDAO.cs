@@ -118,6 +118,7 @@ namespace SortItResearch.DAO
                             user.Phone = rdr["Phone"].ToString();
                             user.Profession = rdr["Profession"].ToString();
                             user.isMale = Convert.ToBoolean(rdr["isMale"]);
+
                             userList.Add(user);
                             //user.DateBirth = Convert.ToDateTime(rdr["DateBirth"]);
                         }

@@ -33,7 +33,7 @@ namespace SortItResearch.DAO
                             dissertation.SubjectId = Convert.ToInt32(rdr["SubjectId"]);
                             dissertation.CreateDate = Convert.ToDateTime(rdr["CreateDate"]);
                             dissertation.Accepted = Convert.ToBoolean(rdr["Accepted"] == DBNull.Value ? false : rdr["Accepted"]);
-                            dissertation.Category = rdr["Category"].ToString();
+                            //dissertation.Category = rdr["Category"].ToString();
                             dissertation.Design = rdr["Design"].ToString();
                             dissertation.Title = rdr["Title"].ToString();
                             dissertation.ShortDescription = rdr["ShortDescription"].ToString();
@@ -73,7 +73,7 @@ namespace SortItResearch.DAO
                             dissertation.SubjectId = Convert.ToInt32(rdr["SubjectId"]);
                             dissertation.CreateDate = Convert.ToDateTime(rdr["CreateDate"]);
                             dissertation.Accepted = Convert.ToBoolean(rdr["Accepted"]==DBNull.Value? false:rdr["Accepted"]);
-                            dissertation.Category = rdr["Category"].ToString();
+                            //dissertation.Category = rdr["Category"].ToString();
                             dissertation.Design = rdr["Design"].ToString();
                             dissertation.Title = rdr["Title"].ToString();
                             dissertation.ShortDescription = rdr["ShortDescription"].ToString();

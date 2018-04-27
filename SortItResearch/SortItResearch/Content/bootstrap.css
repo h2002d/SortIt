@@ -3821,11 +3821,10 @@ textarea.input-group-sm > .input-group-btn > .btn {
   padding: 10px 15px;
 }
 
-.nav > li > a:hover,
-.nav > li > a:focus {
-  text-decoration: none;
-  background-color: #eeeeee;
-}
+    .nav > li > a:hover,
+    .nav > li > a:focus {
+        border-bottom: 1px solid white;
+    }
 
 .nav > li.disabled > a {
   color: #999999;
@@ -4025,7 +4024,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 .navbar {
   position: relative;
   z-index: 1000;
-  min-height: 50px;
+  min-height: 30px;
   margin-bottom: 20px;
   border: 1px solid transparent;
 }
@@ -4124,7 +4123,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   }
   .navbar-collapse.collapse {
     display: block !important;
-    height: auto !important;
+    height: 30px !important;
     padding-bottom: 0;
     overflow: visible !important;
   }

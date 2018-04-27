@@ -125,7 +125,7 @@ namespace SortItResearch.DAO
                         else
                             command.Parameters.AddWithValue("@TeacherId", invite.TeacherId);
 
-                        if (invite.TeacherId == null)
+                        if (invite.StudentId == null)
                             command.Parameters.AddWithValue("@StudentId", DBNull.Value);
 
                         else

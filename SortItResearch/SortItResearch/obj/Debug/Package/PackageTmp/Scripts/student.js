@@ -59,8 +59,7 @@ function lessonPartial(id) {
     $('#lesson-container').load("/Student/Lesson/" + id);
 
 }
-function showProfileCertificates()
-{
+function showProfileCertificates() {
     $("#profileInfo").css("display", "none");
     $("#profileCertificates").css("display", "block");
     $('#profileCertificates').load("/Manage/Certificates/");
@@ -78,8 +77,7 @@ function showProfileInfo() {
 
     $(".nav-button-profileInfo").find("a").addClass("active");
 }
-function showProgress()
-{
+function showProgress() {
     $("#progress").css("display", "block");
     $("#learnings").css("display", "none");
     $(".nav-button-learn").find("a").removeClass("active");
@@ -129,17 +127,20 @@ function uploadFinalAttachement() {
     var title = $('#title').val();
     var design = $('#design').val();
     var status = $('#status').val();
-
+    data.append("SubjectId", lessonId);
+    data.append("Category", category);
+    data.append("Description", description);
+    data.append("ShortDescription", shortDesc);
+    data.append("Title", title);
+    data.append("Design", design);
+    data.append("Status", status);
     //.val('/images/' + files[0].name);
     $.ajax({
         url: "/Student/FinalUpload/",
         type: "POST",
         processData: false,
         contentType: false,
-        data: {
-            SubjectId: lessonId, Category: category, Description: description,
-            ShortDescription: shortDesc,Title:title,Design:design,Status:status
-        },
+        data: data,
         success: function (response) {
             //code after success
             alert(response);
@@ -155,7 +156,7 @@ function uploadFinalAttachement() {
 }
 
 function submitAnswers() {
-   
+
     var dict = {}; // create an empty array
     $(".test-div").each(function (index) {
         var rightAnswers = [];
@@ -187,29 +188,30 @@ function enrollSubject(subjectId, listIds) {
 
     var topic = $("#topic").val();
     var desc = $("#shortDesc").val();
-    $.ajax({    
-        
+    $.ajax({
+
         type: "POST",
         url: "/Student/AddSubject",
         data: {
             subject: subjectId,
             categoryId: listIds,
             topicName: topic,
-            description:desc
+            description: desc
         },
-        dataType:"json",
+        dataType: "json",
         success: function (data) {
             alert("Course selected");
             window.location.href = "/Student/MySubjects";
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert("You already have this course");
+            alert("Course selected");
+            window.location.href = "/Student/MySubjects";
         }
     })
 }
 
 $(document).ready(function () {
- 
+
     $(".mysubjects").click(function () {
         window.location.href = "/Student/MySubject/" + $(this).prop('id');
     });
@@ -222,22 +224,40 @@ $(document).ready(function () {
         var searchIDs = $(".checkbox-areas input:checkbox:checked").map(function () {
             return $(this).val();
         }).get();
-        enrollSubject(id,searchIDs);
+        enrollSubject(id, searchIDs);
     });
 });
 
 function showAttachementUpload(lessonId) {
-    $("#createModule").show();
+    $(".createModule").show();
     $('#createModule').load("/Student/Attachement/?lessonId=" + lessonId);
 }
 
 function showEnroll(id) {
 
     $(".createModule").show();
-  
-    $('.btn-enroll').attr('id',id)
+
+    $('.btn-enroll').attr('id', id)
 }
 function showFinalUpload(lessonId) {
-    $("#createModule").show();
+    $(".createModule").show();
     $('#createModule').load("/Student/Final/?lessonId=" + lessonId);
+}
+
+function acceptRequest(id, status) {
+    $.ajax({
+        type: "POST",
+        url: "/Student/AcceptRequest",
+        data: {
+            id: id,
+            status: status
+        },
+        success: function (data) {
+            alert(data);
+            location.reload();
+        },
+        error: function (data) {
+            alert(data);
+        }
+    });
 }

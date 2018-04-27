@@ -2,12 +2,14 @@
 @{
     ViewBag.Title = Model.Name;
 }
+<div class="subject-header-content">
+    <div class="subject-header">
+        <h2>@Model.Name </h2>
+        <h3>@Model.Description</h3>
 
-<h2>@Model.Name </h2>
-<h3>@Model.Description</h3>
-
-<p>Ղեկավար @ViewBag.Teacher.Name @ViewBag.Teacher.SurName </p>
-
+        <p>Ղեկավար <span style="color:white;">@ViewBag.Teacher.Name @ViewBag.Teacher.SurName</span> </p>
+    </div>
+</div>
 <table class="subjectTable" id="subject">
 
     <tr>
@@ -60,3 +62,11 @@
         }
     </tr>
 </table>
+<style>
+    body{
+        padding-top:0;
+    }
+    .container-renderbody{
+        margin-top:0;
+    }
+</style>

@@ -6,12 +6,14 @@
 <h2>Իմ սերտիֆիկատնեիր</h2>
 @foreach (var item in Model)
 {
-    <div class="row">
-        <div class="col-sm-10">
-            Տրվում է` <span style="font-weight:700">@item.Student.Name @item.Student.SurName</span>, <span style="font-weight:700">@item.Subject.Name</span>դասընթացը հաջողությամբ ավարտելու համար
-        </div>
-        <div class="col-sm-2">
-            <img src="~/images/certified-icon.png" style="height:100%; width:100%;"/>
-        </div>
+    <div class="row ">
+        <a href="/Teacher/Certificates/@item.Id">
+            <div class="col-sm-10">
+                Տրվում է` <span style="font-weight:700">@item.Student.Name @item.Student.SurName</span>, <span style="font-weight:700">@item.Subject.Name</span>դասընթացը հաջողությամբ ավարտելու համար
+            </div>
+            <div class="col-sm-2">
+                <img src="~/images/certified-icon.png" style="height:100%; width:100%;" />
+            </div>
+        </a>
     </div>
 }

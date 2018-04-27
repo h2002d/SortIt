@@ -13,15 +13,14 @@ namespace SortItResearch.Models
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+        public string ImageSource { get; set; }
         private static SubjectDAO DAO= new SubjectDAO();
         
         public static List<Subject> GetSubject(int? id)
         {
             return DAO.getSubjects(id);
         }
-
-       
-
+        
         public void Save()
         {
             DAO.saveSubject(this);

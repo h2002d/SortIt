@@ -1,9 +1,13 @@
 ﻿@model List<SortItResearch.Models.Question>
 @{
-    ViewBag.Title = "Հարցեր";
+    ViewBag.Title = "Tests";
 }
 
-<h2>Հարցեր</h2>
+<div class="subject-header-content">
+    <div class="subject-header">
+        <h2>Tests</h2>
+    </div>
+</div>
 <div class="row" style="margin-bottom:20px;">
     <div class="col-sm-2">
         @Html.DropDownList("LessonId",

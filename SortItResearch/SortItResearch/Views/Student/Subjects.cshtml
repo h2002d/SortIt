@@ -2,8 +2,13 @@
 @{
     ViewBag.Title = "Subjects";
 }
+
+<div class="subject-header-content">
+    <div class="subject-header">
+        <h2>Choose the course to start</h2>
+    </div>
+</div>
 <div style="margin: 0 20px;">
-    <h2>Choose the course to start</h2>
     @{
         int i = 0;
         foreach (var subject in Model)

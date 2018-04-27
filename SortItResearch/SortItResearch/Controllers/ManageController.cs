@@ -435,7 +435,6 @@ namespace SortItResearch.Controllers
         public ActionResult ConfirmTeacher(string userId)
         {
             var user = UserManager.FindById(userId);
-            UserManager.RemoveFromRole(user.Id, "Student");
             UserManager.AddToRole(user.Id, "Teacher");
             var info = new UserProfile(user.Id);
             return View(info);

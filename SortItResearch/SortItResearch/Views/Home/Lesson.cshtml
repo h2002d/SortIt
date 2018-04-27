@@ -1,0 +1,11 @@
+﻿@model SortItResearch.Models.Lesson
+<hr style="color:#ff0000" />
+<div class="row" style="margin-top:50px; padding-right:20px;">
+    <div id="lesson-info">
+        <h2 style="color:#2557fa">Introduction to @Model.Name</h2>
+        <p>@Model.Description</p>
+        <iframe style="width:100%;height:auto;min-height:500px" src="@Model.Attachement.Replace(".com/watch?v=",".com/embed/")"></iframe>
+        <br />
+        <span style="  background-color:black; color:white; float:right; padding:15px;" onclick="showtest();">Next</span>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿@model List<SortItResearch.Models.ResearchTopics>
+@{
+    ViewBag.Title = "FindStudentPartial";
+}
+@foreach (var item in Model)
+{
+<div class="row">
+    <div class="col-sm-2">
+        @item.User.Name  @item.User.SurName
+    </div>
+    <div class="col-sm-8">
+        Course: @item.Subject.Name<br />
+        Research topic: @item.Topic
+    </div>
+    <div class="col-sm-2">
+        <input type="button" class="btn btn-info" onclick="requestStudent('@item.UserId',@item.SubjectId)"value="Request" />
+    </div>
+</div>
+}
+

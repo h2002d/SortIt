@@ -14,12 +14,19 @@ namespace SortItResearch.Models
         public string UserId { get; set; }
         public int SubjectId { get; set; }
 
+        public UserProfile User { get { return new UserProfile(UserId); } }
+        public Subject Subject { get { return Subject.GetSubject(SubjectId).First(); } }
         public List<int> ResearchIds { get; set; }
         static ResearchTopicDAO DAO = new ResearchTopicDAO();
 
         public static List<ResearchTopics> GetTopicById(int id)
         {
             return DAO.getTopicById(id);
+        }
+
+        public static List<ResearchTopics> GetTopicByInterestId(int? interestId,string keyword)
+        {
+            return DAO.getTopicByKeywordByInterestId(interestId,keyword);
         }
 
         public void Save()

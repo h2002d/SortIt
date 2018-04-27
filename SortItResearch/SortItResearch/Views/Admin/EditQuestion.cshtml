@@ -1,18 +1,21 @@
 ﻿@model SortItResearch.Models.Question
 
 @{
-    ViewBag.Title = "Հարց";
+    ViewBag.Title = "Edit question";
 }
 
 
+<div class="subject-header-content">
+    <div class="subject-header">
+        <h2>Edit question</h2>
+    </div>
+</div>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     @Html.Hidden("AnswerCount", Model.Answers.Count, new { @id = "AnswerCount" })
     <div class="form-horizontal">
-        <h2>Question</h2>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 

@@ -190,3 +190,5 @@ D:\Projects\SortIt\SortItResearch\SortItResearch\bin\Microsoft.AI.Web.xml
 D:\Projects\SortIt\SortItResearch\SortItResearch\obj\Debug\SortItResearch.csprojResolveAssemblyReference.cache
 D:\Projects\SortIt\SortItResearch\SortItResearch\obj\Debug\SortItResearch.dll
 D:\Projects\SortIt\SortItResearch\SortItResearch\obj\Debug\SortItResearch.pdb
+D:\Projects\SortIt\SortItResearch\SortItResearch\bin\ImageResizer.dll
+D:\Projects\SortIt\SortItResearch\SortItResearch\bin\ImageResizer.xml

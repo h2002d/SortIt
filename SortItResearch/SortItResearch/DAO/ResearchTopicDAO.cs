@@ -44,6 +44,48 @@ namespace SortItResearch.DAO
             }
         }
 
+        internal List<ResearchTopics> getTopicByKeywordByInterestId(int? interestId, string keyword)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
+            {
+                using (SqlCommand command = new SqlCommand("sp_GetTopicByKeywordByInterestId", sqlConnection))
+                {
+                    try
+                    {
+                        sqlConnection.Open();
+                        command.CommandType = CommandType.StoredProcedure;
+                        if (String.IsNullOrEmpty(keyword))
+                            command.Parameters.AddWithValue("@Keyword", DBNull.Value);
+                        else
+                            command.Parameters.AddWithValue("@Keyword", keyword);
+                        if (interestId == null)
+                            command.Parameters.AddWithValue("@InterestId", DBNull.Value);
+                        else
+                            command.Parameters.AddWithValue("@InterestId", interestId);
+
+                        SqlDataReader rdr = command.ExecuteReader();
+                        List<ResearchTopics> topicList = new List<ResearchTopics>();
+                        while (rdr.Read())
+                        {
+                            ResearchTopics topic = new ResearchTopics();
+
+                            topic.Id = Convert.ToInt32(rdr["Id"]);
+                            topic.ShortDescription = rdr["ShortDescription"].ToString();
+                            topic.Topic = rdr["Topic"].ToString();
+                            topic.UserId = rdr["UserId"].ToString();
+                            topic.SubjectId = Convert.ToInt32(rdr["SubjectId"]);
+                            topicList.Add(topic);
+                        }
+                        return topicList;
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+        }
+
         internal void saveProfileAreas(List<int> ids, string userId)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))
@@ -69,6 +111,7 @@ namespace SortItResearch.DAO
                 }
             }
         }
+
         internal void deleteProfileAreas(string userId)
         {
             using (SqlConnection sqlConnection = new SqlConnection(connectionString))

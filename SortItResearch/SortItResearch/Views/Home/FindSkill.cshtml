@@ -2,28 +2,41 @@
 @{
     ViewBag.Title = "FindSkill";
 }
-<h3>Փնտրեք ղեկավարին ըստ դասընթացների</h3>
-<div class="row" style="margin-bottom:50px;">
+<div class="subject-header-content">
+    <div class="subject-header">
+        <h3>Փնտրեք ղեկավարին ըստ դասընթացների</h3>
+    </div>
+</div>
+<div class="row" style="margin: 55px 0 50px 90px">
     <div class="col-sm-2">
         <p>Դասընթացը</p>
         @Html.DropDownList("SubjectId",
                                  new SelectList(ViewBag.Subjects,
                                            "Id", "Name"),
                                             "--Ընտրեք դասընթացը--",
-                                new { @class = "form-control",@onChange= "GetDropDownData()" })
+                                new { @class = "form-control dropdown-skills",@onChange= "GetDropDownData()" })
     </div>
     <div class="col-sm-2">
         <p>Մոդուլը</p>
 
-      <select class="form-control" id="ModuleId">
-          <option value="0">Ընտրեք մոդուլը</option>
-      </select>
+        <select class="form-control dropdown-skills" id="ModuleId">
+            <option value="0">Ընտրեք մոդուլը</option>
+        </select>
     </div>
     <div class="col-sm-1">
-        <input type="button" class="btn btn-default" onclick="moduleFilter()" value="Ֆիլտրել" />
+        <input type="button" class="btn btn-default dropdown-skills"style="margin-top:39px;" onclick="moduleFilter()" value="Ֆիլտրել" />
     </div>
- 
+
 </div>
 <div id="skill-container">
 
 </div>
+<style>
+    body {
+        padding-top: 0;
+    }
+
+    .container-renderbody {
+        margin-top: 0;
+    }
+</style>

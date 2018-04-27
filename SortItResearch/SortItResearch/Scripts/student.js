@@ -53,12 +53,6 @@ function showinfo() {
 
     $(".nav-button-services").find("a").addClass("active");
 }
-function lessonPartial(id) {
-    $('#lesson-container').empty();
-    $('#lesson-container').append("<div class='loader'></div>")
-    $('#lesson-container').load("/Student/Lesson/" + id);
-
-}
 function showProfileCertificates() {
     $("#profileInfo").css("display", "none");
     $("#profileCertificates").css("display", "block");
@@ -127,17 +121,20 @@ function uploadFinalAttachement() {
     var title = $('#title').val();
     var design = $('#design').val();
     var status = $('#status').val();
-
+    data.append("SubjectId", lessonId);
+    data.append("Category", category);
+    data.append("Description", description);
+    data.append("ShortDescription", shortDesc);
+    data.append("Title", title);
+    data.append("Design", design);
+    data.append("Status", status);
     //.val('/images/' + files[0].name);
     $.ajax({
         url: "/Student/FinalUpload/",
         type: "POST",
         processData: false,
         contentType: false,
-        data: {
-            SubjectId: lessonId, Category: category, Description: description,
-            ShortDescription: shortDesc, Title: title, Design: design, Status: status
-        },
+        data: data,
         success: function (response) {
             //code after success
             alert(response);
@@ -201,7 +198,8 @@ function enrollSubject(subjectId, listIds) {
             window.location.href = "/Student/MySubjects";
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert("You already have this course");
+            alert("Course selected");
+            window.location.href = "/Student/MySubjects";
         }
     })
 }
@@ -225,7 +223,7 @@ $(document).ready(function () {
 });
 
 function showAttachementUpload(lessonId) {
-    $("#createModule").show();
+    $(".createModule").show();
     $('#createModule').load("/Student/Attachement/?lessonId=" + lessonId);
 }
 
@@ -236,11 +234,11 @@ function showEnroll(id) {
     $('.btn-enroll').attr('id', id)
 }
 function showFinalUpload(lessonId) {
-    $("#createModule").show();
+    $(".createModule").show();
     $('#createModule').load("/Student/Final/?lessonId=" + lessonId);
 }
 
-function acceptRequest(id,status) {
+function acceptRequest(id, status) {
     $.ajax({
         type: "POST",
         url: "/Student/AcceptRequest",

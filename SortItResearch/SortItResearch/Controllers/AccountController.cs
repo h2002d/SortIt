@@ -75,21 +75,34 @@ namespace SortItResearch.Controllers
                 return View(model);
             }
 
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var user = await UserManager.FindAsync(model.Email, model.Password);
+
             if (user != null && !user.EmailConfirmed)
             {
                 return RedirectToAction("ConfirmAccount", new { email = model.Email });
             }
             else
             {
+                bool changed = false;
+                if (user!=null&&user.Roles.Count > 1)
+                {
+                    changed = true;
+                    UserManager.RemoveFromRole(user.Id, "Teacher");
+                }
                 var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
                 if (result == SignInStatus.Success)
                 {
+                    if (changed)
+                    {
+                        UserManager.AddToRole(user.Id, "Teacher");
+                        return RedirectToAction("SelectRole");
+                    }
 
                     var userInfo = new UserProfile(user.Id);
-                    if (userInfo == null)
+                    if (userInfo.Id == null)
                     {
                         return RedirectToAction("ProfileInfo", "Manage");
                     }
@@ -116,6 +129,46 @@ namespace SortItResearch.Controllers
                     }
                 }
             }
+        }
+
+        [Authorize]
+        public ActionResult SelectRole()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public ActionResult SelectedRole(string id)
+        {
+            if(id.Equals("88"))
+               return RedirectToAction("Index", "Home");
+            var authenticationManager = HttpContext.GetOwinContext().Authentication;
+            var user = UserManager.FindById(User.Identity.GetUserId());
+
+            //Log the user out
+            authenticationManager.SignOut();
+            if (id.Equals("88"))
+            {
+                UserManager.RemoveFromRole(user.Id, "Teacher");
+            }
+            else
+            {
+                UserManager.RemoveFromRole(user.Id, "Student");
+            }
+
+            //Log the user back in
+            var identity = UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+            authenticationManager.SignIn(new Microsoft.Owin.Security.AuthenticationProperties() { IsPersistent = true }, identity);
+
+            if (id.Equals("88"))
+            {
+                UserManager.AddToRole(user.Id, "Teacher");
+            }
+            else
+            {
+                UserManager.AddToRole(user.Id, "Student");
+            }
+            return RedirectToAction("Index", "Home");
         }
         [AllowAnonymous]
         public ActionResult ConfirmAccount(string email)
@@ -173,6 +226,15 @@ namespace SortItResearch.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
+        public ActionResult RegisterMain(string name,string surname,string email)
+        {
+            RegisterViewModel model = new RegisterViewModel();
+            model.Name = name;
+            model.LastName = surname;
+            model.Email = email;
+            return View("Register",model);
+        }
 
         //
         // POST: /Account/Register
@@ -204,7 +266,7 @@ namespace SortItResearch.Controllers
                     .Append("<p>Please confirm your email by clicking on the following link: <a href=\"" + callbackUrl + "\">Confirm link</a>");
                     SendMailModel.SendMail(user.Email, body.ToString(), "SortIt. Confirm email");
 
-                    
+
 
                     HttpCookie myCookie = new HttpCookie("Info");
                     myCookie["Name"] = model.Name;

@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "FindStudent";
+}
+<div class="container">
+    <p>Search for students selecting interest area or dissertation name</p>
+    <div class="row">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" id="keyword"/>
+            @Html.DropDownList("Interests",
+                                 new SelectList(ViewBag.Interests,
+                                           "Id", "Name"),
+                                            "--Select program--",
+                                new { @class = "form-control"})
+
+            <input type="button" onclick="filterStudents()" value="Search" />
+        </div>
+    </div>
+    <div class="row" id="studentContainer">
+
+    </div>
+</div>
+

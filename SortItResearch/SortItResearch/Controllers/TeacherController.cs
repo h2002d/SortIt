@@ -12,7 +12,7 @@ namespace SortItResearch.Controllers
 
     public class TeacherController : Controller
     {
-       
+
 
         // GET: Teacher
         public ActionResult Index()
@@ -55,7 +55,7 @@ namespace SortItResearch.Controllers
         }
 
         [Authorize(Roles = "Teacher")]
-        public ActionResult Subject(int id,string sId)
+        public ActionResult Subject(int id, string sId)
         {
             var subject = Models.MySubjectViewModel.GetSubjectByStudentIdById(sId, id);
             if (subject.Id == null)
@@ -91,7 +91,7 @@ namespace SortItResearch.Controllers
             try
             {
                 Progress.SetProgressStatus(id);
-                return Json("Աշխատանքը հաստատված է:",JsonRequestBehavior.AllowGet);
+                return Json("Աշխատանքը հաստատված է:", JsonRequestBehavior.AllowGet);
             }
             catch
             {
@@ -113,5 +113,19 @@ namespace SortItResearch.Controllers
             return View(certificate);
         }
 
+        [Authorize(Roles = "Teacher")]
+        public ActionResult FindStudent()
+        {
+            ViewBag.Interests = TopicArea.GetTopicArea(null);
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Teacher")]
+        public ActionResult FindStudentPartial(string keyword, int? interestId)
+        {
+            var researchTopics = ResearchTopics.GetTopicByInterestId(interestId, keyword);
+            return PartialView(researchTopics);
+        }
     }
 }

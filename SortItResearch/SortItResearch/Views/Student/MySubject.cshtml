@@ -2,9 +2,14 @@
 @{
     ViewBag.Title = Model.Name;
 }
+<div class="subject-header-content">
+    <div class="subject-header">
+        <h2>@Model.Name </h2>
+        <h3>@Model.Description</h3>
+    </div>
+</div>
 <div style="margin:0 20px 0 20px;">
-    <h2>@Model.Name </h2>
-    <h3>@Model.Description</h3>
+  
     <div class="row" style="padding-left:270px;">
         <nav class="main-menu">
             <ul class="nav-bar">
@@ -13,65 +18,67 @@
             </ul>
         </nav>
     </div>
-    <div id="learnings">
-        @if (!Model.isAccepted)
-        {
-            <p>Click  <a href="/Home/Findskill">here</a> to choose your facilitator </p>
-        }
-        else
-        {
-            <p>Facilitator: @ViewBag.Teacher.Name @ViewBag.Teacher.SurName </p>
-        }
-        @if (ViewBag.Passed)
-        {
-            <input type="button" class="btn btn-info" onclick="showFinalUpload(@Model.Id)" value="Upload" />
-        }
-        <div class="col-sm-3">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <!-- menu -->
-                        <div id="MainMenu">
-                            <div class="list-group panel">
-                                @{
-                                    int index = 3;
-                                    foreach (var item in ViewBag.Modules)
-                                    {
-                                        int dayIndex = 1;
-                                        <a href="@("#demo"+index)" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#MainMenu">@item.Name <i class="fa fa-caret-down"></i></a>
+    <div class="row">
+        <div id="learnings">
+            @if (!Model.isAccepted)
+            {
+                <p>Click  <a href="/Home/Findskill">here</a> to choose your facilitator </p>
+            }
+            else
+            {
+                <p>Facilitator: @ViewBag.Teacher.Name @ViewBag.Teacher.SurName </p>
+            }
+            @if (ViewBag.Passed)
+            {
+                <input type="button" class="btn btn-info" onclick="showFinalUpload(@Model.Id)" value="Upload" />
+            }
+            <div class="col-sm-3">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!-- menu -->
+                            <div id="MainMenu">
+                                <div class="list-group panel">
+                                    @{
+                                        int index = 3;
+                                        foreach (var item in ViewBag.Modules)
+                                        {
+                                            int dayIndex = 1;
+                                <a href="@("#demo"+index)" class="list-group-item list-group-item-success" data-toggle="collapse" data-parent="#MainMenu">@item.Name <i class="fa fa-caret-down"></i></a>
 
-                                        <div class="collapse" id="@("demo"+index)">
+                                <div class="collapse" id="@("demo"+index)">
 
-                                            @foreach (var day in item.ModuleDays)
+                                    @foreach (var day in item.ModuleDays)
                                             {
-                                                <a href="@("#SubMenu"+dayIndex)" style="border:none " class="list-group-item" data-toggle="collapse" data-parent="@("#SubMenu"+dayIndex)">@day.Name<i class="fa fa-caret-down"></i></a>
-                                                <div style="border:none " class="collapse list-group-submenu" id="@("SubMenu"+dayIndex)">
-                                                    @*<a href="#SubSubMenu1" class="list-group-item" data-toggle="collapse" data-parent="#SubSubMenu1">Subitem 3 c <i class="fa fa-caret-down"></i></a>
-                                                        <div class="collapse list-group-submenu list-group-submenu-1" id="SubSubMenu1">
-                                                            <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 1</a>
-                                                            <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 2</a>
-                                                        </div>*@
+                                            <a href="@("#SubMenu"+dayIndex)" style="border:none " class="list-group-item" data-toggle="collapse" data-parent="@("#SubMenu"+dayIndex)">@day.Name<i class="fa fa-caret-down"></i></a>
+                                            <div style="border:none " class="collapse list-group-submenu" id="@("SubMenu"+dayIndex)">
+                                                @*<a href="#SubSubMenu1" class="list-group-item" data-toggle="collapse" data-parent="#SubSubMenu1">Subitem 3 c <i class="fa fa-caret-down"></i></a>
+                                                    <div class="collapse list-group-submenu list-group-submenu-1" id="SubSubMenu1">
+                                                        <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 1</a>
+                                                        <a href="#" class="list-group-item" data-parent="#SubSubMenu1">Sub sub item 2</a>
+                                                    </div>*@
 
-                                                    @foreach (var lesson in day.Lessons)
+                                                @foreach (var lesson in day.Lessons)
                                                     {
-                                                        <a onclick="lessonPartial(@lesson.Id)" style="border:none" class="list-group-item" data-parent="#SubMenu1">@lesson.Name</a>
+                                                    <a onclick="lessonPartial(@lesson.Id)" style="border:none" class="list-group-item" data-parent="#SubMenu1">@lesson.Name</a>
                                                     }
-                                                </div>
+                                            </div>
                                                 dayIndex++;
                                             }
-                                        </div>
+                                </div>
                                         index++;
                                     }
-                                }
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
+            </div>
+            <div class="col-sm-9" id="lesson-container">
 
             </div>
-        </div>
-        <div class="col-sm-9" id="lesson-container">
-
         </div>
     </div>
     <div id="progress" style="display:none;">

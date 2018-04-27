@@ -39,7 +39,21 @@ namespace SortItResearch.Controllers
 
             return View();
         }
+        public ActionResult Lesson(int id)
+        {
+            var Lesson = Models.Lesson.GetLesson(id, null).First();
+           return PartialView(Lesson);
+        }
 
+        public ActionResult Course(int id)
+        {
+            var subject = Models.MySubjectViewModel.GetSubject(id).First();
+            var Modules = Models.Module.GetModulesBySubjectId(subject.Id);
+           
+            ViewBag.Modules = Modules;
+
+            return View(subject);
+        }
 
         [HttpPost]
         [Authorize]

@@ -4,7 +4,8 @@
         url: "/Manage/Requests",
         data: { t: token, accepted: accepted },
         success: function (data) {
-            alert("Դիմումը ուղարկված է")
+            alert("Դիմումը ուղարկված է");
+            window.location.href = '';
         },
         failure: function () {
             alert("Failed!");
@@ -47,4 +48,41 @@ function showProfileInfo() {
     $(".nav-button-profileCertificates").find("a").removeClass("active");
 
     $(".nav-button-profileInfo").find("a").addClass("active");
+}
+
+function filterStudents() {
+    var keyword = $('#keyword').val();
+    var interestId = $('#Interests').val();
+    $('#studentContainer').empty();
+    $.ajax({
+        type: "POST",
+        url: "/Teacher/FindStudentPartial/",
+        data: {
+            keyword: keyword,
+            interestId:interestId
+        },
+        success: function (data) {
+            $('#studentContainer').append(data);
+        },
+        failure: function (ex) {
+            alert(ex);
+        }
+    });
+}
+
+function requestStudent(userId,subjectId) {
+    $.ajax({
+        type: "POST",
+        url: "/Manage/SendRequestTeacher/",
+        data: {
+            tId: userId,
+            subId: subjectId
+        },
+        success: function (data) {
+            alert("Request Sent");
+        },
+        failure: function (ex) {
+            alert(ex);
+        }
+    });
 }

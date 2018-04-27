@@ -48,6 +48,43 @@ namespace SortItResearch.Controllers
         }
 
         [HttpPost]
+        public JsonResult FileUpload()
+        {
+            try
+            {
+                HttpPostedFile file = null;
+                if (System.Web.HttpContext.Current.Request.Files.AllKeys.Any())
+                {
+                    file = System.Web.HttpContext.Current.Request.Files["HttpPostedFileBase"];
+                }
+                string stamp = string.Format("{0:yyyy-MM-dd_hh-mm-ss-tt}", DateTime.Now);
+                string filename = file.FileName;
+                string pic = System.IO.Path.GetFileName(filename);
+                string thumbnailpic = System.IO.Path.GetFileName(file.FileName.Split('.')[0] + "_thumb." + file.FileName.Split('.')[1]);
+
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/images/subjects"), pic);
+                string thumbpath = System.IO.Path.Combine(
+                                        Server.MapPath("~/images/subjects"), thumbnailpic);
+                // file is uploaded
+                file.SaveAs(path);
+
+                ImageResizer.ResizeSettings resizeSetting = new ImageResizer.ResizeSettings
+                {
+                    Width = 285,
+                    Height = 175,
+                    Format = file.FileName.Split('.')[1]
+                };
+                ImageResizer.ImageBuilder.Current.Build(path, thumbpath, resizeSetting);
+                // after successfully uploading redirect the user
+                return Json("File Uploaded", JsonRequestBehavior.AllowGet);
+            }
+            catch
+            {
+                return Json("Eror");
+            }
+        }
+        [HttpPost]
         [Authorize(Roles = "Administrator")]
         public ActionResult DeleteSubject(int id)
         {
@@ -407,7 +444,6 @@ namespace SortItResearch.Controllers
                 cert.SubjectId = dissertation.SubjectId;
                 int certId = cert.Save();
                 var user = UserManager.FindById(dissertation.StudentId);
-                UserManager.RemoveFromRole(user.Id, "Student");
                 UserManager.AddToRole(user.Id, "Teacher");
                 var callbackUrl = Url.Action("Certificates", "Teacher", new { certId = certId }, protocol: Request.Url.Scheme);
 

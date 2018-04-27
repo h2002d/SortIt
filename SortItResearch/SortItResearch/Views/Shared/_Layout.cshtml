@@ -2,34 +2,18 @@
 <html class="no-js">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <meta property="og:title" content="Welcome to the SORT IT Operational Research and Training online course" />
     <meta property="og:image" content="http://www.sortitresearch.com/Images/logo.png" />
     <title>@ViewBag.Title - SortItResearch</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @{
-        var isHome = ViewContext.RouteData.Values["controller"].ToString().ToUpper() == "HOME";
-        var isIndex = ViewContext.RouteData.Values["action"].ToString().ToUpper() == "INDEX";
-    }
-    @if (isHome && isIndex)
-    {
-        <link href="~/Scripts/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="~/Content/css/animate.css" rel="stylesheet" type="text/css" />
-        <link href="~/Scripts/vendor/themify/themify.css" rel="stylesheet" type="text/css" />
-        <link href="~/Scripts/vendor/scrollbar/scrollbar.min.css" rel="stylesheet" type="text/css" />
-        <link href="~/Scripts/vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" />
-        <link href="~/Scripts/vendor/swiper/swiper.min.css" rel="stylesheet" type="text/css" />
-        <link href="~/Scripts/vendor/cubeportfolio/css/cubeportfolio.min.css" rel="stylesheet" type="text/css" />
 
-    <!-- Theme Styles -->
-    }
     <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/css/global/global.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
-    <div class="navbar navbar-custom navbar-fixed-top s-header js__header-sticky js__header-overlay " style="border-bottom-color:red;">
+    <div class="navbar navbar-custom navbar-fixed-top s-header js__header-sticky js__header-overlay ">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -37,11 +21,34 @@
                     <span class="icon-bar icon-bar-bg"></span>
                     <span class="icon-bar icon-bar-bg"></span>
                 </button>
-                <a href="~/" class="navbar-brand"><img src="~/images/logosmall.png" /></a>
+                @*<div class="top-social-icons">
+                        <img src="~/images/facebook.png" />
+                        <img src="~/images/github.png" />
+                        <img src="~/images/linkedin.png" />
+                        <img src="~/images/twitter.png" />
+                        <img src="~/images/vimeo.png" />
+                    </div>*@
             </div>
+            <br />
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
+                    <a href="/">
+                        <img src="~/images/logox.png" style="height:100%;width:auto" />
+                    </a>
+                    @*<li class="new-menu-li">@Html.ActionLink("Programs", "Subject", "Admin")</li>
+                        <li>@Html.ActionLink("Topics", "Lessons", "Admin")</li>
+                        <li>@Html.ActionLink("Tests", "Tests", "Admin")</li>
+                        <li>@Html.ActionLink("Students", "Students", "Admin")</li>*@
+                    @if (!this.User.IsInRole("Administrator"))
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Publications", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Participants", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Facilitators", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Ongoing projects", "Index", "Home")</li>
+                        <li>@Html.ActionLink("FAQ", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Contacts", "Contact", "Home")</li>
+                    }
                     @if (this.User.IsInRole("Administrator"))
                     {
                         <li>@Html.ActionLink("Programs", "Subject", "Admin")</li>
@@ -68,26 +75,47 @@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
+
     </div>
-    <div style="margin-top:50px;">
+    <div class="container-renderbody">
         @RenderBody()
+        <hr />
+        <div class="footer">
+            <div class="col-sm-7">
+                <div style="height:120px;"></div>
+                <div class="row">
+                    <hr />
+                    <div class="col-sm-6">
+                        <p>&copy; @DateTime.Now.Year - SortIt Research</p>
+                    </div>
+                    <div class="col-sm-6 footer-container">
+                        <div class="col-sm-4">
+                            <a href="#">Privacy<br />Policy</a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="#">Refund <br /> Policy</a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="#">Terms</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="col-sm-5" style="padding-top:105px;">
+                    <span style="font-weight:700;font-size:12px;">Subscribe to newsletter</span><br />
+                    <span style="font-size:10px;">Get new template news</span><br />
+                    <input type="text" class="subscribe-text" placeholder="Email Address" />
+                    <input type="button" class="subscribe-button" value="Subscribe" />
+                </div>*@
 
-        @*@if (!(isHome && isIndex))
-        {
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - SortIt Research</p>
-            </footer>
-        }*@
+        </div>
     </div>
 
-    @if (!(isHome && isIndex))
-    {
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @Scripts.Render("~/bundles/jqueryval")
-        @RenderSection("scripts", required: false)
-    }
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+
     @{if (this.User.IsInRole("Administrator"))
         {
             <script src="~/Scripts/admin.js"></script>
@@ -103,19 +131,93 @@
     }
 
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>*@
+    @*<script type="text/javascript" src="~/Scripts/global.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/header-sticky.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/scrollbar.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/magnific-popup.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/swiper.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/counter.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/portfolio-3-col.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/parallax.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/google-map.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/wow.min.js"></script>*@
+
     <script type="text/javascript">
 
         $(document).ready(function () {
             var scroll_pos = 0;
+            var scroll_pos_default = $(this).scrollTop();
+            if (scroll_pos_default > 0) {
+                $(".navbar-custom").css('background-color', '#fff');
+                $(".navbar-nav").find('li').find('a').css('color', '#716F74');
+                $(".navbar-custom").css('box-shadow', '0px 0px 8px 2px rgba(0, 0, 0, 0.5)');
+
+            } else {
+                $(".navbar-custom").css('background-color', 'transparent');
+                $(".navbar-nav").find('li').find('a').css('color', '#fff');
+                $(".navbar-custom").css('box-shadow', 'none');
+            }
             $(window).scroll(function () {
                 scroll_pos = $(this).scrollTop();
-                
+
                 if (scroll_pos > 0) {
                     $(".navbar-custom").css('background-color', '#fff');
+                    $(".navbar-nav").find('li').find('a').css('color', '#716F74');
+                    $(".navbar-custom").css('box-shadow', '0px 0px 8px 2px rgba(0, 0, 0, 0.5)');
+
                 } else {
-                    $(".navbar-custom").css('background-color', 'none');
+                    $(".navbar-custom").css('background-color', 'transparent');
+                    $(".navbar-nav").find('li').find('a').css('color', '#fff');
+                    $(".navbar-custom").css('box-shadow', 'none');
                 }
-            } );
+            });
+            $("#test-circle").circliful({
+                animation: 1,
+                animationStep: 2,
+                foregroundBorderWidth: 5,
+                backgroundBorderWidth: 5,
+                percent: 12,
+                textSize: 12,
+                textStyle: 'font-size: 12px;',
+                textColor: '#666',
+                replacePercentageByText: '12 Teacher'
+            });
+            $("#test-circle1").circliful({
+                animation: 1,
+                animationStep: 2,
+                foregroundBorderWidth: 5,
+                backgroundBorderWidth: 5,
+                percent: 87,
+                textSize: 12,
+                textStyle: 'font-size: 12px;',
+                textColor: '#666',
+                replacePercentageByText: '329 Learner'
+            });
+            $("#test-circle2").circliful({
+                animation: 1,
+                animationStep: 2,
+                foregroundBorderWidth: 5,
+                backgroundBorderWidth: 5,
+                percent: 60,
+                textSize: 12,
+                textStyle: 'font-size: 12px;',
+                textColor: '#666',
+                replacePercentageByText: '124 Lessons'
+            });
+            $("#test-circle3").circliful({
+                animation: 1,
+                animationStep: 2,
+                foregroundBorderWidth: 5,
+                backgroundBorderWidth: 5,
+                percent: 60,
+                textSize: 12,
+                textStyle: 'font-size: 12px;',
+                textColor: '#666',
+                replacePercentageByText: '124 Quizes'
+            });
             $('.skillContainer input:checkbox').change(function () {
                 if ($(this).parent().find('input:checkbox:checked').length == $(this).parent().find('input:checkbox').length) {
                     $(this).parent().parent().find('.skillSubject').prop('checked', true);
@@ -147,16 +249,14 @@
                 else $(this).find('span').html('&#x25BC;')
             });
             $("input:radio[name=isTeacher]").change(function () {
-                if ($(this).val() == 'True')
-                {
-                    $('.dissertationLink').css('display','block')
+                if ($(this).val() == 'True') {
+                    $('.dissertationLink').css('display', 'block')
                 }
                 else {
                     $('.dissertationLink').css('display', 'none')
                 }
             });
-          console.log(scroll_pos);
-           
+
         });
         function skillsSave() {
             var searchIDs = $(".skillContainer input:checkbox:checked").map(function () {
@@ -191,7 +291,12 @@
         //    });
         //});
 
-
+        function registrationPage() {
+            name = $('#name').val();
+            surname = $('#surname').val();
+            email = $('#email').val();
+            window.location.href = '/Account/RegisterMain?name=' + name + '&surname=' + surname + '&email=' + email;
+        }
         $(".signup_link").click(function () {
             window.location.href = "/Account/Register"
             //$(".signin_form").css('opacity', '0');
@@ -219,6 +324,12 @@
             window.location.href = "/Student/Tests/" + id;
         }
 
+        function lessonPartial(id) {
+            $('#lesson-container').empty();
+            $('#lesson-container').append("<div class='loader'></div>")
+            $('#lesson-container').load("/Home/Lesson/" + id);
+
+        }
         function sendRequest(tid) {
             $.ajax({
                 type: "POST",
@@ -251,7 +362,7 @@
         }
 
         function OnSuccess(response) {
-         
+
             alert(response);
         }
         function OnFailure(response) {

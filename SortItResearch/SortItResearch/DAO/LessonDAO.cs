@@ -28,7 +28,11 @@ namespace SortItResearch.DAO
                         command.Parameters.AddWithValue("@Description", lesson.Description);
                         command.Parameters.AddWithValue("@SubjectId", lesson.SubjectId);
                         command.Parameters.AddWithValue("@Duration", lesson.Duration);
-                        command.Parameters.AddWithValue("@Facilitator", lesson.Facilitator);
+                        if(lesson.Facilitator==null)
+                        command.Parameters.AddWithValue("@Facilitator", DBNull.Value);
+                        else
+                            command.Parameters.AddWithValue("@Facilitator", lesson.Facilitator);
+
                         if (lesson.Presentation == null)
                             command.Parameters.AddWithValue("@Presentation", DBNull.Value);
                         else

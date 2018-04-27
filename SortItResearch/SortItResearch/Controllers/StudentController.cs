@@ -148,7 +148,7 @@ namespace SortItResearch.Controllers
                 // after successfully uploading redirect the user
                 return Json("Ավարտական աշխատանքը վերբեռնված է", JsonRequestBehavior.AllowGet);
             }
-            catch
+            catch(Exception ex)
             {
                 return Json("ՁՍԽՈՂՈՒՄ:Ավարտական աշխատանքը վերբեռնված չէ");
             }
@@ -236,7 +236,7 @@ namespace SortItResearch.Controllers
                 int r = rnd.Next(question.Count());
                 if (!randomList.Contains(r))
                     randomList.Add(r);
-                if (randomList.Count >= 3)
+                if (randomList.Count >= 10)
                     break;
             }
             foreach (int item in randomList)
