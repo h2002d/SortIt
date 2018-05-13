@@ -3,8 +3,13 @@
     ViewBag.Title = "Failed";
 }
 
+<div class="subject-header-content">
+    <div class="subject-header">
+        <h2>FAIL</h2>
+    </div>
+</div>
 <div align="center">
-    <h1>Թեստը ձախողված է</h1>
-    <input type="button" value="Կրկին անցնել" class="btn btn-info" onclick="retryTest(@Model)" />
+    <h1>You failed the tests</h1>
+    <input type="button" value="Try again" class="btn btn-info" onclick="retryTest(@Model)" />
 </div>
 

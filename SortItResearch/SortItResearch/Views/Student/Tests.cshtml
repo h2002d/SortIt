@@ -2,14 +2,20 @@
 @{
     ViewBag.Title = "Tests";
 }
+
+<div class="subject-header-content">
+    <div class="subject-header">
+        <h2>Test</h2>
+    </div>
+</div>
 @if (ViewBag.IsPassed)
 {
-    <h2>Այս թեմայի համար թեստն արդեն գրված է</h2>
+    <h2>You have already passed the test</h2>
 }
 else
 {
     <div class="testContainer" align="center">
-        <h2>ԹԵՍՏ</h2>
+       
         @foreach (var question in Model)
         {
             <div class="form-control test-div" id="@question.Id" style="margin-top:20px;">
@@ -31,6 +37,6 @@ else
             </div>
             <hr />
         }
-        <input type="button" value="Ավարտել" class="btn btn-success" onclick="submitAnswers()" />
+        <input type="button" value="Submit" class="btn btn-success" onclick="submitAnswers()" />
     </div>
 }

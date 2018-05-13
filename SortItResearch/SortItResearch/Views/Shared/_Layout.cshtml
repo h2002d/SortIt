@@ -13,7 +13,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-custom navbar-fixed-top s-header js__header-sticky js__header-overlay ">
+    <div class="navbar navbar-custom navbar-fixed-top s-header js__header-sticky js__header-overlay " style="line-height:5px;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -32,9 +32,11 @@
             <br />
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <a href="/">
-                        <img src="~/images/logox.png" style="height:100%;width:auto" />
-                    </a>
+                    <li>
+                        <a href="/" style="padding:0;">
+                            <img id="menu-logo" src="~/images/logox.png" style="height:100%;width:auto" />
+                        </a>
+                    </li>
                     @*<li class="new-menu-li">@Html.ActionLink("Programs", "Subject", "Admin")</li>
                         <li>@Html.ActionLink("Topics", "Lessons", "Admin")</li>
                         <li>@Html.ActionLink("Tests", "Tests", "Admin")</li>
@@ -42,10 +44,7 @@
                     @if (!this.User.IsInRole("Administrator"))
                     {
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Publications", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Participants", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Facilitators", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Ongoing projects", "Index", "Home")</li>
+                      <li>@Html.ActionLink("Ongoing projects", "Index", "Home")</li>
                         <li>@Html.ActionLink("FAQ", "Index", "Home")</li>
                         <li>@Html.ActionLink("Contacts", "Contact", "Home")</li>
                     }
@@ -154,11 +153,12 @@
                 $(".navbar-custom").css('background-color', '#fff');
                 $(".navbar-nav").find('li').find('a').css('color', '#716F74');
                 $(".navbar-custom").css('box-shadow', '0px 0px 8px 2px rgba(0, 0, 0, 0.5)');
-
+                $('#menu-logo').attr('src','/images/logo.png');
             } else {
                 $(".navbar-custom").css('background-color', 'transparent');
                 $(".navbar-nav").find('li').find('a').css('color', '#fff');
                 $(".navbar-custom").css('box-shadow', 'none');
+                $('#menu-logo').attr('src','/images/logox.png');
             }
             $(window).scroll(function () {
                 scroll_pos = $(this).scrollTop();
@@ -167,11 +167,12 @@
                     $(".navbar-custom").css('background-color', '#fff');
                     $(".navbar-nav").find('li').find('a').css('color', '#716F74');
                     $(".navbar-custom").css('box-shadow', '0px 0px 8px 2px rgba(0, 0, 0, 0.5)');
-
+                    $('#menu-logo').attr('src', '/images/logo.png');
                 } else {
                     $(".navbar-custom").css('background-color', 'transparent');
                     $(".navbar-nav").find('li').find('a').css('color', '#fff');
                     $(".navbar-custom").css('box-shadow', 'none');
+                    $('#menu-logo').attr('src', '/images/logox.png');
                 }
             });
             $("#test-circle").circliful({
@@ -327,7 +328,7 @@
         function lessonPartial(id) {
             $('#lesson-container').empty();
             $('#lesson-container').append("<div class='loader'></div>")
-            $('#lesson-container').load("/Home/Lesson/" + id);
+            $('#lesson-container').load("/Student/Lesson/" + id);
 
         }
         function sendRequest(tid) {
@@ -336,7 +337,7 @@
                 url: "/Manage/SendRequest",
                 data: { tId: tid, subId: $("#SubjectId").val() },
                 success: function (data) {
-                    alert("Դիմումը ուղարկված է")
+                    alert("Request was sent")
                 },
                 failure: function () {
                     alert("Failed!");

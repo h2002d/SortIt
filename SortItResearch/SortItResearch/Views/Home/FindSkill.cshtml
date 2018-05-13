@@ -4,27 +4,27 @@
 }
 <div class="subject-header-content">
     <div class="subject-header">
-        <h3>Փնտրեք ղեկավարին ըստ դասընթացների</h3>
+        <h3>Choose your faciltator</h3>
     </div>
 </div>
 <div class="row" style="margin: 55px 0 50px 90px">
     <div class="col-sm-2">
-        <p>Դասընթացը</p>
+        <p>Topic</p>
         @Html.DropDownList("SubjectId",
                                  new SelectList(ViewBag.Subjects,
                                            "Id", "Name"),
-                                            "--Ընտրեք դասընթացը--",
+                                            "--Choose topic--",
                                 new { @class = "form-control dropdown-skills",@onChange= "GetDropDownData()" })
     </div>
     <div class="col-sm-2">
-        <p>Մոդուլը</p>
+        <p>Module</p>
 
         <select class="form-control dropdown-skills" id="ModuleId">
-            <option value="0">Ընտրեք մոդուլը</option>
+            <option value="0">Select Module</option>
         </select>
     </div>
     <div class="col-sm-1">
-        <input type="button" class="btn btn-default dropdown-skills"style="margin-top:39px;" onclick="moduleFilter()" value="Ֆիլտրել" />
+        <input type="button" class="btn btn-default dropdown-skills"style="margin-top:39px;" onclick="moduleFilter()" value="Filter" />
     </div>
 
 </div>

@@ -13,7 +13,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-custom navbar-fixed-top s-header js__header-sticky js__header-overlay ">
+    <div class="navbar navbar-custom navbar-fixed-top s-header js__header-sticky js__header-overlay " style="line-height:5px;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,29 +22,32 @@
                     <span class="icon-bar icon-bar-bg"></span>
                 </button>
                 @*<div class="top-social-icons">
-                    <img src="~/images/facebook.png" />
-                    <img src="~/images/github.png" />
-                    <img src="~/images/linkedin.png" />
-                    <img src="~/images/twitter.png" />
-                    <img src="~/images/vimeo.png" />
-                </div>*@
+                        <img src="~/images/facebook.png" />
+                        <img src="~/images/github.png" />
+                        <img src="~/images/linkedin.png" />
+                        <img src="~/images/twitter.png" />
+                        <img src="~/images/vimeo.png" />
+                    </div>*@
             </div>
             <br />
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-
+                    <li>
+                        <a href="/" style="padding:0;">
+                            <img id="menu-logo" src="~/images/logox.png" style="height:100%;width:auto" />
+                        </a>
+                    </li>
                     @*<li class="new-menu-li">@Html.ActionLink("Programs", "Subject", "Admin")</li>
-                    <li>@Html.ActionLink("Topics", "Lessons", "Admin")</li>
-                    <li>@Html.ActionLink("Tests", "Tests", "Admin")</li>
-                    <li>@Html.ActionLink("Students", "Students", "Admin")</li>*@
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Publications", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Participants", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Facilitators", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Ongoing projects", "Index", "Home")</li>
-                    <li>@Html.ActionLink("FAQ", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Contacts", "Contact", "Home")</li>
-
+                        <li>@Html.ActionLink("Topics", "Lessons", "Admin")</li>
+                        <li>@Html.ActionLink("Tests", "Tests", "Admin")</li>
+                        <li>@Html.ActionLink("Students", "Students", "Admin")</li>*@
+                    @if (!this.User.IsInRole("Administrator"))
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                      <li>@Html.ActionLink("Ongoing projects", "Index", "Home")</li>
+                        <li>@Html.ActionLink("FAQ", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Contacts", "Contact", "Home")</li>
+                    }
                     @if (this.User.IsInRole("Administrator"))
                     {
                         <li>@Html.ActionLink("Programs", "Subject", "Admin")</li>
@@ -97,12 +100,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-5" style="padding-top:105px;">
-                <span style="font-weight:700;font-size:12px;">Subscribe to newsletter</span><br />
-                <span style="font-size:10px;">Get new template news</span><br />
-                <input type="text" class="subscribe-text" placeholder="Email Address" />
-                <input type="button" class="subscribe-button" value="Subscribe" />
-            </div>
+            @*<div class="col-sm-5" style="padding-top:105px;">
+                    <span style="font-weight:700;font-size:12px;">Subscribe to newsletter</span><br />
+                    <span style="font-size:10px;">Get new template news</span><br />
+                    <input type="text" class="subscribe-text" placeholder="Email Address" />
+                    <input type="button" class="subscribe-button" value="Subscribe" />
+                </div>*@
 
         </div>
     </div>
@@ -129,17 +132,17 @@
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
 
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>*@
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>*@
     @*<script type="text/javascript" src="~/Scripts/global.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/components/header-sticky.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/components/scrollbar.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/components/magnific-popup.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/components/swiper.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/components/counter.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/components/portfolio-3-col.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/components/parallax.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/components/google-map.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/components/wow.min.js"></script>*@
+        <script type="text/javascript" src="~/Scripts/components/header-sticky.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/scrollbar.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/magnific-popup.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/swiper.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/counter.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/portfolio-3-col.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/parallax.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/google-map.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/components/wow.min.js"></script>*@
 
     <script type="text/javascript">
 
@@ -149,12 +152,13 @@
             if (scroll_pos_default > 0) {
                 $(".navbar-custom").css('background-color', '#fff');
                 $(".navbar-nav").find('li').find('a').css('color', '#716F74');
-                $(".navbar-custom").css('box-shadow','0px 0px 8px 2px rgba(0, 0, 0, 0.5)');
-
+                $(".navbar-custom").css('box-shadow', '0px 0px 8px 2px rgba(0, 0, 0, 0.5)');
+                $('#menu-logo').attr('src','/images/logo.png');
             } else {
                 $(".navbar-custom").css('background-color', 'transparent');
                 $(".navbar-nav").find('li').find('a').css('color', '#fff');
                 $(".navbar-custom").css('box-shadow', 'none');
+                $('#menu-logo').attr('src','/images/logox.png');
             }
             $(window).scroll(function () {
                 scroll_pos = $(this).scrollTop();
@@ -163,11 +167,12 @@
                     $(".navbar-custom").css('background-color', '#fff');
                     $(".navbar-nav").find('li').find('a').css('color', '#716F74');
                     $(".navbar-custom").css('box-shadow', '0px 0px 8px 2px rgba(0, 0, 0, 0.5)');
-
+                    $('#menu-logo').attr('src', '/images/logo.png');
                 } else {
                     $(".navbar-custom").css('background-color', 'transparent');
                     $(".navbar-nav").find('li').find('a').css('color', '#fff');
                     $(".navbar-custom").css('box-shadow', 'none');
+                    $('#menu-logo').attr('src', '/images/logox.png');
                 }
             });
             $("#test-circle").circliful({
@@ -320,13 +325,19 @@
             window.location.href = "/Student/Tests/" + id;
         }
 
+        function lessonPartial(id) {
+            $('#lesson-container').empty();
+            $('#lesson-container').append("<div class='loader'></div>")
+            $('#lesson-container').load("/Student/Lesson/" + id);
+
+        }
         function sendRequest(tid) {
             $.ajax({
                 type: "POST",
                 url: "/Manage/SendRequest",
                 data: { tId: tid, subId: $("#SubjectId").val() },
                 success: function (data) {
-                    alert("Դիմումը ուղարկված է")
+                    alert("Request was sent")
                 },
                 failure: function () {
                     alert("Failed!");

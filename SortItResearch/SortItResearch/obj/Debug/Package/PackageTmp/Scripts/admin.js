@@ -283,11 +283,11 @@ function changeRole(id,roleId) {
             roleId:roleId
         },
         success: function () {
-            alert("Հաջողությամբ փոխված է")
+            alert("Role changed successfuly")
             location.reload();
         },
         error: function (data) {
-            alert("խնդիր");
+            alert("Fail");
         }
     });
 }

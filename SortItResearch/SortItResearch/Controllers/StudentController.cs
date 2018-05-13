@@ -83,11 +83,11 @@ namespace SortItResearch.Controllers
                 homework.Save();
                 SendMail(homework);
                 // after successfully uploading redirect the user
-                return Json("Աշխատանքը վերբեռնված է", JsonRequestBehavior.AllowGet);
+                return Json("Work successfuly uploaded", JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json("ՁՍԽՈՂՈՒՄ:Աշխատանքը վերբեռնված չէ");
+                return Json("Fail");
             }
         }
 
@@ -105,22 +105,22 @@ namespace SortItResearch.Controllers
                 homework.Save();
                 SendMail(homework);
                 // after successfully uploading redirect the user
-                return Json("Թեման ավարտված է", JsonRequestBehavior.AllowGet);
+                return Json("Topic completed", JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json("ՁՍԽՈՂՈՒՄ:");
+                return Json("Fail!");
             }
         }
 
         public void SendMail(Progress work)
         {
             var Teacher = UserProfile.GetTeacherByStudentLessonId(work.StudentId, work.LessonId);
-            string link = string.Format("<div class='row' style='border:1px solid #808080' align='center'><p style='color:red'>Դուք ունեք նոր դիմում</p>" +
+            string link = string.Format("<div class='row' style='border:1px solid #808080' align='center'><p style='color:red'>New homework uploaded</p>" +
                 "<a href='http://{0}/Files/homeworks/{1}'>{1}</a>" +
-                "<input type='button' value='Հաստատել' onclick='javascript::window.location.href='http://{0}/Teacher/Works''></div>", Request.Url.Authority, work.Attachement);
+                "<input type='button' value='Approve' onclick='window.location.href='http://{0}/Teacher/Works''></div>", Request.Url.Authority, work.Attachement);
 
-            SendMailModel.SendMail(Teacher.Email, link, "SortIt. Նոր աշխատանք");
+            SendMailModel.SendMail(Teacher.Email, link, "SortIt.Work published");
         }
 
         [HttpPost]
@@ -146,11 +146,11 @@ namespace SortItResearch.Controllers
                 newDissertation.StudentId = User.Identity.GetUserId();
                 newDissertation.Save();
                 // after successfully uploading redirect the user
-                return Json("Ավարտական աշխատանքը վերբեռնված է", JsonRequestBehavior.AllowGet);
+                return Json("Research uploaded", JsonRequestBehavior.AllowGet);
             }
             catch(Exception ex)
             {
-                return Json("ՁՍԽՈՂՈՒՄ:Ավարտական աշխատանքը վերբեռնված չէ");
+                return Json("Failed!");
             }
         }
 
@@ -207,7 +207,7 @@ namespace SortItResearch.Controllers
             var callbackUrl = Url.Action("SendRequestTeacher", "Manage", new { tId = User.Identity.GetUserId(), subId = subject }, protocol: Request.Url.Scheme);
             foreach (var user in users)
             {
-                SendMailModel.SendMail(user.Email, string.Format("Dear {0} {1}, <br> We have new student matching your account. Student name {2} {3}", currentUser.Name, currentUser.SurName, user.Name, user.SurName), string.Format("SortIt.Interest matching for {0} {1}", currentUser.Name, currentUser.SurName));
+                SendMailModel.SendMail(user.Email, string.Format("Dear {0} {1}, <br> We have new student matching your account. Student name {2} {3}", user.Name, user.SurName, currentUser.Name, currentUser.SurName), string.Format("SortIt.Interest matching for {0} {1}", currentUser.Name, currentUser.SurName));
             }
         }
 
@@ -236,7 +236,7 @@ namespace SortItResearch.Controllers
                 int r = rnd.Next(question.Count());
                 if (!randomList.Contains(r))
                     randomList.Add(r);
-                if (randomList.Count >= 10)
+                if (randomList.Count >= 3)
                     break;
             }
             foreach (int item in randomList)

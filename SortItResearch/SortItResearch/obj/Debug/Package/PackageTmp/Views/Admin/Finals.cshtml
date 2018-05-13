@@ -3,26 +3,42 @@
     ViewBag.Title = "Finals";
 }
 
-<h2>Finals</h2>
-@foreach (var item in Model)
-{
-    <div class="row">
-        <div class="col-sm-10">
-            <span>@item.Student.Name @item.Student.SurName @item.Category @item.Design @item.ShortDescription @item.Status</span>
-           
-            <a href="~/Files/dissertations/@item.Attachement">@item.Attachement</a>
-        </div>
-        <div class="col-sm-2">
-            @if (!item.Accepted)
-            {
-
-                <input type="button" class="btn btn-info" onclick="changeFinalStatus(@item.Id)" value="Հաստատել" />
-
-            }
-            else
-            {
-                <span style="color:green">ՀԱՍՏԱՏՎԱԾ Է</span>
-            }
-        </div>
+<div class="subject-header-content">
+    <div class="subject-header">
+        <h2>Finals</h2>
     </div>
-}
+</div>
+<table class="subjectTable" id="subject">
+    <tr>
+        <th>Student</th>
+        <th>Category</th>
+        <th>Design</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Attachement</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Student.Name @item.Student.SurName</td>
+            <td>@item.Category</td>
+            <td>@item.Design</td>
+            <td>@item.ShortDescription</td>
+            <td>@item.Status</td>
+            <td><a href="~/Files/dissertations/@item.Attachement">@item.Attachement</a></td>
+            <td>
+                @if (!item.Accepted)
+                {
+
+                    <input type="button" class="btn btn-info" onclick="changeFinalStatus(@item.Id)" value="Approve" />
+
+                }
+                else
+                {
+                    <span style="color:green">Approved</span>
+                }
+            </td>
+        </tr>
+    }
+</table>

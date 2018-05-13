@@ -477,10 +477,10 @@ namespace SortItResearch.Controllers
             int token = newInvite.Save();
             if (token == -55)
             {
-                throw new HttpException(404, "Some description");
+                throw new Exception();
             }
-            string link = string.Format("<p style=\"color:red\">Դուք ունեք նոր դիմում</p><a href=\"{0}/Manage/Requests?t={1}\">{0}/Manage/Requests?t={1}</a>", Request.Url.Authority, token.ToString());
-            SendMailModel.SendMail(UserManager.FindByIdAsync(tId).Result.Email, link, "SortIt. Դուք ունեք նոր դիմում");
+            string link = string.Format("<p style=\"color:red\">Incoming request</p><a href=\"{0}/Manage/Requests?t={1}\">{0}/Manage/Requests?t={1}</a>", Request.Url.Authority, token.ToString());
+            SendMailModel.SendMail(UserManager.FindByIdAsync(tId).Result.Email, link, "SortIt. New request");
             return null;
         }
         
@@ -500,8 +500,8 @@ namespace SortItResearch.Controllers
             {
                 throw new HttpException(404, "Some description");
             }
-            string link = string.Format("<p style=\"color:red\">Դուք ունեք նոր դիմում</p><a href=\"{0}/Manage/Requests?t={1}\">{0}/Manage/Requests?t={1}</a>", Request.Url.Authority, token.ToString());
-            SendMailModel.SendMail(UserManager.FindByIdAsync(tId).Result.Email, link, "SortIt. Դուք ունեք նոր դիմում");
+            string link = string.Format("<p style=\"color:red\">New request pending</p><a href=\"{0}/Manage/Requests?t={1}\">{0}/Manage/Requests?t={1}</a>", Request.Url.Authority, token.ToString());
+            SendMailModel.SendMail(UserManager.FindByIdAsync(tId).Result.Email, link, "SortIt. New Request");
             return RedirectToAction("Action");
         }
         [Authorize(Roles = "Teacher")]

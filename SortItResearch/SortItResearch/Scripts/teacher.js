@@ -4,7 +4,7 @@
         url: "/Manage/Requests",
         data: { t: token, accepted: accepted },
         success: function (data) {
-            alert("Դիմումը ուղարկված է");
+            alert("Request sent");
             window.location.href = '';
         },
         failure: function () {

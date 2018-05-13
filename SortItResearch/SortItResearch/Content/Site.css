@@ -467,10 +467,25 @@ a {
 
 .subject-col {
     padding: 50px;
+    border-bottom:1px solid rgb(195,195,195);
+}
+input.btn-enroll-subject {
+    background-color: white;
+    box-shadow: none;
+    border: 1px solid rgb(195,195,195);
+    padding: 5px 20px;
 }
 
+    input.btn-enroll-subject:hover {
+        background-color: rgb(39,95,180);
+        color: white;
+        box-shadow: none;
+        border: 1px solid rgb(195,195,195);
+        padding: 5px 20px;
+    }
+
 .item-div {
-    border: 1px solid #0adffc;
+    border: 1px solid rgb(195,195,195);
     min-height: 200px;
     cursor: pointer;
 }
@@ -899,3 +914,13 @@ a {
     .main-header{
         text-align:center;
     }
+.course-header {
+    background-color: rgb(39,95,180);
+    color:white;
+    font-size:15px;
+    padding:15px 5px;
+    margin-bottom:30px;
+}
+.course-item {
+    margin: 0 10px 20px 10px;
+}

@@ -3,25 +3,29 @@
     ViewBag.Title = "Requests";
 }
 
+<div class="subject-header-content">
+    <div class="subject-header">
+        <h3>Facilitator request</h3>
+    </div>
+</div>
 @if (!Model.Accepted)
 {
-    <p>Դուք ունեք հայտ @ViewBag.Inviter.Name @ViewBag.Inviter.SurName</p>
-    <div align="center" class="row centered-div">
-        <div class="col-md-6">
-            <input type="button" value="Ընդունել" onclick="sendRequestApproval('@Model.Id',true)" class="btn btn-info" />
-        </div>
-        <div class="col-md-6">
-            <input type="button" value="Մերժել" onclick="sendRequestApproval('@Model.Id',false)" class="btn btn-default" />
+    <div align="center" class="row">
+        <div class="col-md-12">
+            <p>You have one incomming request from @ViewBag.Inviter.Name @ViewBag.Inviter.SurName</p>
+
+            <input type="button" value="Accept" onclick="sendRequestApproval('@Model.Id',true)" class="btn btn-info" />
+            <input type="button" value="Decline" onclick="sendRequestApproval('@Model.Id',false)" class="btn btn-default" />
         </div>
     </div>
 }
 else
 {
-    <div align="center" class="row centered-div">
+    <div align="center" class="row">
         <div class="col-sm-12">
-            <span style="font-size:30px;">Այս հայտը արդեն ուղարկված է</span>
+            <span style="font-size:30px;">The request already sent</span>
             <br />
-            <span>վերադառնալ <a href="~/">գլխավոր</a> էջ</span>
+            <span>return to <a href="~/">home</a> page</span>
         </div>
     </div>
 }

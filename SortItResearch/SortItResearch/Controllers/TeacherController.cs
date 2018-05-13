@@ -91,11 +91,11 @@ namespace SortItResearch.Controllers
             try
             {
                 Progress.SetProgressStatus(id);
-                return Json("Աշխատանքը հաստատված է:", JsonRequestBehavior.AllowGet);
+                return Json("Work approved", JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json("Փորձեք կրկին:", JsonRequestBehavior.AllowGet);
+                return Json("Fail!", JsonRequestBehavior.AllowGet);
             }
         }
 

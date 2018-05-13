@@ -370,7 +370,7 @@ namespace SortItResearch.Controllers
             foreach (var user in users)
             {
                 UserProfile profile = new UserProfile(user.Id);
-                profile.isTeacher = true;
+                profile.isTeacher = false;
                 profiles.Add(profile);
             }
             return View(profiles);
@@ -448,15 +448,15 @@ namespace SortItResearch.Controllers
                 var callbackUrl = Url.Action("Certificates", "Teacher", new { certId = certId }, protocol: Request.Url.Scheme);
 
                 string email = dissertation.Student.Email;
-                string body = string.Format("Հարգելի {0} {1}, Ձեր աշխատությունը հաստատված է ադմինիստրատորի կողմից:</br> Սերտիֆիկատ գեներացնելու և հաստատելու համար անցեք <a href='{2}'>հղումով</a>", dissertation.Student.Name, dissertation.Student.SurName, callbackUrl);
-                string subject = "SortIt.Աշխատությունը հաստատված է";
+                string body = string.Format("Dear {0} {1}, Your research was approved by administrator:</br> Follow the <a href='{2}'>link</a> to generate a certificate", dissertation.Student.Name, dissertation.Student.SurName, callbackUrl);
+                string subject = "SortIt.Research approved";
                 SendMailModel.SendMail(email, body, subject);
 
-                return Json("Աշխատանքը հաստատվել է");
+                return Json("Research approved");
             }
             catch (Exception ex)
             {
-                return Json("ՁԱԽՈՂՈՒՄ:Չի հաստատվել:", JsonRequestBehavior.AllowGet);
+                return Json("Fail!", JsonRequestBehavior.AllowGet);
             }
         }
 

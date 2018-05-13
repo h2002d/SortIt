@@ -9,12 +9,13 @@
 <div id="">
 </div>
 <div class="row div1">
-    <div class="col-sm-7" align="center">
+    <img src="~/images/bg-2-1-1.jpg" style="max-width:100%;max-height:100%;" />
+    <div class="col-sm-7" style="position: absolute;top: 80px;" align="center">
         <iframe width="440" height="280" style="border:none;" src="https://www.youtube.com/embed/wlZvVrNhjII"></iframe>
     </div>
     @if (!User.Identity.IsAuthenticated)
     {
-        <div class="col-sm-5 float-rt " align="center">
+        <div class="col-sm-5 float-rt " style="position: absolute;top: 80px;right: 30px;" align="center">
             <div class="registration-main">
                 <div class="registration-main-header">
                     <p>Sign in now</p>
@@ -81,18 +82,24 @@
     <h1 class="main-header">COURSES</h1>
     <hr />
     <div class="row">
-        <div class="col-sm-offset-4 col-sm-4">
+        <div class="col-sm-6">
+            SORT IT is a practical and output-oriented course which teaches the practical skills to conduct and publish operational research. During the course, participants are supported with hands-on mentorship provided by experienced mentors.
+        </div>
+        <div class=" col-sm-6">
             <img src="~/images/logo.jpg" style="width:100%; height:auto;" />
             <div>
-                SORT IT is a practical and output-oriented course which teaches the practical skills to conduct and publish operational research. During the course, participants are supported with hands-on mentorship provided by experienced mentors.
+                Sort It
             </div>
+            <input type="button" class="btn btn-info" onclick=" window.location.href='/Home/Course/3006'" value="More" />
         </div>
     </div>
     <div class="row research-container">
         <h1 class="main-header">PUBLICATIONS</h1>
         <hr />
         <div class="col-sm-9">
-            <div class="row">
+            <div class="row" style="position:relative;">
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
                 <div class="slideshow-container">
                     <div class="mySlides fade">
                         <div class="col-sm-4">
@@ -112,52 +119,33 @@
                         </div>
                     </div>
 
-                    <div class="mySlides fade">
-                        <div class="col-sm-4">
-                            <img src="~/images/safe_image001.jpg" class="research-image" />
-                            <div class="bottom-left">BMC Infectious Diseases:Effect of Ascaris Lumbricoides specific IgE on tuberculin skin...</div>
-                            <input type="button" class="btn btn-info" onclick=" window.location.href='https://bmcinfectdis.biomedcentral.com/articles/10.1186/1471-2334-12-211'" value="More" />
-                        </div>
-                        <div class="col-sm-4">
-                            <img src="~/images/safe_image002.png" class="research-image" />
-                            <div class="bottom-left">PMC:Enrolment and retention of people who inject drugs in the Needle & Syringe...</div>
-                            <input type="button" class="btn btn-info" onclick=" window.location.href='https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5493098/'" value="More" />
-                        </div>
-                        <div class="col-sm-4">
-                            <img src="~/images/safe_image003.png" class="research-image" />
-                            <div class="bottom-left">Scaling Up Antiretroviral Treatment Services in Karnataka, India: Impact on CD4...</div>
-                            <input type="button" class="btn btn-info" onclick=" window.location.href='http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0072188'" value="More" />
-                        </div>
-                    </div>
 
                     <div class="mySlides fade">
                         <div class="col-sm-4">
-                            <img src="~/images/safe_image001.jpg" class="research-image" />
-                            <div class="bottom-left">BMC Infectious Diseases:Effect of Ascaris Lumbricoides specific IgE on tuberculin skin...</div>
-                            <input type="button" class="btn btn-info" onclick=" window.location.href='https://bmcinfectdis.biomedcentral.com/articles/10.1186/1471-2334-12-211'" value="More" />
+                            <img src="~/images/safe_image004.jpg" class="research-image" />
+                            <div class="bottom-left">Trends in outpatient malaria cases, following Mass Long Lasting Insecticidal...</div>
+                            <input type="button" class="btn btn-info" onclick=" window.location.href='https://www.ajol.info/index.php/eamj/article/view/150684'" value="More" />
                         </div>
                         <div class="col-sm-4">
-                            <img src="~/images/safe_image002.png" class="research-image" />
-                            <div class="bottom-left">PMC:Enrolment and retention of people who inject drugs in the Needle & Syringe...</div>
-                            <input type="button" class="btn btn-info" onclick=" window.location.href='https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5493098/'" value="More" />
+                            <img src="~/images/safe_image005.jpg" class="research-image" />
+                            <div class="bottom-left">Does HIV status affect the aetiology, bacterial resistance patterns and recommended...</div>
+                            <input type="button" class="btn btn-info" onclick=" window.location.href='https://onlinelibrary.wiley.com/doi/full/10.1111/tmi.12060'" value="More" />
                         </div>
                         <div class="col-sm-4">
-                            <img src="~/images/safe_image003.png" class="research-image" />
-                            <div class="bottom-left">Scaling Up Antiretroviral Treatment Services in Karnataka, India: Impact on CD4...</div>
-                            <input type="button" class="btn btn-info" onclick=" window.location.href='http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0072188'" value="More" />
+                            <img src="~/images/safe_image006.png" class="research-image" />
+                            <div class="bottom-left">Infective endocarditis in Ethiopian children: a hospital based review of cases in Addis Ababa</div>
+                            <input type="button" class="btn btn-info" onclick=" window.location.href='http://www.panafrican-med-journal.com/content/article/20/75/full/'" value="More" />
                         </div>
                     </div>
 
-                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
 
                 </div>
                 <br>
-
+                <div style="clear:both;"></div>
                 <div style="text-align:center">
                     <span class="dot" onclick="currentSlide(1)"></span>
                     <span class="dot" onclick="currentSlide(2)"></span>
-                    <span class="dot" onclick="currentSlide(3)"></span>
                 </div>
 
                 <script>
@@ -192,26 +180,17 @@
             </div>
             <div class="row research-container">
                 <div class="col-sm-4">
-                    <img src="~/images/safe_image004.jpg" class="research-image" />
-                    <div class="bottom-left">Trends in outpatient malaria cases, following Mass Long Lasting Insecticidal...</div>
-                    <input type="button" class="btn btn-info" onclick=" window.location.href='https://www.ajol.info/index.php/eamj/article/view/150684'" value="More" />
                 </div>
 
                 <div class="col-sm-4">
-                    <img src="~/images/safe_image005.jpg" class="research-image" />
-                    <div class="bottom-left">Does HIV status affect the aetiology, bacterial resistance patterns and recommended...</div>
-                    <input type="button" class="btn btn-info" onclick=" window.location.href='https://onlinelibrary.wiley.com/doi/full/10.1111/tmi.12060'" value="More" />
                 </div>
 
                 <div class="col-sm-4">
-                    <img src="~/images/safe_image006.png" class="research-image" />
-                    <div class="bottom-left">Infective endocarditis in Ethiopian children: a hospital based review of cases in Addis Ababa</div>
-                    <input type="button" class="btn btn-info" onclick=" window.location.href='http://www.panafrican-med-journal.com/content/article/20/75/full/'" value="More" />
                 </div>
             </div>
         </div>
         <div class="col-sm-3">
-            <h4 style="color:black;"><b>FIRST AID TRAINING</b></h4>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters
         </div>
     </div>
     <div class="row research-container">

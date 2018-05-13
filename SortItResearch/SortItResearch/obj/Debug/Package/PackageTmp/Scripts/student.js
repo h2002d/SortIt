@@ -37,7 +37,7 @@ function uploadFile() {
     });
 }
 function chooseTeacher() {
-    alert('Ընտրեք ղեկավար');
+    alert('Choose facilitator');
 }
 function showtest() {
     $("#lesson-info").css("display", "none");
@@ -52,12 +52,6 @@ function showinfo() {
     $(".nav-button-home").find("a").removeClass("active");
 
     $(".nav-button-services").find("a").addClass("active");
-}
-function lessonPartial(id) {
-    $('#lesson-container').empty();
-    $('#lesson-container').append("<div class='loader'></div>")
-    $('#lesson-container').load("/Student/Lesson/" + id);
-
 }
 function showProfileCertificates() {
     $("#profileInfo").css("display", "none");
@@ -177,7 +171,7 @@ function submitAnswers() {
             window.location.href = data;
         },
         error: function (data) {
-            alert("Ձեր թեման չի ավելացել");
+            alert("Test not added");
         }
     });
 
@@ -188,6 +182,17 @@ function enrollSubject(subjectId, listIds) {
 
     var topic = $("#topic").val();
     var desc = $("#shortDesc").val();
+    if (topic == "")
+    {
+        alert('Topic is empty');
+        return;
+    }
+    else if (desc == "")
+    {
+        alert('Description is empty');
+        return;
+    }
+
     $.ajax({
 
         type: "POST",
@@ -220,9 +225,18 @@ $(document).ready(function () {
     });
     $('.btn-enroll').click(function () {
         var id = $(this).prop('id');
+        if ($('#shortDesc').val() == '' || $('#topic').val() == '')
+        {
+            alert('Please fill in form.');
+        }
         event.preventDefault();
         var searchIDs = $(".checkbox-areas input:checkbox:checked").map(function () {
-            return $(this).val();
+            if ($(this).val() == '') {
+                return;
+            }
+            else {
+                return $(this).val();
+            }
         }).get();
         enrollSubject(id, searchIDs);
     });

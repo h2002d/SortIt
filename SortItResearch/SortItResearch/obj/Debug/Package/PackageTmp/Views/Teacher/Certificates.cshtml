@@ -1,7 +1,9 @@
 ﻿@model SortItResearch.Models.Certificate
 @{
     ViewBag.Title = "Սերտիֆիկատ N" + Model.Id;
+    Layout = null;
 }
+<link href="~/Content/Site.css" rel="stylesheet" />
 <div class="row">
     <div class="col-sm-12" align="center">
         <div style="width:800px; height:600px; padding:20px; text-align:center; border: 10px solid #787878">
@@ -18,7 +20,7 @@
                 <span style="font-size:25px"><i>դասընթացը ավարտելու կապակցությամբ</i></span> <br /><br />
                 <span style="font-size:20px;float:right">Ամսաթիվ @Model.CreateDate.ToString("dd/MMM/yyyy")</span>
                 <img style="float:left; width:120px; height:120px;" src="~/images/certified-icon.png" />
-          
+
             </div>
         </div>
     </div>

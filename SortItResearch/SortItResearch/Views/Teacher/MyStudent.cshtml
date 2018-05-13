@@ -1,9 +1,12 @@
 ﻿@model List<SortItResearch.Models.InviteViewModel>
 @{
-    ViewBag.Title = "MyStudent";
+    ViewBag.Title = "Student courses";
 }
-
-<h2>Իմ դասընթացները</h2>
+<div class="subject-header-content">
+    <div class="subject-header">
+        <h2>Student courses </h2>
+    </div>
+</div>
 @{
     int i = 0;
     foreach (var invite in Model)
@@ -22,7 +25,7 @@
                     <h3>@invite.Subject.Name</h3>
                     <p>
                         <span style="float:left;">@invite.Subject.Description</span>
-                        <span style="float:right">Ուսանող` @invite.Student.Name @invite.Student.SurName</span>
+                        <span style="float:right">Student: @invite.Student.Name @invite.Student.SurName</span>
                     </p>
                     
                 </div>
